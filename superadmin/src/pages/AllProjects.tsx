@@ -5,6 +5,9 @@ import { projects, getWorkspace } from "../lib/mock";
 import { Card } from "../components/ui/Card";
 import { Badge } from "../components/ui/Badge";
 import { PageHero } from "../components/ui/PageHero";
+import { EmptyState } from "../components/ui/EmptyState";
+import { Button } from "../components/ui/Button";
+import { CategoryBadge, getCategoryStyle } from "../components/ui/CategoryIcon";
 import { formatCurrency, formatNumber, relativeTime, cn } from "../lib/utils";
 
 export function AllProjects() {
@@ -79,6 +82,20 @@ export function AllProjects() {
         </div>
       </Card>
 
+      {filtered.length === 0 && (
+        <Card>
+          <EmptyState
+            title="Nessun progetto trovato"
+            description="Prova a cambiare ricerca o categoria. Oppure crea un nuovo progetto in uno dei tuoi workspace."
+            action={
+              <Button variant="primary" onClick={() => { setQ(""); setActiveCat("Tutte"); }}>
+                Resetta filtri
+              </Button>
+            }
+          />
+        </Card>
+      )}
+      {filtered.length > 0 && (
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
         {filtered.map((p, i) => {
           const ws = getWorkspace(p.workspaceId);
@@ -91,15 +108,18 @@ export function AllProjects() {
             >
               <Card interactive className="p-5">
                 <div className="flex items-start justify-between mb-4 gap-3">
-                  <div className="min-w-0 flex-1">
-                    <div className="inline-flex items-center px-2 py-0.5 rounded-md bg-violet-50 text-violet-700 text-[10px] font-bold uppercase tracking-wider mb-2">
-                      {p.category}
-                    </div>
-                    <div className="heading-md text-slate-900" style={{ fontSize: "18px" }}>
-                      {p.name}
-                    </div>
-                    <div className="text-[11.5px] text-slate-500 mt-1 font-medium">
-                      {ws?.name}
+                  <div className="flex items-start gap-3 min-w-0 flex-1">
+                    <CategoryBadge category={p.category} />
+                    <div className="min-w-0 flex-1">
+                      <div className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${getCategoryStyle(p.category).text}`}>
+                        {p.category}
+                      </div>
+                      <div className="heading-md text-slate-900" style={{ fontSize: "17px" }}>
+                        {p.name}
+                      </div>
+                      <div className="text-[11.5px] text-slate-500 mt-0.5 font-medium">
+                        {ws?.name}
+                      </div>
                     </div>
                   </div>
                   <Badge
@@ -160,6 +180,8 @@ export function AllProjects() {
           );
         })}
       </div>
+      )}
     </div>
   );
 }
+

@@ -26,6 +26,8 @@ import { Badge } from "../components/ui/Badge";
 import { Avatar, gradientFor } from "../components/ui/Avatar";
 import { Button } from "../components/ui/Button";
 import { Stat } from "../components/ui/Stat";
+import { CategoryBadge, getCategoryStyle } from "../components/ui/CategoryIcon";
+import { useToast } from "../components/ui/Toaster";
 import { useImpersonation } from "../components/shell/Layout";
 import { formatCurrency, formatNumber, relativeTime, cn } from "../lib/utils";
 
@@ -33,6 +35,7 @@ export function WorkspaceDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { enter, user: impersonatedUser } = useImpersonation();
+  const { push: toast } = useToast();
   const ws = workspaces.find((w) => w.id === id);
 
   const [activeCategory, setActiveCategory] = useState<string>("Tutti");
@@ -59,7 +62,7 @@ export function WorkspaceDetail() {
   const totalLeads = wsProjects.reduce((s, p) => s + p.leads30d, 0);
 
   return (
-    <div className="px-6 lg:px-10 py-8 max-w-[1600px] mx-auto">
+    <div className="px-4 md:px-6 lg:px-10 py-6 md:py-8 max-w-[1600px] mx-auto">
       {/* Back */}
       <button
         onClick={() => navigate("/workspaces")}
@@ -125,19 +128,42 @@ export function WorkspaceDetail() {
             </div>
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2 flex-wrap">
             {!impersonatedUser && owner && (
-              <Button variant="primary" size="lg" onClick={() => enter(owner, ws)}>
+              <Button
+                variant="primary"
+                size="lg"
+                onClick={() => {
+                  enter(owner, ws);
+                  toast({
+                    variant: "info",
+                    title: `Modalità View As attiva`,
+                    description: `Stai vedendo come ${owner.name}`,
+                  });
+                }}
+              >
                 <Eye size={14} /> View as {owner.name.split(" ")[0]}
               </Button>
             )}
-            <Button variant="secondary" size="lg">Apri come admin</Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              onClick={() =>
+                toast({
+                  variant: "success",
+                  title: "Pannello admin aperto",
+                  description: `Stai accedendo a ${ws.name}`,
+                })
+              }
+            >
+              Apri come admin
+            </Button>
           </div>
         </div>
       </motion.div>
 
       {/* Stats strip */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-10">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-10">
         <Card className="p-5"><Stat label="Progetti" value={wsProjects.length} unit={`${wsProjects.filter((p) => p.status === "live").length} live`} /></Card>
         <Card className="p-5"><Stat label="Visite (30gg)" value={formatNumber(totalVisits)} delta={{ value: "+18%", positive: true }} /></Card>
         <Card className="p-5"><Stat label="Lead (30gg)" value={formatNumber(totalLeads)} delta={{ value: "+22%", positive: true }} /></Card>
@@ -198,12 +224,15 @@ export function WorkspaceDetail() {
               >
                 <Card interactive className="p-5">
                   <div className="flex items-start justify-between mb-4 gap-3">
-                    <div className="min-w-0">
-                      <div className="inline-flex items-center px-2 py-0.5 rounded-md bg-violet-50 text-violet-700 text-[10px] font-bold uppercase tracking-wider mb-2">
-                        {p.category}
-                      </div>
-                      <div className="heading-md text-slate-900" style={{ fontSize: "18px" }}>
-                        {p.name}
+                    <div className="flex items-start gap-3 min-w-0">
+                      <CategoryBadge category={p.category} />
+                      <div className="min-w-0">
+                        <div className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${getCategoryStyle(p.category).text}`}>
+                          {p.category}
+                        </div>
+                        <div className="heading-md text-slate-900" style={{ fontSize: "17px" }}>
+                          {p.name}
+                        </div>
                       </div>
                     </div>
                     <Badge

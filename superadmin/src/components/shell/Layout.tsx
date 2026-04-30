@@ -2,7 +2,10 @@ import { Outlet } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
 import { Topbar } from "./Topbar";
 import { ImpersonationBanner } from "./ImpersonationBanner";
+import { CommandPalette } from "./CommandPalette";
 import { ScrollProgress } from "../ui/ScrollProgress";
+import { Toaster } from "../ui/Toaster";
+import { NotificationsPanel } from "../ui/NotificationsPanel";
 import { create } from "zustand";
 import type { User, Workspace } from "../../lib/mock";
 
@@ -24,7 +27,7 @@ export function Layout() {
   const { user, workspace, exit } = useImpersonation();
 
   return (
-    <div className="flex min-h-screen text-slate-700 selection:bg-violet-200 selection:text-violet-900">
+    <div className="flex min-h-screen text-slate-700 selection:bg-cyan-200 selection:text-cyan-900">
       <ScrollProgress />
       <Sidebar />
       <main className="flex-1 flex flex-col min-w-0">
@@ -34,6 +37,9 @@ export function Layout() {
           <Outlet />
         </div>
       </main>
+      <CommandPalette />
+      <NotificationsPanel />
+      <Toaster />
     </div>
   );
 }
