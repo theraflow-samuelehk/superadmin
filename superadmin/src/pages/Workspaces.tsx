@@ -44,23 +44,23 @@ export function Workspaces() {
   return (
     <div className="px-4 md:px-6 lg:px-10 py-6 md:py-8 max-w-[1600px] mx-auto">
       <PageHero
-        index="02 — Workspaces"
+        index="02 — Workspace Clienti"
         title={
           <>
             Tutti i <span className="editorial-italic font-light text-white/80">workspace</span>.
             <br />
-            <span className="text-white/65 font-light">Sotto controllo.</span>
+            <span className="text-white/65 font-light">Ogni cliente.</span>
           </>
         }
         description={
           <>
-            Ogni riga è un mondo a sé. Filtra, ispeziona, oppure entra in modalità{" "}
-            <span className="font-semibold text-cyan-300">View As</span> per vedere quello che vede l'admin.
+            Una riga per ogni cliente registrato su TheraFlow. Filtra per stato o piano, oppure usa{" "}
+            <span className="font-semibold text-cyan-300">View As</span> per entrare nel loro pannello.
           </>
         }
         action={
           <Button variant="primary" size="lg">
-            <Plus size={14} /> Nuovo workspace
+            <Plus size={14} /> Crea workspace
           </Button>
         }
         stats={[

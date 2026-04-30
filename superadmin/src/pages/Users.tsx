@@ -35,29 +35,29 @@ export function Users() {
   return (
     <div className="px-4 md:px-6 lg:px-10 py-6 md:py-8 max-w-[1600px] mx-auto">
       <PageHero
-        index="04 — Utenti"
+        index="04 — Utenti & Ruoli"
         title={
           <>
-            Chi vede <span className="editorial-italic font-light text-white/80">cosa</span>.
+            Gestione <span className="editorial-italic font-light text-white/80">accessi</span>.
             <br />
-            <span className="text-white/65 font-light">A che livello.</span>
+            <span className="text-white/65 font-light">Tre livelli.</span>
           </>
         }
         description={
           <>
-            Tre livelli di accesso: <span className="text-cyan-300 font-semibold">Super Admin</span> assoluti,
-            <span className="text-emerald-300 font-semibold"> Admin</span> di workspace,
-            <span className="text-sky-300 font-semibold"> Staff</span> con visibilità granulare.
+            <span className="text-cyan-300 font-semibold">Super Admin</span> (tu e Thomas) — visione totale sulla piattaforma.{" "}
+            <span className="text-emerald-300 font-semibold">Admin</span> — gestisce il suo workspace.{" "}
+            <span className="text-sky-300 font-semibold">Staff</span> — accesso limitato ai progetti che l'admin sceglie.
           </>
         }
         action={
           <Button variant="primary" size="lg">
-            <Mail size={14} /> Invita per email
+            <Mail size={14} /> Invita utente
           </Button>
         }
         stats={[
           { label: "Super Admin", value: counts.superadmin },
-          { label: "Admin", value: counts.admin },
+          { label: "Admin clienti", value: counts.admin },
           { label: "Staff", value: counts.staff },
         ]}
       />
@@ -96,6 +96,8 @@ export function Users() {
 
       {tab === "invites" ? (
         <Card className="overflow-hidden p-0">
+          <div className="overflow-x-auto">
+          <div className="min-w-[700px]">
           <div className="grid grid-cols-[2fr_1.5fr_1fr_1fr_140px] gap-4 px-5 py-3.5 border-b border-slate-100 text-[10.5px] uppercase tracking-wider text-slate-500 font-bold bg-slate-50/50">
             <div>Email</div>
             <div>Workspace</div>
@@ -109,7 +111,7 @@ export function Users() {
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.04 }}
-              className="grid grid-cols-[2fr_1.5fr_1fr_1fr_140px] gap-4 px-5 py-4 items-center border-b border-slate-100 last:border-b-0 hover:bg-slate-50/60 group transition-colors"
+              className="grid grid-cols-[2fr_1.5fr_1fr_1fr_140px] gap-4 px-5 py-4 items-center border-b border-slate-100 last:border-b-0 hover:bg-slate-50/60 group transition-colors min-w-0"
             >
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-amber-50 text-amber-600">
@@ -130,9 +132,13 @@ export function Users() {
               </div>
             </motion.div>
           ))}
+          </div>
+          </div>
         </Card>
       ) : (
         <Card className="overflow-hidden p-0">
+          <div className="overflow-x-auto">
+          <div className="min-w-[700px]">
           <div className="grid grid-cols-[2fr_2fr_1fr_1fr_120px] gap-4 px-5 py-3.5 border-b border-slate-100 text-[10.5px] uppercase tracking-wider text-slate-500 font-bold bg-slate-50/50">
             <div>Utente</div>
             <div>Workspace</div>
@@ -176,6 +182,8 @@ export function Users() {
               </motion.div>
             );
           })}
+          </div>
+          </div>
         </Card>
       )}
 

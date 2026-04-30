@@ -33,19 +33,19 @@ export function AllProjects() {
   return (
     <div className="px-4 md:px-6 lg:px-10 py-6 md:py-8 max-w-[1600px] mx-auto">
       <PageHero
-        index="03 — Progetti"
+        index="03 — Tutti i Progetti"
         title={
           <>
-            {projects.length} progetti.
+            {projects.length} progetti
             <br />
-            <span className="editorial-italic font-light text-white/75">Una vista sola.</span>
+            <span className="editorial-italic font-light text-white/75">su tutta la piattaforma.</span>
           </>
         }
         description={
-          <>Visione trasversale su tutti i workspace. Le categorie sono libere — ognuna nasce dall'admin che la crea.</>
+          <>Vista trasversale: ogni progetto di ogni cliente in un posto solo. Le categorie le decide l'admin del workspace.</>
         }
         stats={[
-          { label: "Live", value: liveCount },
+          { label: "Live ora", value: liveCount },
           { label: "Categorie", value: categories.length - 1 },
           { label: "€/30gg", value: "€" + (totalRevenue / 1000).toFixed(1) + "K" },
         ]}
@@ -114,7 +114,7 @@ export function AllProjects() {
                       <div className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${getCategoryStyle(p.category).text}`}>
                         {p.category}
                       </div>
-                      <div className="heading-md text-slate-900" style={{ fontSize: "17px" }}>
+                      <div className="heading-md text-slate-900 truncate" style={{ fontSize: "17px" }}>
                         {p.name}
                       </div>
                       <div className="text-[11.5px] text-slate-500 mt-0.5 font-medium">
@@ -135,14 +135,14 @@ export function AllProjects() {
                   </Badge>
                 </div>
 
-                <div className="flex items-center gap-1.5 text-[12px] mb-4 bg-slate-50 px-3 py-2 rounded-lg">
-                  <Globe size={12} className="text-slate-400" />
+                <div className="flex items-center gap-1.5 text-[12px] mb-4 bg-slate-50 px-3 py-2 rounded-lg overflow-hidden">
+                  <Globe size={12} className="text-slate-400 shrink-0" />
                   {p.customDomain ? (
-                    <span className="font-semibold gradient-text">{p.customDomain}</span>
+                    <span className="font-semibold gradient-text truncate min-w-0 flex-1">{p.customDomain}</span>
                   ) : (
-                    <span className="font-mono text-slate-600">{p.subdomain}.theraflow.io</span>
+                    <span className="font-mono text-slate-600 truncate min-w-0 flex-1">{p.subdomain}.theraflow.io</span>
                   )}
-                  <ExternalLink size={11} className="text-slate-400 ml-auto" />
+                  <ExternalLink size={11} className="text-slate-400 shrink-0" />
                 </div>
 
                 <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100">

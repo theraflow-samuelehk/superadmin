@@ -118,11 +118,11 @@ export function WorkspaceDetail() {
             <div className="mt-4 flex items-center gap-2.5 flex-wrap text-[13px] text-slate-600">
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Owner</span>
               {owner && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 min-w-0 flex-1">
                   <Avatar name={owner.name} color={owner.avatarColor} size="xs" />
-                  <span className="text-slate-900 font-semibold">{owner.name}</span>
-                  <span className="text-slate-400">·</span>
-                  <span className="text-slate-500 font-mono text-[12px]">{owner.email}</span>
+                  <span className="text-slate-900 font-semibold shrink-0">{owner.name}</span>
+                  <span className="text-slate-400 shrink-0">·</span>
+                  <span className="text-slate-500 font-mono text-[12px] truncate min-w-0">{owner.email}</span>
                 </div>
               )}
             </div>
@@ -230,7 +230,7 @@ export function WorkspaceDetail() {
                         <div className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${getCategoryStyle(p.category).text}`}>
                           {p.category}
                         </div>
-                        <div className="heading-md text-slate-900" style={{ fontSize: "17px" }}>
+                        <div className="heading-md text-slate-900 truncate" style={{ fontSize: "17px" }}>
                           {p.name}
                         </div>
                       </div>
@@ -248,18 +248,14 @@ export function WorkspaceDetail() {
                     </Badge>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-[12px] mb-4 bg-slate-50 px-3 py-2 rounded-lg">
-                    <Globe size={12} className="text-slate-400" />
+                  <div className="flex items-center gap-1.5 text-[12px] mb-4 bg-slate-50 px-3 py-2 rounded-lg overflow-hidden">
+                    <Globe size={12} className="text-slate-400 shrink-0" />
                     {p.customDomain ? (
-                      <>
-                        <span className="font-semibold gradient-text">{p.customDomain}</span>
-                        <span className="text-slate-300">·</span>
-                        <span className="text-slate-500 font-mono text-[11px]">{p.subdomain}</span>
-                      </>
+                      <span className="font-semibold gradient-text truncate min-w-0 flex-1">{p.customDomain}</span>
                     ) : (
-                      <span className="font-mono text-slate-600">{p.subdomain}.theraflow.io</span>
+                      <span className="font-mono text-slate-600 truncate min-w-0 flex-1">{p.subdomain}.theraflow.io</span>
                     )}
-                    <ExternalLink size={11} className="text-slate-400 ml-auto" />
+                    <ExternalLink size={11} className="text-slate-400 shrink-0" />
                   </div>
 
                   <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100">

@@ -27,7 +27,6 @@ export function PageHero({ index, title, description, action, stats, className }
       }}
     >
       <div className="absolute inset-0 dot-pattern-dark opacity-50" />
-
       <div className="absolute top-0 right-0 w-[400px] h-[400px] blob blob-cyan opacity-25" />
       <div className="absolute bottom-0 left-1/4 w-[320px] h-[320px] blob blob-indigo opacity-20" style={{ animationDelay: "-6s" }} />
 
@@ -47,33 +46,57 @@ export function PageHero({ index, title, description, action, stats, className }
         </div>
 
         <div className="grid lg:grid-cols-[1.5fr_1fr] gap-8 items-end">
+          {/* Left column */}
           <div>
             <h1
-              className="display font-black text-white leading-[0.92] text-balance"
-              style={{ fontSize: "clamp(40px, 5.5vw, 76px)" }}
+              className="display font-black text-white leading-[0.92] break-words"
+              style={{ fontSize: "clamp(36px, 5.5vw, 76px)" }}
             >
               {title}
             </h1>
-            <div className="mt-5 max-w-xl text-[15px] text-white/70 leading-relaxed">
+            <div className="mt-5 text-[14.5px] text-white/70 leading-relaxed max-w-lg">
               {description}
             </div>
             {action && <div className="mt-6">{action}</div>}
+
+            {/* Mobile-only stats: compact horizontal grid */}
+            {stats && (
+              <div className="lg:hidden mt-6 grid grid-cols-3 gap-2.5">
+                {stats.map((s) => (
+                  <div
+                    key={s.label}
+                    className="p-3 rounded-2xl border border-white/10 bg-white/5 text-center"
+                  >
+                    <div
+                      className="font-black text-white tabular-nums leading-none"
+                      style={{ fontSize: "28px" }}
+                    >
+                      {s.value}
+                    </div>
+                    <div className="text-[10px] text-white/55 font-bold uppercase tracking-wider mt-1.5 truncate">
+                      {s.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
+          {/* Desktop-only stats: right column stacked */}
           {stats && (
-            <div className="space-y-2.5">
+            <div className="hidden lg:block space-y-2.5">
               {stats.map((s, i) => (
                 <motion.div
                   key={s.label}
                   initial={{ opacity: 0, x: 16 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.15 + i * 0.07 }}
-                  className="flex items-center justify-between gap-6 p-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur"
+                  className="flex items-center justify-between gap-4 p-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur"
                 >
-                  <span className="text-[12px] text-white/70 font-bold uppercase tracking-wider">
+                  <span className="text-[12px] text-white/70 font-bold uppercase tracking-wider shrink-0">
                     {s.label}
                   </span>
-                  <span className="num-display text-white" style={{ fontSize: "44px" }}>
+                  <span className="num-display text-white truncate text-right" style={{ fontSize: "44px" }}>
                     {s.value}
                   </span>
                 </motion.div>

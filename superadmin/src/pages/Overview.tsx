@@ -158,24 +158,24 @@ export function Overview() {
           </div>
 
           <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 items-end">
-            {/* Left: massive headline */}
+            {/* Left: headline + CTAs + mobile stats */}
             <div>
               <h1
-                className="display font-black text-white leading-[0.88] text-balance"
-                style={{ fontSize: "clamp(48px, 7.5vw, 108px)" }}
+                className="display font-black text-white leading-[0.88]"
+                style={{ fontSize: "clamp(40px, 7vw, 108px)" }}
               >
-                Tutto fluisce.
+                Panoramica
                 <br />
-                <span className="editorial-italic font-light text-white/70">Da un solo posto.</span>
+                <span className="editorial-italic font-light text-white/70">piattaforma.</span>
               </h1>
-              <p className="mt-7 max-w-md text-[15.5px] text-white/70 leading-relaxed">
-                Benvenuto in TheraFlow. Da qui vedi ogni workspace, ogni progetto, ogni cliente.
-                Per intervenire dentro un workspace, attiva la modalità{" "}
+              <p className="mt-6 text-[15px] text-white/70 leading-relaxed max-w-md">
+                Tutti i workspace dei clienti, tutti i progetti, tutti i dati in un solo schermo.
+                Per operare dentro un workspace usa{" "}
                 <span className="text-cyan-300 font-semibold">View As</span>.
               </p>
               <div className="mt-7 flex gap-3 flex-wrap">
                 <Button variant="primary" size="lg" onClick={() => navigate("/workspaces")}>
-                  <Plus size={15} strokeWidth={2.5} /> Nuovo workspace
+                  Vedi i workspace <ArrowUpRight size={15} />
                 </Button>
                 <button
                   onClick={() => navigate("/users")}
@@ -184,10 +184,22 @@ export function Overview() {
                   Utenti & Ruoli <ArrowUpRight size={14} />
                 </button>
               </div>
+
+              {/* Mobile-only compact stats */}
+              <div className="lg:hidden mt-6 grid grid-cols-3 gap-2.5">
+                {heroStats.map((s) => (
+                  <div key={s.l} className="p-3 rounded-2xl border border-white/10 bg-white/5 text-center">
+                    <div className="font-black text-white tabular-nums leading-none" style={{ fontSize: "28px" }}>
+                      <CountUp to={s.v} duration={1.4} />
+                    </div>
+                    <div className="text-[10px] text-white/55 font-bold uppercase tracking-wider mt-1.5">{s.l}</div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Right: stats stacked */}
-            <div className="space-y-3">
+            {/* Desktop-only: big stats stacked */}
+            <div className="hidden lg:block space-y-3">
               {heroStats.map((s, i) => (
                 <motion.div
                   key={s.l}
@@ -196,10 +208,10 @@ export function Overview() {
                   transition={{ delay: 0.2 + i * 0.08 }}
                   className="flex items-center justify-between gap-6 p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur"
                 >
-                  <span className="text-[13px] text-white/70 font-semibold uppercase tracking-wider">
+                  <span className="text-[13px] text-white/70 font-semibold uppercase tracking-wider shrink-0">
                     {s.l}
                   </span>
-                  <span className="display font-black tabular-nums text-white" style={{ fontSize: "56px" }}>
+                  <span className="display font-black tabular-nums text-white" style={{ fontSize: "52px" }}>
                     <CountUp to={s.v} duration={1.6} />
                   </span>
                 </motion.div>
@@ -232,7 +244,7 @@ export function Overview() {
       </motion.div>
 
       {/* KPI strip */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-12">
         {kpis.map((kpi, i) => (
           <motion.div
             key={kpi.label}
@@ -423,7 +435,7 @@ export function Overview() {
                       {ws.name[0]}
                     </div>
                     <div>
-                      <div className="heading-md text-slate-900" style={{ fontSize: "16px" }}>
+                      <div className="heading-md text-slate-900 truncate" style={{ fontSize: "16px" }}>
                         {ws.name}
                       </div>
                       <div className="text-[12px] text-slate-500 mt-0.5 flex items-center gap-1.5">
