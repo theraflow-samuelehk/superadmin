@@ -1,72 +1,49 @@
-import { useEffect, useState } from "react";
-import { Search, Bell, Command } from "lucide-react";
+import { Search, Bell, Command, Plus } from "lucide-react";
 import { Avatar } from "../ui/Avatar";
 import { users } from "../../lib/mock";
 
 export function Topbar() {
-  const [time, setTime] = useState<string>("");
   const me = users[0];
 
-  useEffect(() => {
-    const update = () => {
-      const d = new Date();
-      const pad = (n: number) => n.toString().padStart(2, "0");
-      setTime(
-        `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`
-      );
-    };
-    update();
-    const id = setInterval(update, 1000);
-    return () => clearInterval(id);
-  }, []);
-
   return (
-    <div className="hairline-b bg-paper-50/85 backdrop-blur-md sticky top-0 z-40 px-6 py-3 flex items-center gap-6">
+    <div className="bg-white/70 backdrop-blur-xl border-b border-slate-200/70 sticky top-0 z-40 px-6 py-3 flex items-center gap-4">
       {/* Search */}
-      <div className="flex items-center gap-3 flex-1 max-w-md panel px-3 py-1.5 hover:border-accent/30 transition-colors">
-        <Search size={13} className="text-ink-100" />
+      <div className="flex items-center gap-2.5 flex-1 max-w-md bg-slate-100/70 hover:bg-white border border-transparent hover:border-slate-200 rounded-xl px-3.5 py-2 transition-all">
+        <Search size={14} className="text-slate-400" />
         <input
           placeholder="Cerca workspace, progetti, utenti…"
-          className="flex-1 bg-transparent outline-none text-[13px] placeholder:text-ink-100 text-ink-400"
+          className="flex-1 bg-transparent outline-none text-[13px] placeholder:text-slate-400 text-slate-700"
         />
-        <kbd className="text-[9px] font-mono text-ink-100 hairline rounded-sm px-1.5 py-0.5 flex items-center gap-1 bg-paper-100">
+        <kbd className="text-[10px] font-mono text-slate-400 bg-white border border-slate-200 rounded px-1.5 py-0.5 flex items-center gap-1">
           <Command size={10} /> K
         </kbd>
       </div>
 
       <div className="flex-1" />
 
-      {/* Live status */}
-      <div className="hidden lg:flex items-center gap-3 text-[10px] uppercase tracking-[0.14em] text-ink-100">
-        <div className="flex items-center gap-1.5">
-          <span className="w-1.5 h-1.5 bg-accent animate-blink rounded-full" />
-          <span>Uptime 99.98%</span>
-        </div>
-        <div className="w-px h-3 bg-paper-300" />
-        <div className="flex items-center gap-1.5 font-mono">
-          <span className="w-1.5 h-1.5 bg-sage rounded-full" />
-          <span>{time}</span>
-          <span className="text-ink-50 normal-case">UTC+1</span>
-        </div>
-      </div>
+      {/* Quick actions */}
+      <button className="hidden md:flex items-center gap-2 px-3 h-9 rounded-xl bg-violet-50 text-violet-700 text-[12px] font-semibold hover:bg-violet-100 transition-colors">
+        <Plus size={13} strokeWidth={2.5} /> Nuovo
+      </button>
 
       {/* Notifications */}
-      <button className="relative w-9 h-9 panel flex items-center justify-center hover:border-accent/30 hover:shadow-soft transition-all group">
-        <Bell size={14} className="text-ink-200 group-hover:text-accent" />
-        <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-lacquer rounded-full" />
+      <button className="relative w-9 h-9 rounded-xl bg-white border border-slate-200 flex items-center justify-center hover:border-violet-300 hover:bg-violet-50 transition-all group">
+        <Bell size={14} className="text-slate-500 group-hover:text-violet-600" />
+        <span
+          className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full ring-2 ring-white"
+          style={{ background: "linear-gradient(135deg, #ec4899, #f97316)" }}
+        />
       </button>
 
       {/* Profile */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 pl-3 border-l border-slate-200">
         <div className="text-right leading-tight">
-          <div className="text-[13px] font-medium text-ink-500">
-            {me.name.split(" ")[0]}
-          </div>
-          <div className="text-[9px] uppercase tracking-[0.18em] text-accent font-semibold">
+          <div className="text-[13px] font-semibold text-slate-900">{me.name.split(" ")[0]}</div>
+          <div className="text-[10px] uppercase tracking-wider gradient-text font-bold">
             Super Admin
           </div>
         </div>
-        <Avatar name={me.name} color={me.avatarColor} size="sm" />
+        <Avatar name={me.name} color={me.avatarColor} size="md" />
       </div>
     </div>
   );

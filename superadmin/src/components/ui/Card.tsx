@@ -4,20 +4,22 @@ export function Card({
   children,
   className,
   interactive = false,
-  soft = false,
+  flat = false,
 }: {
   children: React.ReactNode;
   className?: string;
   interactive?: boolean;
-  soft?: boolean;
+  flat?: boolean;
 }) {
   return (
     <div
       className={cn(
-        "relative rounded-lg",
-        soft ? "bg-paper-100 hairline" : "bg-white hairline shadow-soft",
+        "relative rounded-2xl bg-white",
+        flat
+          ? "border border-slate-200"
+          : "shadow-card border border-slate-100",
         interactive &&
-          "transition-all duration-200 hover:border-accent/30 hover:shadow-lift cursor-pointer group",
+          "transition-all duration-200 hover:shadow-lift hover:border-violet-200 cursor-pointer group",
         className
       )}
     >
@@ -27,5 +29,5 @@ export function Card({
 }
 
 export function CardCorner() {
-  return null; // dropped — too "ops console" for premium light look
+  return null;
 }

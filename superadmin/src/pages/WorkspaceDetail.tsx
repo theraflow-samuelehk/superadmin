@@ -11,6 +11,8 @@ import {
   Activity as ActivityIcon,
   Database,
   ChevronRight,
+  Rocket,
+  UserPlus,
 } from "lucide-react";
 import {
   workspaces,
@@ -21,7 +23,7 @@ import {
 } from "../lib/mock";
 import { Card } from "../components/ui/Card";
 import { Badge } from "../components/ui/Badge";
-import { Avatar } from "../components/ui/Avatar";
+import { Avatar, gradientFor } from "../components/ui/Avatar";
 import { Button } from "../components/ui/Button";
 import { Stat } from "../components/ui/Stat";
 import { useImpersonation } from "../components/shell/Layout";
@@ -35,7 +37,7 @@ export function WorkspaceDetail() {
 
   const [activeCategory, setActiveCategory] = useState<string>("Tutti");
 
-  if (!ws) return <div className="p-10 text-ink-200">Workspace non trovato.</div>;
+  if (!ws) return <div className="p-10 text-slate-600">Workspace non trovato.</div>;
 
   const owner = getUser(ws.ownerId);
   const wsProjects = projects.filter((p) => p.workspaceId === ws.id);
@@ -61,9 +63,9 @@ export function WorkspaceDetail() {
       {/* Back */}
       <button
         onClick={() => navigate("/workspaces")}
-        className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-ink-200 hover:text-accent mb-6 transition-colors font-medium"
+        className="flex items-center gap-1.5 text-[12px] text-slate-500 hover:text-violet-600 mb-6 transition-colors font-medium"
       >
-        <ArrowLeft size={11} /> Tutti i workspace
+        <ArrowLeft size={13} /> Tutti i workspace
       </button>
 
       {/* Header */}
@@ -74,21 +76,20 @@ export function WorkspaceDetail() {
       >
         <div className="flex items-start gap-6 flex-wrap">
           <div
-            className="w-20 h-20 rounded-lg flex items-center justify-center font-display font-light text-3xl shrink-0"
-            style={{
-              backgroundColor: `${owner?.avatarColor}1a`,
-              color: shade(owner?.avatarColor || "#999"),
-              boxShadow: `inset 0 0 0 1px ${owner?.avatarColor}55`,
-              fontVariationSettings: "'opsz' 144, 'SOFT' 30",
-            }}
+            className="w-24 h-24 rounded-2xl flex items-center justify-center font-display font-bold text-white text-4xl shrink-0 shadow-lift"
+            style={{ backgroundImage: gradientFor(owner?.avatarColor || ws.id) }}
           >
             {ws.name[0]}
           </div>
 
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-3 mb-2 flex-wrap">
-              <span className="text-[11px] uppercase tracking-[0.14em] text-ink-100 font-medium">
-                /{ws.slug} · creato {relativeTime(ws.createdAt)}
+            <div className="flex items-center gap-2.5 mb-3 flex-wrap">
+              <span className="text-[12px] text-slate-500 font-mono">
+                /{ws.slug}
+              </span>
+              <span className="text-[12px] text-slate-400">·</span>
+              <span className="text-[12px] text-slate-500">
+                creato {relativeTime(ws.createdAt)}
               </span>
               <Badge
                 variant={
@@ -101,23 +102,24 @@ export function WorkspaceDetail() {
               >
                 {ws.status}
               </Badge>
-              {ws.badge && <Badge variant="accent">{ws.badge}</Badge>}
+              {ws.badge && <Badge variant="violet">{ws.badge}</Badge>}
             </div>
 
             <h1
-              className="font-display font-light text-ink-900 tracking-monster leading-[0.95]"
-              style={{ fontSize: "clamp(36px, 4.5vw, 56px)", fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
+              className="font-display font-bold text-slate-900 tracking-monster leading-[1]"
+              style={{ fontSize: "clamp(36px, 4.5vw, 56px)" }}
             >
               {ws.name}
             </h1>
 
-            <div className="mt-4 flex items-center gap-3 flex-wrap text-[12px] text-ink-200">
-              <span className="uppercase tracking-[0.12em] font-medium text-ink-100">Owner</span>
+            <div className="mt-4 flex items-center gap-2.5 flex-wrap text-[13px] text-slate-600">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">Owner</span>
               {owner && (
-                <div className="flex items-center gap-1.5">
+                <div className="flex items-center gap-2">
                   <Avatar name={owner.name} color={owner.avatarColor} size="xs" />
-                  <span className="text-ink-400 font-medium">{owner.name}</span>
-                  <span className="text-ink-100">· {owner.email}</span>
+                  <span className="text-slate-900 font-semibold">{owner.name}</span>
+                  <span className="text-slate-400">·</span>
+                  <span className="text-slate-500 font-mono text-[12px]">{owner.email}</span>
                 </div>
               )}
             </div>
@@ -125,50 +127,37 @@ export function WorkspaceDetail() {
 
           <div className="flex gap-2">
             {!impersonatedUser && owner && (
-              <Button variant="primary" onClick={() => enter(owner, ws)}>
-                <Eye size={12} /> View as {owner.name.split(" ")[0]}
+              <Button variant="primary" size="lg" onClick={() => enter(owner, ws)}>
+                <Eye size={14} /> View as {owner.name.split(" ")[0]}
               </Button>
             )}
-            <Button variant="secondary">Apri come admin</Button>
+            <Button variant="secondary" size="lg">Apri come admin</Button>
           </div>
         </div>
       </motion.div>
 
       {/* Stats strip */}
-      <Card className="grid grid-cols-2 lg:grid-cols-5 mb-10 overflow-hidden p-0">
-        <div className="p-5 hairline-r">
-          <Stat label="Progetti" value={wsProjects.length} unit={`${wsProjects.filter((p) => p.status === "live").length} live`} />
-        </div>
-        <div className="p-5 hairline-r">
-          <Stat label="Visite (30gg)" value={formatNumber(totalVisits)} delta={{ value: "+18% vs prec.", positive: true }} />
-        </div>
-        <div className="p-5 hairline-r">
-          <Stat label="Lead (30gg)" value={formatNumber(totalLeads)} delta={{ value: "+22% vs prec.", positive: true }} />
-        </div>
-        <div className="p-5 hairline-r">
-          <Stat label="Revenue (30gg)" value={totalRevenue > 0 ? formatCurrency(totalRevenue) : "—"} emphasis />
-        </div>
-        <div className="p-5">
-          <Stat label="Plan" value={ws.plan.toUpperCase()} unit={`MRR ${formatCurrency(ws.monthlyRevenue)}`} />
-        </div>
-      </Card>
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-10">
+        <Card className="p-5"><Stat label="Progetti" value={wsProjects.length} unit={`${wsProjects.filter((p) => p.status === "live").length} live`} /></Card>
+        <Card className="p-5"><Stat label="Visite (30gg)" value={formatNumber(totalVisits)} delta={{ value: "+18%", positive: true }} /></Card>
+        <Card className="p-5"><Stat label="Lead (30gg)" value={formatNumber(totalLeads)} delta={{ value: "+22%", positive: true }} /></Card>
+        <Card className="p-5"><Stat label="Revenue (30gg)" value={totalRevenue > 0 ? formatCurrency(totalRevenue) : "—"} emphasis /></Card>
+        <Card className="p-5"><Stat label="Plan" value={ws.plan.toUpperCase()} unit={`MRR ${formatCurrency(ws.monthlyRevenue)}`} /></Card>
+      </div>
 
       {/* Two-column main */}
-      <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-[1fr_340px] gap-6">
         {/* Left: projects */}
         <div>
-          <div className="flex items-end justify-between gap-4 hairline-b pb-4 mb-5">
-            <div className="flex items-baseline gap-4">
-              <span className="text-[10px] tracking-[0.18em] text-accent uppercase font-semibold">03</span>
-              <h2
-                className="font-display text-[26px] text-ink-900 tracking-ultra-tight font-normal leading-none"
-                style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
-              >
+          <div className="flex items-end justify-between gap-4 mb-6">
+            <div className="flex items-baseline gap-3">
+              <span className="text-[11px] tracking-wider text-violet-600 uppercase font-bold pt-1">03</span>
+              <h2 className="font-display text-[26px] text-slate-900 tracking-ultra-tight font-bold leading-none">
                 Progetti del workspace
               </h2>
             </div>
             <Button variant="primary" size="sm">
-              <Plus size={11} /> Nuovo progetto
+              <Plus size={13} /> Nuovo progetto
             </Button>
           </div>
 
@@ -179,10 +168,10 @@ export function WorkspaceDetail() {
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={cn(
-                  "text-[11px] uppercase tracking-[0.1em] px-3 py-1.5 rounded-full border transition-all font-medium",
+                  "text-[12px] px-3.5 py-1.5 rounded-full transition-all font-semibold border",
                   activeCategory === cat
-                    ? "bg-accent text-paper-50 border-accent shadow-soft"
-                    : "text-ink-200 hairline bg-white hover:border-accent/40 hover:text-accent"
+                    ? "bg-slate-900 text-white border-slate-900"
+                    : "text-slate-600 bg-white border-slate-200 hover:border-violet-300 hover:text-violet-700"
                 )}
               >
                 {cat}
@@ -193,7 +182,7 @@ export function WorkspaceDetail() {
                 </span>
               </button>
             ))}
-            <button className="text-[11px] uppercase tracking-[0.1em] px-3 py-1.5 rounded-full border border-dashed border-paper-300 text-ink-100 hover:border-accent hover:text-accent transition-colors font-medium">
+            <button className="text-[12px] px-3.5 py-1.5 rounded-full border border-dashed border-slate-300 text-slate-500 hover:border-violet-400 hover:text-violet-600 transition-colors font-semibold">
               + Categoria
             </button>
           </div>
@@ -208,15 +197,12 @@ export function WorkspaceDetail() {
                 transition={{ delay: i * 0.04 }}
               >
                 <Card interactive className="p-5">
-                  <div className="flex items-start justify-between mb-3 gap-3">
+                  <div className="flex items-start justify-between mb-4 gap-3">
                     <div className="min-w-0">
-                      <div className="text-[10px] uppercase tracking-[0.16em] text-accent mb-1.5 font-semibold">
+                      <div className="inline-flex items-center px-2 py-0.5 rounded-md bg-violet-50 text-violet-700 text-[10px] font-bold uppercase tracking-wider mb-2">
                         {p.category}
                       </div>
-                      <div
-                        className="font-display text-xl text-ink-900 font-normal tracking-ultra-tight"
-                        style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
-                      >
+                      <div className="font-display text-[19px] text-slate-900 font-bold tracking-ultra-tight leading-tight">
                         {p.name}
                       </div>
                     </div>
@@ -233,35 +219,35 @@ export function WorkspaceDetail() {
                     </Badge>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-[11px] text-ink-200 mb-4">
-                    <Globe size={11} className="text-ink-100" />
+                  <div className="flex items-center gap-1.5 text-[12px] mb-4 bg-slate-50 px-3 py-2 rounded-lg">
+                    <Globe size={12} className="text-slate-400" />
                     {p.customDomain ? (
                       <>
-                        <span className="text-accent font-medium">{p.customDomain}</span>
-                        <span className="text-ink-100">·</span>
-                        <span className="text-ink-100 font-mono">{p.subdomain}</span>
+                        <span className="font-semibold gradient-text">{p.customDomain}</span>
+                        <span className="text-slate-300">·</span>
+                        <span className="text-slate-500 font-mono text-[11px]">{p.subdomain}</span>
                       </>
                     ) : (
-                      <span className="font-mono">{p.subdomain}.workspace.io</span>
+                      <span className="font-mono text-slate-600">{p.subdomain}.workspace.io</span>
                     )}
-                    <ExternalLink size={10} className="text-ink-100 ml-auto" />
+                    <ExternalLink size={11} className="text-slate-400 ml-auto" />
                   </div>
 
-                  <div className="grid grid-cols-3 gap-3 hairline-t pt-3">
+                  <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100">
                     <Mini label="Visite" value={formatNumber(p.visits30d)} />
                     <Mini label="Lead" value={formatNumber(p.leads30d)} />
                     <Mini label="€/30gg" value={p.revenue30d ? formatCurrency(p.revenue30d) : "—"} />
                   </div>
 
-                  <div className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.1em] text-ink-100 font-medium">
+                  <div className="mt-3 flex items-center justify-between text-[11px] text-slate-500">
                     <div className="flex gap-1">
                       {p.techStack.slice(0, 2).map((t) => (
-                        <span key={t} className="hairline rounded-sm px-1.5 py-0.5 text-ink-200 bg-paper-100/50 normal-case font-mono tracking-normal">
+                        <span key={t} className="bg-slate-100 text-slate-600 rounded-md px-1.5 py-0.5 font-mono text-[10px]">
                           {t}
                         </span>
                       ))}
                     </div>
-                    <span>Deploy {relativeTime(p.lastDeploy)}</span>
+                    <span className="font-medium">Deploy {relativeTime(p.lastDeploy)}</span>
                   </div>
                 </Card>
               </motion.div>
@@ -272,51 +258,69 @@ export function WorkspaceDetail() {
         {/* Right: sidebar info */}
         <div className="space-y-4">
           <Card className="p-5">
-            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-ink-100 mb-4 font-semibold">
-              <UsersIcon size={11} className="text-accent" /> Membri ({members.length})
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <span className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                  <UsersIcon size={13} />
+                </span>
+                <span className="text-[13px] font-bold text-slate-900">Membri ({members.length})</span>
+              </div>
+              <button className="text-[11px] text-violet-600 font-semibold hover:text-violet-700">+ Invita</button>
             </div>
             <div className="space-y-2.5">
               {members.map((m) => (
                 <div key={m.id} className="flex items-center gap-2.5">
                   <Avatar name={m.name} color={m.avatarColor} size="sm" />
                   <div className="min-w-0 flex-1">
-                    <div className="text-[12.5px] text-ink-400 truncate font-medium">{m.name}</div>
-                    <div className="text-[10px] uppercase tracking-[0.1em] text-ink-100 font-medium">
+                    <div className="text-[13px] text-slate-800 truncate font-semibold">{m.name}</div>
+                    <div className="text-[10.5px] text-slate-500 uppercase tracking-wide font-medium">
                       {m.role}
                     </div>
                   </div>
                 </div>
               ))}
-              <button className="w-full mt-2 hairline border-dashed rounded-md py-2.5 text-[11px] uppercase tracking-[0.1em] text-ink-100 hover:border-accent hover:text-accent transition-colors font-medium bg-paper-100/30">
-                + Invita membro
+              <button className="w-full mt-3 border border-dashed border-slate-300 rounded-xl py-2.5 text-[12px] text-slate-500 hover:border-violet-400 hover:text-violet-600 hover:bg-violet-50/40 transition-colors font-semibold flex items-center justify-center gap-1.5">
+                <UserPlus size={12} /> Invita membro
               </button>
             </div>
           </Card>
 
           <Card className="p-5">
-            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-ink-100 mb-4 font-semibold">
-              <Database size={11} className="text-accent" /> Storage
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-7 h-7 rounded-lg bg-sky-100 text-sky-600 flex items-center justify-center">
+                <Database size={13} />
+              </span>
+              <span className="text-[13px] font-bold text-slate-900">Storage</span>
             </div>
-            <div className="font-display text-3xl text-ink-900 font-light tabular-nums" style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}>
-              {(ws.storageMb / 1024).toFixed(2)}<span className="text-ink-100 text-base">/{(ws.storageLimitMb / 1024).toFixed(0)} GB</span>
+            <div className="font-display text-[28px] text-slate-900 font-bold tabular-nums leading-none">
+              {(ws.storageMb / 1024).toFixed(2)}<span className="text-slate-400 text-[16px] font-medium">/{(ws.storageLimitMb / 1024).toFixed(0)} GB</span>
             </div>
-            <div className="mt-3 h-1 bg-paper-200 relative overflow-hidden rounded-full">
-              <div className="absolute inset-y-0 left-0 bg-accent rounded-full" style={{ width: `${(ws.storageMb / ws.storageLimitMb) * 100}%` }} />
+            <div className="mt-3 h-1.5 bg-slate-100 relative overflow-hidden rounded-full">
+              <div
+                className="absolute inset-y-0 left-0 rounded-full"
+                style={{
+                  background: "linear-gradient(90deg, #8b5cf6, #ec4899)",
+                  width: `${(ws.storageMb / ws.storageLimitMb) * 100}%`,
+                }}
+              />
             </div>
           </Card>
 
           <Card className="p-5">
-            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-ink-100 mb-4 font-semibold">
-              <ActivityIcon size={11} className="text-accent" /> Ultime attività
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-7 h-7 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center">
+                <ActivityIcon size={13} />
+              </span>
+              <span className="text-[13px] font-bold text-slate-900">Ultime attività</span>
             </div>
             <div className="space-y-3">
               {events.slice(0, 5).map((e) => (
-                <div key={e.id} className="flex items-start gap-2">
-                  <span className="w-px h-full bg-paper-300 mt-1.5" />
+                <div key={e.id} className="flex items-start gap-2 group">
+                  <span className="w-1 self-stretch bg-gradient-to-b from-violet-400 to-pink-400 rounded-full shrink-0 mt-1" />
                   <div className="flex-1 min-w-0">
-                    <div className="text-[12px] text-ink-400 leading-snug">{e.message}</div>
-                    <div className="text-[10px] text-ink-100 mt-0.5">
-                      <span className="font-medium">{e.actor}</span> · <span className="font-mono">{relativeTime(e.timestamp)}</span>
+                    <div className="text-[12.5px] text-slate-700 leading-snug">{e.message}</div>
+                    <div className="text-[11px] text-slate-400 mt-0.5">
+                      <span className="font-medium text-slate-500">{e.actor}</span> · {relativeTime(e.timestamp)}
                     </div>
                   </div>
                 </div>
@@ -324,16 +328,29 @@ export function WorkspaceDetail() {
             </div>
           </Card>
 
-          <Card className="p-5 bg-accent/5 border-accent/20">
-            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-accent mb-2 font-semibold">
-              Promuovi a dominio reale
+          <Card className="p-5 relative overflow-hidden bg-gradient-to-br from-violet-50 via-fuchsia-50 to-pink-50 border-white">
+            <div
+              className="absolute inset-0 opacity-40 pointer-events-none"
+              style={{
+                backgroundImage: "radial-gradient(circle at 70% 0%, rgba(236, 72, 153, 0.18), transparent 60%)",
+              }}
+            />
+            <div className="relative">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-7 h-7 rounded-lg flex items-center justify-center text-white"
+                  style={{ background: "linear-gradient(135deg, #8b5cf6, #ec4899)" }}
+                >
+                  <Rocket size={13} />
+                </span>
+                <span className="text-[13px] font-bold text-slate-900">Promuovi a dominio</span>
+              </div>
+              <p className="text-[12.5px] text-slate-600 leading-relaxed mb-3.5">
+                Hai un progetto pronto per pubblicità? Collega un dominio reale a un sottodominio.
+              </p>
+              <Button variant="primary" size="sm" className="w-full justify-center">
+                Collega dominio <ChevronRight size={13} />
+              </Button>
             </div>
-            <p className="text-[12.5px] text-ink-300 leading-relaxed mb-3">
-              Hai un progetto pronto per pubblicità? Collega un dominio reale a un sottodominio esistente.
-            </p>
-            <Button variant="primary" size="sm" className="w-full justify-center">
-              Collega dominio <ChevronRight size={11} />
-            </Button>
           </Card>
         </div>
       </div>
@@ -344,16 +361,8 @@ export function WorkspaceDetail() {
 function Mini({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="font-display text-base text-ink-900 font-normal tabular-nums leading-none" style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}>{value}</div>
-      <div className="text-[10px] uppercase tracking-[0.1em] text-ink-100 mt-1.5 font-medium">{label}</div>
+      <div className="font-display text-[17px] text-slate-900 font-bold tabular-nums leading-none">{value}</div>
+      <div className="text-[10.5px] text-slate-500 mt-1.5 uppercase tracking-wider font-semibold">{label}</div>
     </div>
   );
-}
-
-function shade(hex: string) {
-  if (!hex.startsWith("#") || hex.length !== 7) return hex;
-  const r = Math.max(0, parseInt(hex.slice(1, 3), 16) - 70);
-  const g = Math.max(0, parseInt(hex.slice(3, 5), 16) - 70);
-  const b = Math.max(0, parseInt(hex.slice(5, 7), 16) - 70);
-  return `rgb(${r}, ${g}, ${b})`;
 }

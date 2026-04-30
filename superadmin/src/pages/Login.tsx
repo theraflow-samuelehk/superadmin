@@ -1,82 +1,93 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Fingerprint } from "lucide-react";
+import { ArrowRight, Sparkles, Check } from "lucide-react";
 import { Button } from "../components/ui/Button";
 
 export function Login() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen w-full bg-paper-50 grid lg:grid-cols-[1.3fr_1fr] relative overflow-hidden">
-      {/* Left: editorial ambience */}
-      <div className="relative hidden lg:flex flex-col p-12 hairline-r overflow-hidden">
-        {/* Soft radial glow */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-50"
-          style={{
-            backgroundImage:
-              "radial-gradient(900px 600px at 30% 30%, rgba(26, 37, 72, 0.08), transparent 60%)",
-          }}
-        />
+    <div className="min-h-screen w-full grid lg:grid-cols-[1.2fr_1fr] relative overflow-hidden bg-white">
+      {/* Left: gradient hero */}
+      <div className="relative hidden lg:flex flex-col p-12 overflow-hidden text-white"
+        style={{
+          backgroundImage: `
+            radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.85) 0px, transparent 55%),
+            radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.75) 0px, transparent 55%),
+            radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.65) 0px, transparent 55%),
+            radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.7) 0px, transparent 55%),
+            linear-gradient(135deg, #6d28d9, #be185d)
+          `,
+        }}
+      >
+        {/* Floating decorations */}
+        <div className="absolute inset-0 pointer-events-none opacity-30">
+          <div className="absolute top-[20%] left-[15%] w-32 h-32 rounded-full bg-white/20 blur-3xl" />
+          <div className="absolute bottom-[15%] right-[10%] w-48 h-48 rounded-full bg-pink-400/30 blur-3xl" />
+        </div>
 
         {/* Brand */}
         <div className="flex items-center gap-3 mb-auto relative">
-          <div className="w-10 h-10 bg-accent flex items-center justify-center rounded-lg shadow-accent">
-            <span
-              className="font-display text-paper-50 text-xl leading-none"
-              style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 50" }}
-            >
-              w
-            </span>
+          <div className="w-11 h-11 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center border border-white/30">
+            <Sparkles size={20} className="text-white" strokeWidth={2.5} />
           </div>
           <div className="leading-tight">
-            <div
-              className="font-display text-lg text-ink-900 tracking-ultra-tight font-medium"
-              style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 50" }}
-            >
-              workspace
-            </div>
-            <div className="text-[11px] uppercase tracking-[0.18em] text-accent font-semibold">
-              Atelier · Operations
+            <div className="font-display text-[18px] text-white font-bold">workspace</div>
+            <div className="text-[10.5px] uppercase tracking-[0.18em] text-white/80 font-bold">
+              Studio Hub · Operations
             </div>
           </div>
         </div>
 
         {/* Massive headline */}
         <div className="relative">
-          <div className="text-[10px] uppercase tracking-[0.22em] text-accent mb-7 font-semibold">
-            Restricted Access — Super Admin Only
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur border border-white/20 text-[11px] uppercase tracking-wider font-bold mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+            Restricted Access · Super Admin
           </div>
           <h1
-            className="font-display font-light text-ink-900 tracking-monster leading-[0.85]"
-            style={{ fontSize: "clamp(56px, 8vw, 116px)", fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
+            className="font-display font-bold tracking-monster leading-[0.95]"
+            style={{ fontSize: "clamp(50px, 8vw, 100px)" }}
           >
-            Vedi ogni
+            Tutta la
             <br />
-            <em className="text-accent not-italic">workspace.</em>
+            tua piattaforma.
             <br />
-            <span className="text-ink-200 font-light">Senza fretta.</span>
+            <span className="text-white/70 font-normal">In un solo posto.</span>
           </h1>
-          <p className="mt-8 max-w-md text-[15px] text-ink-200 leading-relaxed">
-            Una console privata per chi gestisce un palazzo di workspace. Niente è pubblico, niente è demo. Tutto è registrato.
+          <p className="mt-7 max-w-md text-[15px] text-white/80 leading-relaxed">
+            Una console privata per chi gestisce un palazzo di workspace. Niente è pubblico, niente è demo.
+            Tutto è registrato, tutto è tracciabile.
           </p>
+
+          <ul className="mt-8 space-y-3 max-w-sm">
+            {[
+              "Vedi tutti i workspace di tutti gli utenti",
+              "Impersona qualunque admin con un click",
+              "Audit log completo di ogni azione",
+            ].map((item) => (
+              <li key={item} className="flex items-start gap-2.5 text-[14px] text-white/90">
+                <span className="w-5 h-5 rounded-full bg-white/20 backdrop-blur flex items-center justify-center shrink-0 mt-0.5">
+                  <Check size={12} strokeWidth={3} />
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
 
-        {/* Bottom hairline metrics */}
-        <div className="mt-auto pt-12 grid grid-cols-3 gap-6 hairline-t pt-6 relative">
+        {/* Bottom metrics */}
+        <div className="mt-auto pt-12 grid grid-cols-3 gap-6 border-t border-white/20 pt-6 relative">
           {[
             { v: "7", l: "Workspaces" },
             { v: "18", l: "Projects" },
             { v: "10", l: "Users" },
           ].map((m) => (
             <div key={m.l}>
-              <div
-                className="font-display text-[34px] text-ink-900 font-light tabular-nums leading-none"
-                style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
-              >
+              <div className="font-display text-[36px] text-white font-bold tabular-nums leading-none">
                 {m.v}
               </div>
-              <div className="text-[10px] uppercase tracking-[0.18em] text-ink-100 mt-1.5 font-medium">
+              <div className="text-[11px] uppercase tracking-wider text-white/70 mt-1.5 font-semibold">
                 {m.l}
               </div>
             </div>
@@ -85,7 +96,7 @@ export function Login() {
       </div>
 
       {/* Right: login form */}
-      <div className="flex items-center justify-center px-8 py-12 relative bg-white hairline-l">
+      <div className="flex items-center justify-center px-8 py-12 relative">
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -93,34 +104,35 @@ export function Login() {
           className="w-full max-w-sm"
         >
           <div className="flex items-center gap-3 mb-12 lg:hidden">
-            <div className="w-10 h-10 bg-accent flex items-center justify-center rounded-lg">
-              <span className="font-display text-paper-50 text-xl leading-none">w</span>
+            <div className="w-11 h-11 rounded-xl flex items-center justify-center"
+              style={{ background: "linear-gradient(135deg, #8b5cf6, #ec4899)" }}
+            >
+              <Sparkles size={20} className="text-white" />
             </div>
-            <span className="font-display text-lg text-ink-900 font-medium">workspace</span>
+            <span className="font-display text-lg text-slate-900 font-bold">workspace</span>
           </div>
 
-          <div className="text-[10px] uppercase tracking-[0.22em] text-accent mb-3 font-semibold">
-            00 — Authentication
+          <div className="text-[11px] uppercase tracking-wider text-violet-600 mb-3 font-bold">
+            Authentication
           </div>
           <h2
-            className="font-display text-[42px] text-ink-900 font-light tracking-monster leading-tight mb-4"
-            style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
+            className="font-display text-[42px] text-slate-900 font-bold tracking-monster leading-[1] mb-4"
           >
             Accedi alla console.
           </h2>
-          <p className="text-[14px] text-ink-200 mb-10 leading-relaxed">
+          <p className="text-[14.5px] text-slate-600 mb-10 leading-relaxed">
             Solo email autorizzate. Per accessi speciali, contatta Samuele direttamente.
           </p>
 
           <div className="space-y-4">
             <div>
-              <label className="block text-[10px] uppercase tracking-[0.16em] text-ink-100 mb-2 font-semibold">
+              <label className="block text-[11px] uppercase tracking-wider text-slate-500 mb-2 font-bold">
                 Email
               </label>
               <input
                 type="email"
                 defaultValue="samuelehk@gmail.com"
-                className="w-full hairline rounded-md bg-paper-50 px-4 py-3 text-[14px] text-ink-500 outline-none focus:border-accent focus:bg-white font-medium transition-colors"
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-[14px] text-slate-900 outline-none focus:border-violet-400 focus:bg-white focus:shadow-glow font-medium transition-all"
               />
             </div>
 
@@ -130,13 +142,12 @@ export function Login() {
               className="w-full justify-center"
               onClick={() => navigate("/")}
             >
-              <Fingerprint size={14} />
               Continua con SSO
-              <ArrowRight size={14} />
+              <ArrowRight size={15} />
             </Button>
 
-            <div className="hairline-t pt-6 mt-6">
-              <div className="text-[11px] text-ink-100 leading-relaxed">
+            <div className="border-t border-slate-100 pt-6 mt-6">
+              <div className="text-[12px] text-slate-500 leading-relaxed">
                 Sessioni protette via TOTP + audit log per ogni azione. Hardware key supportate.
               </div>
             </div>

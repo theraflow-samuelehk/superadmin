@@ -14,22 +14,19 @@ export function SectionLabel({
   className?: string;
 }) {
   return (
-    <div className={cn("flex items-end justify-between gap-4 hairline-b pb-4", className)}>
-      <div className="flex items-baseline gap-4">
+    <div className={cn("flex items-end justify-between gap-4 mb-6", className)}>
+      <div className="flex items-baseline gap-3">
         {index && (
-          <span className="text-[10px] tracking-[0.18em] text-accent uppercase pt-1 font-semibold">
+          <span className="text-[11px] tracking-wider text-violet-600 font-bold uppercase pt-1">
             {index}
           </span>
         )}
         <div>
-          <h2
-            className="font-display text-[28px] text-ink-900 tracking-ultra-tight font-normal leading-none"
-            style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
-          >
+          <h2 className="font-display text-[28px] text-slate-900 tracking-ultra-tight font-bold leading-none">
             {title}
           </h2>
           {subtitle && (
-            <p className="text-[12px] text-ink-200 mt-2">{subtitle}</p>
+            <p className="text-[13.5px] text-slate-500 mt-2">{subtitle}</p>
           )}
         </div>
       </div>

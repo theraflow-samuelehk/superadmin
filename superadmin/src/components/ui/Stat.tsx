@@ -1,4 +1,5 @@
 import { cn } from "../../lib/utils";
+import { TrendingUp, TrendingDown } from "lucide-react";
 
 export function Stat({
   label,
@@ -7,6 +8,7 @@ export function Stat({
   unit,
   emphasis = false,
   className,
+  icon,
 }: {
   label: string;
   value: string | number;
@@ -14,35 +16,35 @@ export function Stat({
   unit?: string;
   emphasis?: boolean;
   className?: string;
+  icon?: React.ReactNode;
 }) {
   return (
     <div className={cn("flex flex-col gap-2", className)}>
-      <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.14em] text-ink-100 font-semibold">
-        <span className="w-1 h-1 bg-accent rounded-full" />
+      <div className="flex items-center gap-2 text-[12px] text-slate-500 font-medium">
+        {icon && <span className="text-violet-500">{icon}</span>}
         {label}
       </div>
       <div className="flex items-baseline gap-2">
         <span
           className={cn(
-            "font-display font-light tabular-nums tracking-monster text-ink-900",
-            emphasis ? "text-[44px]" : "text-3xl"
+            "font-display font-bold tabular-nums tracking-monster text-slate-900 leading-none",
+            emphasis ? "text-[40px]" : "text-[30px]"
           )}
-          style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
         >
           {value}
         </span>
         {unit && (
-          <span className="text-[11px] text-ink-100">{unit}</span>
+          <span className="text-[13px] text-slate-400 font-medium">{unit}</span>
         )}
       </div>
       {delta && (
         <div
           className={cn(
-            "text-[10px] uppercase tracking-[0.1em] font-medium flex items-center gap-1",
-            delta.positive ? "text-sage" : "text-lacquer"
+            "text-[12px] font-semibold flex items-center gap-1",
+            delta.positive ? "text-emerald-600" : "text-rose-600"
           )}
         >
-          <span>{delta.positive ? "↗" : "↘"}</span>
+          {delta.positive ? <TrendingUp size={12} /> : <TrendingDown size={12} />}
           {delta.value}
         </div>
       )}

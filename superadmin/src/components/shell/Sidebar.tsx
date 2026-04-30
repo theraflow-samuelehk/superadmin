@@ -9,19 +9,20 @@ import {
   CreditCard,
   Activity,
   Settings,
+  Sparkles,
 } from "lucide-react";
 
 const items = [
-  { to: "/", label: "Overview", icon: LayoutDashboard, group: "intel" },
-  { to: "/workspaces", label: "Workspaces", icon: Building2, group: "intel" },
-  { to: "/projects", label: "Tutti i progetti", icon: FolderKanban, group: "intel" },
-  { to: "/users", label: "Utenti & Inviti", icon: Users, group: "intel" },
+  { to: "/", label: "Overview", icon: LayoutDashboard, group: "intel", color: "text-violet-500" },
+  { to: "/workspaces", label: "Workspaces", icon: Building2, group: "intel", color: "text-pink-500" },
+  { to: "/projects", label: "Tutti i progetti", icon: FolderKanban, group: "intel", color: "text-sky-500" },
+  { to: "/users", label: "Utenti & Inviti", icon: Users, group: "intel", color: "text-emerald-500" },
 
-  { to: "/domains", label: "Domini & DNS", icon: Globe, group: "ops" },
-  { to: "/billing", label: "Billing", icon: CreditCard, group: "ops" },
-  { to: "/activity", label: "Attività", icon: Activity, group: "ops" },
+  { to: "/domains", label: "Domini & DNS", icon: Globe, group: "ops", color: "text-amber-500" },
+  { to: "/billing", label: "Billing", icon: CreditCard, group: "ops", color: "text-fuchsia-500" },
+  { to: "/activity", label: "Attività", icon: Activity, group: "ops", color: "text-rose-500" },
 
-  { to: "/settings", label: "Impostazioni", icon: Settings, group: "system" },
+  { to: "/settings", label: "Impostazioni", icon: Settings, group: "system", color: "text-slate-500" },
 ];
 
 export function Sidebar() {
@@ -32,48 +33,62 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-[244px] shrink-0 hairline-r bg-paper-50 flex flex-col h-screen sticky top-0">
+    <aside className="w-[256px] shrink-0 bg-white/70 backdrop-blur-xl border-r border-slate-200/70 flex flex-col h-screen sticky top-0">
       {/* Brand */}
-      <div className="px-5 py-5 hairline-b">
+      <div className="px-5 py-5 border-b border-slate-200/70">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-accent flex items-center justify-center rounded-md shadow-accent">
-            <span
-              className="font-display text-paper-50 text-lg leading-none"
-              style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 50" }}
-            >
-              w
-            </span>
+          <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-glow"
+            style={{ background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)" }}
+          >
+            <Sparkles size={18} className="text-white" strokeWidth={2.5} />
           </div>
           <div className="leading-tight">
-            <div
-              className="font-display text-base text-ink-900 tracking-ultra-tight font-medium"
-              style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 50" }}
-            >
+            <div className="font-display text-[16px] text-slate-900 font-bold tracking-tight">
               workspace
             </div>
-            <div className="text-[10px] uppercase tracking-[0.18em] text-accent font-medium mt-px">
-              Atelier
+            <div className="text-[10px] uppercase tracking-[0.16em] gradient-text font-bold mt-px">
+              Studio Hub
             </div>
           </div>
         </div>
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-5 overflow-y-auto">
+      <nav className="flex-1 px-3 py-4 overflow-y-auto scrollbar-thin">
         <NavGroup label="Intelligence" items={groups.intel} />
-        <NavGroup label="Operations" items={groups.ops} className="mt-7" />
-        <NavGroup label="System" items={groups.system} className="mt-7" />
+        <NavGroup label="Operations" items={groups.ops} className="mt-6" />
+        <NavGroup label="System" items={groups.system} className="mt-6" />
       </nav>
 
-      {/* Footer */}
-      <div className="px-3 py-3 hairline-t">
-        <div className="flex items-center gap-2 px-2 py-1.5 text-[10px] uppercase tracking-[0.14em]">
-          <span className="w-1.5 h-1.5 bg-sage rounded-full animate-pulse" />
-          <span className="text-ink-200">Tutti i sistemi</span>
-          <span className="text-sage ml-auto font-medium">OK</span>
+      {/* Upgrade card */}
+      <div className="px-3 pb-3">
+        <div className="relative rounded-2xl p-4 overflow-hidden bg-gradient-to-br from-violet-50 via-pink-50 to-sky-50 border border-white">
+          <div
+            className="absolute inset-0 opacity-50 pointer-events-none"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 20% 0%, rgba(139, 92, 246, 0.15), transparent 60%)",
+            }}
+          />
+          <div className="relative">
+            <div className="text-[11px] font-bold gradient-text uppercase tracking-wider mb-1">
+              Pro Tip
+            </div>
+            <p className="text-[12px] text-slate-600 leading-relaxed mb-3">
+              Connetti il dominio madre Hostinger per attivare i sottodomini automatici.
+            </p>
+            <button className="text-[11px] font-bold text-violet-600 hover:text-violet-700">
+              Configura →
+            </button>
+          </div>
         </div>
-        <div className="px-2 mt-1 text-[9px] font-mono text-ink-50 uppercase tracking-[0.18em]">
-          v0.1.0 · build a3f4e1
+      </div>
+
+      {/* Footer */}
+      <div className="px-5 py-3 border-t border-slate-200/70">
+        <div className="flex items-center gap-2 text-[11px] font-medium">
+          <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
+          <span className="text-slate-500">Tutti i sistemi operativi</span>
         </div>
       </div>
     </aside>
@@ -91,10 +106,10 @@ function NavGroup({
 }) {
   return (
     <div className={className}>
-      <div className="px-2 mb-2 text-[9px] uppercase tracking-[0.22em] text-ink-100 font-semibold">
+      <div className="px-3 mb-2 text-[10px] uppercase tracking-[0.16em] text-slate-400 font-bold">
         {label}
       </div>
-      <ul className="space-y-px">
+      <ul className="space-y-0.5">
         {items.map((item) => {
           const Icon = item.icon;
           return (
@@ -104,22 +119,30 @@ function NavGroup({
                 end={item.to === "/"}
                 className={({ isActive }) =>
                   cn(
-                    "group relative flex items-center gap-3 px-2.5 py-2 text-[13px] rounded-md transition-all",
+                    "group relative flex items-center gap-3 px-3 py-2 text-[13.5px] rounded-xl transition-all",
                     isActive
-                      ? "bg-white text-accent shadow-soft"
-                      : "text-ink-200 hover:bg-white/60 hover:text-ink-400"
+                      ? "bg-white text-slate-900 shadow-soft font-semibold"
+                      : "text-slate-600 hover:bg-white/60 hover:text-slate-900"
                   )
                 }
               >
                 {({ isActive }) => (
                   <>
+                    <Icon
+                      size={16}
+                      strokeWidth={2}
+                      className={cn(
+                        "transition-colors",
+                        isActive ? item.color : "text-slate-400 group-hover:" + item.color
+                      )}
+                    />
+                    <span className="tracking-tight">{item.label}</span>
                     {isActive && (
-                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-4 bg-accent rounded-full" />
+                      <span
+                        className="ml-auto w-1.5 h-1.5 rounded-full"
+                        style={{ background: "linear-gradient(135deg, #8b5cf6, #ec4899)" }}
+                      />
                     )}
-                    <Icon size={14} strokeWidth={1.75} />
-                    <span className="font-medium tracking-tight">
-                      {item.label}
-                    </span>
                   </>
                 )}
               </NavLink>

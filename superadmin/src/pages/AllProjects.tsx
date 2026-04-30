@@ -25,32 +25,34 @@ export function AllProjects() {
 
   return (
     <div className="px-6 lg:px-10 py-8 max-w-[1600px] mx-auto">
-      <div className="mb-8 pt-4">
+      <div className="mb-8 pt-2">
         <div className="flex items-center gap-3 mb-5">
-          <span className="text-[10px] uppercase tracking-[0.22em] text-accent font-semibold">
+          <span
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white"
+            style={{ background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)" }}
+          >
             03 — Progetti
           </span>
-          <div className="flex-1 h-px bg-gradient-to-r from-paper-300 to-transparent" />
         </div>
         <h1
-          className="font-display font-light text-ink-900 tracking-monster leading-[0.95]"
-          style={{ fontSize: "clamp(40px, 5vw, 60px)", fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
+          className="font-display font-bold text-slate-900 tracking-monster leading-[1]"
+          style={{ fontSize: "clamp(36px, 5vw, 56px)" }}
         >
-          {projects.length} progetti, ovunque.
+          <span className="gradient-text">{projects.length}</span> progetti, ovunque.
         </h1>
-        <p className="mt-3 text-[15px] text-ink-200 max-w-lg">
+        <p className="mt-3 text-[15px] text-slate-600 max-w-xl">
           Visione trasversale su tutti i workspace. Le categorie sono libere — ognuna nasce dall'admin che la crea.
         </p>
       </div>
 
       <Card className="p-4 mb-6">
-        <div className="flex items-center gap-3 hairline rounded-md bg-paper-50 px-3 py-2 mb-3">
-          <Search size={13} className="text-ink-100" />
+        <div className="flex items-center gap-3 bg-slate-50 hover:bg-white border border-transparent hover:border-slate-200 rounded-xl px-3 py-2 mb-3 transition-all">
+          <Search size={14} className="text-slate-400" />
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Cerca progetto…"
-            className="flex-1 bg-transparent outline-none text-[13px] text-ink-400 placeholder:text-ink-100"
+            className="flex-1 bg-transparent outline-none text-[13px] text-slate-700 placeholder:text-slate-400"
           />
         </div>
         <div className="flex items-center gap-2 flex-wrap">
@@ -59,10 +61,10 @@ export function AllProjects() {
               key={c}
               onClick={() => setActiveCat(c)}
               className={cn(
-                "text-[11px] uppercase tracking-[0.1em] px-3 py-1.5 rounded-full border transition-colors font-medium",
+                "text-[12px] px-3.5 py-1.5 rounded-full border transition-all font-semibold",
                 activeCat === c
-                  ? "bg-accent text-paper-50 border-accent shadow-soft"
-                  : "text-ink-200 hairline bg-white hover:border-accent/40 hover:text-accent"
+                  ? "bg-slate-900 text-white border-slate-900"
+                  : "text-slate-600 bg-white border-slate-200 hover:border-violet-300 hover:text-violet-700"
               )}
             >
               {c}
@@ -74,7 +76,7 @@ export function AllProjects() {
         </div>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5">
         {filtered.map((p, i) => {
           const ws = getWorkspace(p.workspaceId);
           return (
@@ -82,21 +84,18 @@ export function AllProjects() {
               key={p.id}
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.03 }}
+              transition={{ delay: i * 0.025 }}
             >
               <Card interactive className="p-5">
-                <div className="flex items-start justify-between mb-3 gap-3">
+                <div className="flex items-start justify-between mb-4 gap-3">
                   <div className="min-w-0 flex-1">
-                    <div className="text-[10px] uppercase tracking-[0.16em] text-accent mb-1.5 font-semibold">
+                    <div className="inline-flex items-center px-2 py-0.5 rounded-md bg-violet-50 text-violet-700 text-[10px] font-bold uppercase tracking-wider mb-2">
                       {p.category}
                     </div>
-                    <div
-                      className="font-display text-xl text-ink-900 font-normal tracking-ultra-tight"
-                      style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
-                    >
+                    <div className="font-display text-[19px] text-slate-900 font-bold tracking-ultra-tight leading-tight">
                       {p.name}
                     </div>
-                    <div className="text-[11px] text-ink-100 mt-1 font-medium">
+                    <div className="text-[11.5px] text-slate-500 mt-1 font-medium">
                       {ws?.name}
                     </div>
                   </div>
@@ -113,45 +112,45 @@ export function AllProjects() {
                   </Badge>
                 </div>
 
-                <div className="flex items-center gap-1.5 text-[11px] text-ink-200 mb-4">
-                  <Globe size={11} className="text-ink-100" />
+                <div className="flex items-center gap-1.5 text-[12px] mb-4 bg-slate-50 px-3 py-2 rounded-lg">
+                  <Globe size={12} className="text-slate-400" />
                   {p.customDomain ? (
-                    <span className="text-accent font-medium">{p.customDomain}</span>
+                    <span className="font-semibold gradient-text">{p.customDomain}</span>
                   ) : (
-                    <span className="font-mono">{p.subdomain}.workspace.io</span>
+                    <span className="font-mono text-slate-600">{p.subdomain}.workspace.io</span>
                   )}
-                  <ExternalLink size={10} className="text-ink-100 ml-auto" />
+                  <ExternalLink size={11} className="text-slate-400 ml-auto" />
                 </div>
 
-                <div className="grid grid-cols-3 gap-3 hairline-t pt-3">
+                <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100">
                   <div>
-                    <div className="font-display text-base text-ink-900 font-normal tabular-nums" style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}>
+                    <div className="font-display text-[17px] text-slate-900 font-bold tabular-nums">
                       {formatNumber(p.visits30d)}
                     </div>
-                    <div className="text-[10px] uppercase tracking-[0.1em] text-ink-100 mt-0.5 font-medium">
+                    <div className="text-[10.5px] text-slate-500 mt-1 uppercase tracking-wider font-semibold">
                       Visite
                     </div>
                   </div>
                   <div>
-                    <div className="font-display text-base text-ink-900 font-normal tabular-nums" style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}>
+                    <div className="font-display text-[17px] text-slate-900 font-bold tabular-nums">
                       {formatNumber(p.leads30d)}
                     </div>
-                    <div className="text-[10px] uppercase tracking-[0.1em] text-ink-100 mt-0.5 font-medium">
+                    <div className="text-[10.5px] text-slate-500 mt-1 uppercase tracking-wider font-semibold">
                       Lead
                     </div>
                   </div>
                   <div>
-                    <div className="font-display text-base text-ink-900 font-normal tabular-nums" style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}>
+                    <div className="font-display text-[17px] text-slate-900 font-bold tabular-nums">
                       {p.revenue30d ? formatCurrency(p.revenue30d) : "—"}
                     </div>
-                    <div className="text-[10px] uppercase tracking-[0.1em] text-ink-100 mt-0.5 font-medium">
+                    <div className="text-[10.5px] text-slate-500 mt-1 uppercase tracking-wider font-semibold">
                       €/30gg
                     </div>
                   </div>
                 </div>
 
-                <div className="mt-3 text-[10px] uppercase tracking-[0.1em] text-ink-100 font-medium">
-                  Deploy <span className="font-mono normal-case tracking-normal">{relativeTime(p.lastDeploy)}</span>
+                <div className="mt-3 text-[11px] text-slate-500 font-medium">
+                  Deploy {relativeTime(p.lastDeploy)}
                 </div>
               </Card>
             </motion.div>

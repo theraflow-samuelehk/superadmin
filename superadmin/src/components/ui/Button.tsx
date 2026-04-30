@@ -1,7 +1,7 @@
 import { cn } from "../../lib/utils";
 import { forwardRef } from "react";
 
-type Variant = "primary" | "secondary" | "ghost" | "danger" | "lacquer";
+type Variant = "primary" | "secondary" | "ghost" | "danger" | "soft";
 type Size = "sm" | "md" | "lg";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -10,22 +10,21 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-accent text-paper-50 hover:bg-accent-bright border-accent-deep shadow-accent font-medium",
+  primary: "btn-primary border-0 font-semibold",
   secondary:
-    "bg-white text-ink-400 hover:bg-paper-100 border-paper-200 hover:border-paper-300 shadow-soft",
+    "bg-white text-slate-700 hover:bg-slate-50 border border-slate-200 hover:border-slate-300 shadow-soft font-medium",
   ghost:
-    "bg-transparent text-ink-200 hover:bg-paper-100 hover:text-ink-500 border-transparent",
+    "bg-transparent text-slate-600 hover:bg-slate-100 hover:text-slate-900 border-transparent",
   danger:
-    "bg-paper-50 text-lacquer hover:bg-lacquer/5 border-lacquer/30",
-  lacquer:
-    "bg-lacquer text-paper-50 hover:bg-lacquer-bright border-lacquer-deep shadow-soft font-medium",
+    "bg-rose-50 text-rose-600 hover:bg-rose-100 border border-rose-200 font-medium",
+  soft:
+    "bg-violet-50 text-violet-700 hover:bg-violet-100 border border-violet-100 font-medium",
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-7 px-2.5 text-[11px]",
-  md: "h-9 px-3.5 text-[12px]",
-  lg: "h-11 px-5 text-[13px]",
+  sm: "h-8 px-3 text-[12px]",
+  md: "h-10 px-4 text-[13px]",
+  lg: "h-12 px-6 text-[14px]",
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
@@ -36,7 +35,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     <button
       ref={ref}
       className={cn(
-        "inline-flex items-center gap-2 border rounded-md tracking-tight transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-accent/30 focus:ring-offset-1 focus:ring-offset-paper-50 disabled:opacity-40 disabled:cursor-not-allowed",
+        "inline-flex items-center gap-2 rounded-xl tracking-tight transition-all duration-150 focus:outline-none focus:ring-2 focus:ring-violet-300/60 focus:ring-offset-2 focus:ring-offset-white disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap",
         variants[variant],
         sizes[size],
         className
