@@ -9,7 +9,6 @@ import {
   ExternalLink,
   Users as UsersIcon,
   Activity as ActivityIcon,
-  Calendar,
   Database,
   ChevronRight,
 } from "lucide-react";
@@ -20,7 +19,7 @@ import {
   membersByWorkspace,
   activityByWorkspace,
 } from "../lib/mock";
-import { Card, CardCorner } from "../components/ui/Card";
+import { Card } from "../components/ui/Card";
 import { Badge } from "../components/ui/Badge";
 import { Avatar } from "../components/ui/Avatar";
 import { Button } from "../components/ui/Button";
@@ -36,7 +35,7 @@ export function WorkspaceDetail() {
 
   const [activeCategory, setActiveCategory] = useState<string>("Tutti");
 
-  if (!ws) return <div className="p-10 text-ink-300">Workspace non trovato.</div>;
+  if (!ws) return <div className="p-10 text-ink-200">Workspace non trovato.</div>;
 
   const owner = getUser(ws.ownerId);
   const wsProjects = projects.filter((p) => p.workspaceId === ws.id);
@@ -62,7 +61,7 @@ export function WorkspaceDetail() {
       {/* Back */}
       <button
         onClick={() => navigate("/workspaces")}
-        className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-ink-400 hover:text-acid mb-6 transition-colors"
+        className="flex items-center gap-2 text-[11px] uppercase tracking-[0.14em] text-ink-200 hover:text-accent mb-6 transition-colors font-medium"
       >
         <ArrowLeft size={11} /> Tutti i workspace
       </button>
@@ -75,11 +74,12 @@ export function WorkspaceDetail() {
       >
         <div className="flex items-start gap-6 flex-wrap">
           <div
-            className="w-20 h-20 rounded-sm flex items-center justify-center font-display font-light text-3xl shrink-0"
+            className="w-20 h-20 rounded-lg flex items-center justify-center font-display font-light text-3xl shrink-0"
             style={{
-              backgroundColor: `${owner?.avatarColor}15`,
-              color: owner?.avatarColor,
-              boxShadow: `inset 0 0 0 1px ${owner?.avatarColor}40`,
+              backgroundColor: `${owner?.avatarColor}1a`,
+              color: shade(owner?.avatarColor || "#999"),
+              boxShadow: `inset 0 0 0 1px ${owner?.avatarColor}55`,
+              fontVariationSettings: "'opsz' 144, 'SOFT' 30",
             }}
           >
             {ws.name[0]}
@@ -87,7 +87,7 @@ export function WorkspaceDetail() {
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-3 mb-2 flex-wrap">
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400">
+              <span className="text-[11px] uppercase tracking-[0.14em] text-ink-100 font-medium">
                 /{ws.slug} · creato {relativeTime(ws.createdAt)}
               </span>
               <Badge
@@ -101,23 +101,23 @@ export function WorkspaceDetail() {
               >
                 {ws.status}
               </Badge>
-              {ws.badge && <Badge variant="acid">{ws.badge}</Badge>}
+              {ws.badge && <Badge variant="accent">{ws.badge}</Badge>}
             </div>
 
             <h1
-              className="font-display font-light text-ink-50 tracking-monster leading-[0.95]"
+              className="font-display font-light text-ink-900 tracking-monster leading-[0.95]"
               style={{ fontSize: "clamp(36px, 4.5vw, 56px)", fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
             >
               {ws.name}
             </h1>
 
-            <div className="mt-4 flex items-center gap-3 flex-wrap text-xs font-mono uppercase tracking-[0.14em] text-ink-300">
-              <span>Owner</span>
+            <div className="mt-4 flex items-center gap-3 flex-wrap text-[12px] text-ink-200">
+              <span className="uppercase tracking-[0.12em] font-medium text-ink-100">Owner</span>
               {owner && (
                 <div className="flex items-center gap-1.5">
                   <Avatar name={owner.name} color={owner.avatarColor} size="xs" />
-                  <span className="text-ink-100">{owner.name}</span>
-                  <span className="text-ink-500">· {owner.email}</span>
+                  <span className="text-ink-400 font-medium">{owner.name}</span>
+                  <span className="text-ink-100">· {owner.email}</span>
                 </div>
               )}
             </div>
@@ -125,7 +125,7 @@ export function WorkspaceDetail() {
 
           <div className="flex gap-2">
             {!impersonatedUser && owner && (
-              <Button variant="acid" onClick={() => enter(owner, ws)}>
+              <Button variant="primary" onClick={() => enter(owner, ws)}>
                 <Eye size={12} /> View as {owner.name.split(" ")[0]}
               </Button>
             )}
@@ -135,7 +135,7 @@ export function WorkspaceDetail() {
       </motion.div>
 
       {/* Stats strip */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 hairline rounded-sm bg-ink-900 mb-10 overflow-hidden">
+      <Card className="grid grid-cols-2 lg:grid-cols-5 mb-10 overflow-hidden p-0">
         <div className="p-5 hairline-r">
           <Stat label="Progetti" value={wsProjects.length} unit={`${wsProjects.filter((p) => p.status === "live").length} live`} />
         </div>
@@ -151,23 +151,23 @@ export function WorkspaceDetail() {
         <div className="p-5">
           <Stat label="Plan" value={ws.plan.toUpperCase()} unit={`MRR ${formatCurrency(ws.monthlyRevenue)}`} />
         </div>
-      </div>
+      </Card>
 
       {/* Two-column main */}
       <div className="grid grid-cols-1 xl:grid-cols-[1fr_320px] gap-6">
         {/* Left: projects */}
         <div>
-          <div className="flex items-end justify-between gap-4 hairline-b pb-3 mb-5">
+          <div className="flex items-end justify-between gap-4 hairline-b pb-4 mb-5">
             <div className="flex items-baseline gap-4">
-              <span className="font-mono text-[10px] tracking-[0.18em] text-acid uppercase">03</span>
+              <span className="text-[10px] tracking-[0.18em] text-accent uppercase font-semibold">03</span>
               <h2
-                className="font-display text-2xl text-ink-50 tracking-ultra-tight font-light leading-none"
+                className="font-display text-[26px] text-ink-900 tracking-ultra-tight font-normal leading-none"
                 style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
               >
                 Progetti del workspace
               </h2>
             </div>
-            <Button variant="acid" size="sm">
+            <Button variant="primary" size="sm">
               <Plus size={11} /> Nuovo progetto
             </Button>
           </div>
@@ -179,21 +179,21 @@ export function WorkspaceDetail() {
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
                 className={cn(
-                  "text-[10px] font-mono uppercase tracking-[0.14em] px-2.5 py-1 rounded-sm border transition-colors",
+                  "text-[11px] uppercase tracking-[0.1em] px-3 py-1.5 rounded-full border transition-all font-medium",
                   activeCategory === cat
-                    ? "bg-acid text-ink-950 border-acid"
-                    : "text-ink-300 hairline hover:border-ink-500 hover:text-ink-100"
+                    ? "bg-accent text-paper-50 border-accent shadow-soft"
+                    : "text-ink-200 hairline bg-white hover:border-accent/40 hover:text-accent"
                 )}
               >
                 {cat}
-                <span className="ml-1.5 opacity-60">
+                <span className="ml-1.5 opacity-60 tabular-nums">
                   {cat === "Tutti"
                     ? wsProjects.length
                     : wsProjects.filter((p) => p.category === cat).length}
                 </span>
               </button>
             ))}
-            <button className="text-[10px] font-mono uppercase tracking-[0.14em] px-2.5 py-1 rounded-sm border border-dashed border-ink-600 text-ink-400 hover:border-acid hover:text-acid transition-colors">
+            <button className="text-[11px] uppercase tracking-[0.1em] px-3 py-1.5 rounded-full border border-dashed border-paper-300 text-ink-100 hover:border-accent hover:text-accent transition-colors font-medium">
               + Categoria
             </button>
           </div>
@@ -207,15 +207,14 @@ export function WorkspaceDetail() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04 }}
               >
-                <Card interactive className="p-5" >
-                  <CardCorner />
+                <Card interactive className="p-5">
                   <div className="flex items-start justify-between mb-3 gap-3">
                     <div className="min-w-0">
-                      <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-acid mb-1">
+                      <div className="text-[10px] uppercase tracking-[0.16em] text-accent mb-1.5 font-semibold">
                         {p.category}
                       </div>
                       <div
-                        className="font-display text-xl text-ink-50 font-light tracking-ultra-tight"
+                        className="font-display text-xl text-ink-900 font-normal tracking-ultra-tight"
                         style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
                       >
                         {p.name}
@@ -234,18 +233,18 @@ export function WorkspaceDetail() {
                     </Badge>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-[10px] font-mono uppercase tracking-[0.14em] text-ink-400 mb-4">
-                    <Globe size={11} />
+                  <div className="flex items-center gap-1.5 text-[11px] text-ink-200 mb-4">
+                    <Globe size={11} className="text-ink-100" />
                     {p.customDomain ? (
                       <>
-                        <span className="text-acid">{p.customDomain}</span>
-                        <span className="text-ink-500">·</span>
-                        <span className="text-ink-500">{p.subdomain}</span>
+                        <span className="text-accent font-medium">{p.customDomain}</span>
+                        <span className="text-ink-100">·</span>
+                        <span className="text-ink-100 font-mono">{p.subdomain}</span>
                       </>
                     ) : (
-                      <span>{p.subdomain}.workspace.io</span>
+                      <span className="font-mono">{p.subdomain}.workspace.io</span>
                     )}
-                    <ExternalLink size={10} className="text-ink-500 ml-auto" />
+                    <ExternalLink size={10} className="text-ink-100 ml-auto" />
                   </div>
 
                   <div className="grid grid-cols-3 gap-3 hairline-t pt-3">
@@ -254,10 +253,12 @@ export function WorkspaceDetail() {
                     <Mini label="€/30gg" value={p.revenue30d ? formatCurrency(p.revenue30d) : "—"} />
                   </div>
 
-                  <div className="mt-3 flex items-center justify-between text-[9px] font-mono uppercase tracking-[0.14em] text-ink-500">
+                  <div className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.1em] text-ink-100 font-medium">
                     <div className="flex gap-1">
                       {p.techStack.slice(0, 2).map((t) => (
-                        <span key={t} className="hairline rounded-sm px-1.5 py-0.5 text-ink-300">{t}</span>
+                        <span key={t} className="hairline rounded-sm px-1.5 py-0.5 text-ink-200 bg-paper-100/50 normal-case font-mono tracking-normal">
+                          {t}
+                        </span>
                       ))}
                     </div>
                     <span>Deploy {relativeTime(p.lastDeploy)}</span>
@@ -271,51 +272,51 @@ export function WorkspaceDetail() {
         {/* Right: sidebar info */}
         <div className="space-y-4">
           <Card className="p-5">
-            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 mb-4">
-              <UsersIcon size={11} className="text-acid" /> Membri ({members.length})
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-ink-100 mb-4 font-semibold">
+              <UsersIcon size={11} className="text-accent" /> Membri ({members.length})
             </div>
             <div className="space-y-2.5">
               {members.map((m) => (
                 <div key={m.id} className="flex items-center gap-2.5">
                   <Avatar name={m.name} color={m.avatarColor} size="sm" />
                   <div className="min-w-0 flex-1">
-                    <div className="text-xs text-ink-100 truncate">{m.name}</div>
-                    <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-ink-400">
+                    <div className="text-[12.5px] text-ink-400 truncate font-medium">{m.name}</div>
+                    <div className="text-[10px] uppercase tracking-[0.1em] text-ink-100 font-medium">
                       {m.role}
                     </div>
                   </div>
                 </div>
               ))}
-              <button className="w-full mt-2 hairline border-dashed rounded-sm py-2 text-[10px] font-mono uppercase tracking-[0.14em] text-ink-400 hover:border-acid hover:text-acid transition-colors">
+              <button className="w-full mt-2 hairline border-dashed rounded-md py-2.5 text-[11px] uppercase tracking-[0.1em] text-ink-100 hover:border-accent hover:text-accent transition-colors font-medium bg-paper-100/30">
                 + Invita membro
               </button>
             </div>
           </Card>
 
           <Card className="p-5">
-            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 mb-4">
-              <Database size={11} className="text-acid" /> Storage
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-ink-100 mb-4 font-semibold">
+              <Database size={11} className="text-accent" /> Storage
             </div>
-            <div className="font-display text-3xl text-ink-50 font-light tabular-nums">
-              {(ws.storageMb / 1024).toFixed(2)}<span className="text-ink-400 text-base">/{(ws.storageLimitMb / 1024).toFixed(0)} GB</span>
+            <div className="font-display text-3xl text-ink-900 font-light tabular-nums" style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}>
+              {(ws.storageMb / 1024).toFixed(2)}<span className="text-ink-100 text-base">/{(ws.storageLimitMb / 1024).toFixed(0)} GB</span>
             </div>
-            <div className="mt-3 h-1 bg-ink-700 relative overflow-hidden">
-              <div className="absolute inset-y-0 left-0 bg-acid" style={{ width: `${(ws.storageMb / ws.storageLimitMb) * 100}%` }} />
+            <div className="mt-3 h-1 bg-paper-200 relative overflow-hidden rounded-full">
+              <div className="absolute inset-y-0 left-0 bg-accent rounded-full" style={{ width: `${(ws.storageMb / ws.storageLimitMb) * 100}%` }} />
             </div>
           </Card>
 
           <Card className="p-5">
-            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 mb-4">
-              <ActivityIcon size={11} className="text-acid" /> Ultime attività
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-ink-100 mb-4 font-semibold">
+              <ActivityIcon size={11} className="text-accent" /> Ultime attività
             </div>
             <div className="space-y-3">
               {events.slice(0, 5).map((e) => (
                 <div key={e.id} className="flex items-start gap-2">
-                  <span className="w-px h-full bg-ink-700 mt-1.5" />
+                  <span className="w-px h-full bg-paper-300 mt-1.5" />
                   <div className="flex-1 min-w-0">
-                    <div className="text-[11px] text-ink-100 leading-snug">{e.message}</div>
-                    <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-ink-400 mt-0.5">
-                      {e.actor} · {relativeTime(e.timestamp)}
+                    <div className="text-[12px] text-ink-400 leading-snug">{e.message}</div>
+                    <div className="text-[10px] text-ink-100 mt-0.5">
+                      <span className="font-medium">{e.actor}</span> · <span className="font-mono">{relativeTime(e.timestamp)}</span>
                     </div>
                   </div>
                 </div>
@@ -323,15 +324,15 @@ export function WorkspaceDetail() {
             </div>
           </Card>
 
-          <Card className="p-5 bg-acid/5 border-acid/20">
-            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-acid mb-2">
-              <Calendar size={11} /> Promuovi sottodominio
+          <Card className="p-5 bg-accent/5 border-accent/20">
+            <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-accent mb-2 font-semibold">
+              Promuovi a dominio reale
             </div>
-            <p className="text-xs text-ink-200 leading-relaxed mb-3">
+            <p className="text-[12.5px] text-ink-300 leading-relaxed mb-3">
               Hai un progetto pronto per pubblicità? Collega un dominio reale a un sottodominio esistente.
             </p>
-            <Button variant="acid" size="sm" className="w-full justify-center">
-              Collega dominio reale <ChevronRight size={11} />
+            <Button variant="primary" size="sm" className="w-full justify-center">
+              Collega dominio <ChevronRight size={11} />
             </Button>
           </Card>
         </div>
@@ -343,8 +344,16 @@ export function WorkspaceDetail() {
 function Mini({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <div className="font-display text-base text-ink-50 font-light tabular-nums leading-none">{value}</div>
-      <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-ink-400 mt-1">{label}</div>
+      <div className="font-display text-base text-ink-900 font-normal tabular-nums leading-none" style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}>{value}</div>
+      <div className="text-[10px] uppercase tracking-[0.1em] text-ink-100 mt-1.5 font-medium">{label}</div>
     </div>
   );
+}
+
+function shade(hex: string) {
+  if (!hex.startsWith("#") || hex.length !== 7) return hex;
+  const r = Math.max(0, parseInt(hex.slice(1, 3), 16) - 70);
+  const g = Math.max(0, parseInt(hex.slice(3, 5), 16) - 70);
+  const b = Math.max(0, parseInt(hex.slice(5, 7), 16) - 70);
+  return `rgb(${r}, ${g}, ${b})`;
 }

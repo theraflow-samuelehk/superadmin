@@ -1,19 +1,40 @@
 import { cn } from "../../lib/utils";
 
-type Variant = "neutral" | "live" | "draft" | "deploying" | "archived" | "trial" | "paused" | "suspended" | "acid" | "warn" | "bad";
+type Variant =
+  | "neutral"
+  | "live"
+  | "draft"
+  | "deploying"
+  | "archived"
+  | "trial"
+  | "paused"
+  | "suspended"
+  | "accent"
+  | "warn"
+  | "bad";
 
 const styles: Record<Variant, string> = {
-  neutral: "bg-ink-700 text-ink-200 border-ink-600",
-  live: "bg-good/10 text-good border-good/20",
-  draft: "bg-ink-700 text-ink-200 border-ink-600",
-  deploying: "bg-acid/15 text-acid border-acid/30 animate-pulse",
-  archived: "bg-ink-800 text-ink-400 border-ink-700",
-  trial: "bg-warn/10 text-warn border-warn/20",
-  paused: "bg-ink-700 text-ink-300 border-ink-500",
-  suspended: "bg-bad/10 text-bad border-bad/20",
-  acid: "bg-acid text-ink-950 border-acid",
-  warn: "bg-warn/10 text-warn border-warn/20",
-  bad: "bg-bad/10 text-bad border-bad/20",
+  neutral: "bg-paper-100 text-ink-200 border-paper-200",
+  live: "bg-sage/10 text-sage-deep border-sage/25",
+  draft: "bg-paper-100 text-ink-200 border-paper-200",
+  deploying: "bg-accent/8 text-accent border-accent/20 animate-pulse",
+  archived: "bg-paper-100 text-ink-100 border-paper-200",
+  trial: "bg-saffron/10 text-saffron border-saffron/25",
+  paused: "bg-paper-100 text-ink-200 border-paper-300",
+  suspended: "bg-lacquer/8 text-lacquer border-lacquer/25",
+  accent: "bg-accent text-paper-50 border-accent-deep",
+  warn: "bg-saffron/10 text-saffron border-saffron/25",
+  bad: "bg-lacquer/8 text-lacquer border-lacquer/25",
+};
+
+const dotColor: Record<string, string> = {
+  live: "bg-sage",
+  deploying: "bg-accent",
+  trial: "bg-saffron",
+  suspended: "bg-lacquer",
+  paused: "bg-ink-100",
+  draft: "bg-ink-100",
+  archived: "bg-ink-50",
 };
 
 export function Badge({
@@ -30,7 +51,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-mono uppercase tracking-[0.12em] border rounded-sm",
+        "inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.08em] border rounded-full",
         styles[variant],
         className
       )}
@@ -39,13 +60,8 @@ export function Badge({
         <span
           className={cn(
             "w-1.5 h-1.5 rounded-full",
-            variant === "live" && "bg-good animate-pulse",
-            variant === "deploying" && "bg-acid",
-            variant === "trial" && "bg-warn",
-            variant === "suspended" && "bg-bad",
-            variant === "paused" && "bg-ink-400",
-            variant === "draft" && "bg-ink-400",
-            variant === "archived" && "bg-ink-500"
+            dotColor[variant] || "bg-ink-100",
+            variant === "live" && "animate-pulse"
           )}
         />
       )}

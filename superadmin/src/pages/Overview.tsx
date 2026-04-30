@@ -25,10 +25,10 @@ import {
   getUser,
   projectsByWorkspace,
 } from "../lib/mock";
-import { Card, CardCorner } from "../components/ui/Card";
+import { Card } from "../components/ui/Card";
 import { Stat } from "../components/ui/Stat";
 import { Badge } from "../components/ui/Badge";
-import { Avatar, AvatarStack } from "../components/ui/Avatar";
+import { AvatarStack } from "../components/ui/Avatar";
 import { SectionLabel } from "../components/ui/SectionLabel";
 import { Button } from "../components/ui/Button";
 import { useImpersonation } from "../components/shell/Layout";
@@ -48,12 +48,12 @@ export function Overview() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="mb-12 pt-4"
       >
-        <div className="flex items-center gap-3 mb-4">
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-acid">
-            01 / Overview
+        <div className="flex items-center gap-3 mb-5">
+          <span className="text-[10px] uppercase tracking-[0.22em] text-accent font-semibold">
+            01 — Overview
           </span>
-          <div className="flex-1 h-px bg-gradient-to-r from-acid/40 to-transparent"></div>
-          <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-400">
+          <div className="flex-1 h-px bg-gradient-to-r from-paper-300 to-transparent" />
+          <span className="text-[10px] uppercase tracking-[0.16em] text-ink-100 font-medium">
             {new Date().toLocaleDateString("it-IT", {
               weekday: "long",
               day: "2-digit",
@@ -64,29 +64,26 @@ export function Overview() {
         </div>
 
         <h1
-          className="font-display font-light text-ink-50 tracking-monster leading-[0.9] text-balance"
+          className="font-display font-light text-ink-900 tracking-monster leading-[0.95] text-balance"
           style={{
-            fontSize: "clamp(48px, 7vw, 96px)",
+            fontSize: "clamp(48px, 7vw, 92px)",
             fontVariationSettings: "'opsz' 144, 'SOFT' 30",
           }}
         >
-          Vedi <em className="text-acid not-italic font-normal">tutto</em> di tutti.
+          Il tuo palazzo,
           <br />
-          <span className="text-ink-300">Comanda nessuno per default.</span>
+          <em className="text-accent not-italic">visto dall'alto.</em>
         </h1>
-        <p className="mt-6 max-w-xl text-sm text-ink-300 leading-relaxed">
+        <p className="mt-6 max-w-xl text-[15px] text-ink-200 leading-relaxed">
           Sei super admin di {platformKPIs.totalWorkspaces} workspace,{" "}
           {platformKPIs.totalProjects} progetti, {platformKPIs.totalUsers} utenti.
           Per intervenire dentro un workspace, attiva la modalità{" "}
-          <span className="text-acid font-mono uppercase tracking-wide">
-            View As
-          </span>
-          .
+          <span className="text-accent font-semibold">View As</span>.
         </p>
       </motion.div>
 
       {/* KPI strip */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 hairline rounded-sm bg-ink-900 mb-12 overflow-hidden">
+      <Card className="grid grid-cols-2 lg:grid-cols-5 mb-12 overflow-hidden p-0">
         {[
           {
             label: "Workspace attivi",
@@ -130,27 +127,25 @@ export function Overview() {
             <Stat {...kpi} />
           </motion.div>
         ))}
-      </div>
+      </Card>
 
       {/* Chart + Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
         <Card className="lg:col-span-2 p-6">
           <div className="flex items-start justify-between mb-6">
             <div>
-              <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 mb-1">
-                ◇ Andamento piattaforma · 14 giorni
+              <div className="text-[10px] uppercase tracking-[0.16em] text-ink-100 mb-2 font-semibold">
+                Andamento piattaforma · 14 giorni
               </div>
-              <div className="flex items-baseline gap-3">
-                <h3
-                  className="font-display text-2xl text-ink-50 font-light tracking-ultra-tight"
-                  style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
-                >
-                  Visite, lead, fatturato
-                </h3>
-              </div>
+              <h3
+                className="font-display text-[26px] text-ink-900 font-light tracking-ultra-tight"
+                style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
+              >
+                Visite, lead, fatturato
+              </h3>
             </div>
             <div className="flex gap-2">
-              <Badge variant="acid">Visite</Badge>
+              <Badge variant="accent">Visite</Badge>
               <Badge variant="neutral" dot>Lead</Badge>
               <Badge variant="neutral" dot>€</Badge>
             </div>
@@ -160,26 +155,26 @@ export function Overview() {
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={platformTimeseries}>
                 <defs>
-                  <linearGradient id="acid" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#d4ff4f" stopOpacity={0.4} />
-                    <stop offset="100%" stopColor="#d4ff4f" stopOpacity={0} />
+                  <linearGradient id="acc" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#1a2548" stopOpacity={0.22} />
+                    <stop offset="100%" stopColor="#1a2548" stopOpacity={0} />
                   </linearGradient>
-                  <linearGradient id="cool" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#4fd4ff" stopOpacity={0.2} />
-                    <stop offset="100%" stopColor="#4fd4ff" stopOpacity={0} />
+                  <linearGradient id="lac" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#a62b1f" stopOpacity={0.12} />
+                    <stop offset="100%" stopColor="#a62b1f" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid stroke="#1d1d20" strokeDasharray="2 4" vertical={false} />
+                <CartesianGrid stroke="#e9e2d2" strokeDasharray="2 4" vertical={false} />
                 <XAxis
                   dataKey="date"
-                  stroke="#56565d"
+                  stroke="#a59676"
                   fontSize={10}
                   tickLine={false}
                   axisLine={false}
                   style={{ fontFamily: "JetBrains Mono" }}
                 />
                 <YAxis
-                  stroke="#56565d"
+                  stroke="#a59676"
                   fontSize={10}
                   tickLine={false}
                   axisLine={false}
@@ -187,27 +182,28 @@ export function Overview() {
                 />
                 <Tooltip
                   contentStyle={{
-                    background: "#0a0a0a",
-                    border: "1px solid #26262a",
-                    borderRadius: "2px",
+                    background: "#ffffff",
+                    border: "1px solid #e9e2d2",
+                    borderRadius: "6px",
                     fontSize: "11px",
-                    fontFamily: "JetBrains Mono",
+                    fontFamily: "Inter Tight",
+                    boxShadow: "0 4px 12px -4px rgba(20, 18, 13, 0.08)",
                   }}
-                  labelStyle={{ color: "#cfcfd4" }}
+                  labelStyle={{ color: "#2e2820", fontWeight: 600 }}
                 />
                 <Area
                   type="monotone"
                   dataKey="visite"
-                  stroke="#d4ff4f"
-                  strokeWidth={1.5}
-                  fill="url(#acid)"
+                  stroke="#1a2548"
+                  strokeWidth={1.75}
+                  fill="url(#acc)"
                 />
                 <Area
                   type="monotone"
                   dataKey="lead"
-                  stroke="#4fd4ff"
-                  strokeWidth={1}
-                  fill="url(#cool)"
+                  stroke="#a62b1f"
+                  strokeWidth={1.25}
+                  fill="url(#lac)"
                 />
               </AreaChart>
             </ResponsiveContainer>
@@ -215,10 +211,10 @@ export function Overview() {
         </Card>
 
         <Card className="p-6">
-          <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-300 mb-4">
-            ◇ Live activity feed
+          <div className="text-[10px] uppercase tracking-[0.16em] text-ink-100 mb-4 font-semibold">
+            Attività in tempo reale
           </div>
-          <div className="space-y-3 max-h-[320px] overflow-y-auto pr-2">
+          <div className="space-y-3 max-h-[320px] overflow-y-auto pr-2 -mr-2">
             {activity.slice(0, 8).map((evt, i) => (
               <motion.div
                 key={evt.id}
@@ -229,23 +225,23 @@ export function Overview() {
               >
                 <span
                   className={cn(
-                    "w-1 self-stretch shrink-0 mt-1",
-                    evt.type === "deploy" && "bg-acid",
-                    evt.type === "invite" && "bg-good",
-                    evt.type === "domain" && "bg-acid",
-                    evt.type === "billing" && "bg-warn",
-                    evt.type === "alert" && "bg-bad",
-                    evt.type === "create" && "bg-ink-300"
+                    "w-0.5 self-stretch shrink-0 mt-1.5 rounded-full",
+                    evt.type === "deploy" && "bg-accent",
+                    evt.type === "invite" && "bg-sage",
+                    evt.type === "domain" && "bg-accent",
+                    evt.type === "billing" && "bg-saffron",
+                    evt.type === "alert" && "bg-lacquer",
+                    evt.type === "create" && "bg-ink-100"
                   )}
                 />
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs text-ink-100 leading-snug">
+                  <div className="text-[12.5px] text-ink-400 leading-snug">
                     {evt.message}
                   </div>
-                  <div className="flex items-center gap-2 mt-1 font-mono text-[9px] uppercase tracking-[0.14em] text-ink-400">
-                    <span>{evt.actor}</span>
+                  <div className="flex items-center gap-2 mt-1 text-[10px] uppercase tracking-[0.1em] text-ink-100">
+                    <span className="font-medium">{evt.actor}</span>
                     <span>·</span>
-                    <span>{relativeTime(evt.timestamp)}</span>
+                    <span className="font-mono normal-case tracking-normal">{relativeTime(evt.timestamp)}</span>
                   </div>
                 </div>
               </motion.div>
@@ -257,11 +253,11 @@ export function Overview() {
       {/* Workspaces grid */}
       <SectionLabel
         index="02"
-        title="Tutti i workspace"
-        subtitle={`${workspaces.length} workspace · click per ispezionare · click View As per impersonare`}
+        title="I workspace"
+        subtitle={`${workspaces.length} totali · click sulla card per ispezionare · View As per impersonare`}
         action={
           <Button
-            variant="acid"
+            variant="primary"
             size="sm"
             onClick={() => navigate("/workspaces")}
           >
@@ -271,7 +267,7 @@ export function Overview() {
         className="mb-6"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {workspaces.map((ws, i) => {
           const owner = getUser(ws.ownerId);
           const wsProjects = projectsByWorkspace(ws.id);
@@ -286,41 +282,38 @@ export function Overview() {
               transition={{ delay: 0.08 + i * 0.04, duration: 0.4 }}
             >
               <Card interactive className="p-5">
-                <CardCorner />
-
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-10 h-10 rounded-sm flex items-center justify-center font-display font-medium text-sm"
+                      className="w-11 h-11 rounded-md flex items-center justify-center font-display font-medium text-base"
                       style={{
-                        backgroundColor: `${owner?.avatarColor}15`,
-                        color: owner?.avatarColor,
-                        boxShadow: `inset 0 0 0 1px ${owner?.avatarColor}30`,
+                        backgroundColor: `${owner?.avatarColor}1a`,
+                        color: shade(owner?.avatarColor || "#999999"),
+                        boxShadow: `inset 0 0 0 1px ${owner?.avatarColor}55`,
                       }}
                     >
                       {ws.name[0]}
                     </div>
                     <div>
-                      <div className="text-sm font-medium text-ink-50 tracking-tight">
+                      <div className="text-[14.5px] font-medium text-ink-900 tracking-tight">
                         {ws.name}
                       </div>
-                      <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-400 mt-0.5">
+                      <div className="text-[11px] text-ink-100 mt-0.5">
                         /{ws.slug}
                         {ws.badge && (
-                          <span className="ml-2 text-acid">· {ws.badge}</span>
+                          <span className="ml-2 text-accent font-semibold uppercase tracking-[0.1em]">
+                            · {ws.badge}
+                          </span>
                         )}
                       </div>
                     </div>
                   </div>
                   <Badge
                     variant={
-                      ws.status === "active"
-                        ? "live"
-                        : ws.status === "trial"
-                        ? "trial"
-                        : ws.status === "paused"
-                        ? "paused"
-                        : "suspended"
+                      ws.status === "active" ? "live"
+                      : ws.status === "trial" ? "trial"
+                      : ws.status === "paused" ? "paused"
+                      : "suspended"
                     }
                     dot
                   >
@@ -328,39 +321,39 @@ export function Overview() {
                   </Badge>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 mb-4 hairline rounded-sm bg-ink-950 p-3">
+                <div className="grid grid-cols-3 gap-2 mb-4 panel-soft p-3">
                   <div>
-                    <div className="font-display text-2xl text-ink-50 font-light tabular-nums leading-none">
+                    <div className="font-display text-[26px] text-ink-900 font-light tabular-nums leading-none" style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}>
                       {wsProjects.length}
                     </div>
-                    <div className="text-[9px] font-mono uppercase tracking-[0.14em] text-ink-400 mt-1">
+                    <div className="text-[10px] text-ink-100 mt-1.5 uppercase tracking-[0.1em] font-medium">
                       Progetti
                     </div>
                   </div>
-                  <div className="hairline-l pl-2">
-                    <div className="font-display text-2xl text-acid font-light tabular-nums leading-none">
+                  <div className="hairline-l pl-3">
+                    <div className="font-display text-[26px] text-accent font-light tabular-nums leading-none" style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}>
                       {liveCount}
                     </div>
-                    <div className="text-[9px] font-mono uppercase tracking-[0.14em] text-ink-400 mt-1">
+                    <div className="text-[10px] text-ink-100 mt-1.5 uppercase tracking-[0.1em] font-medium">
                       Live
                     </div>
                   </div>
-                  <div className="hairline-l pl-2">
-                    <div className="font-display text-2xl text-ink-50 font-light tabular-nums leading-none">
+                  <div className="hairline-l pl-3">
+                    <div className="font-display text-[26px] text-ink-900 font-light tabular-nums leading-none" style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}>
                       {ws.monthlyRevenue > 0
                         ? "€" + formatNumber(ws.monthlyRevenue)
                         : "—"}
                     </div>
-                    <div className="text-[9px] font-mono uppercase tracking-[0.14em] text-ink-400 mt-1">
+                    <div className="text-[10px] text-ink-100 mt-1.5 uppercase tracking-[0.1em] font-medium">
                       MRR
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between text-[10px] font-mono uppercase tracking-[0.14em] text-ink-400 mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="text-ink-300">Plan</span>
-                    <span className="text-ink-100">{ws.plan}</span>
+                <div className="flex items-center justify-between text-[11px] text-ink-200 mb-4">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-ink-100 uppercase tracking-[0.1em] font-medium">Plan</span>
+                    <span className="text-ink-400 font-medium uppercase tracking-[0.06em]">{ws.plan}</span>
                   </div>
                   <AvatarStack
                     members={members.map((m) => ({
@@ -372,22 +365,22 @@ export function Overview() {
 
                 {/* Storage bar */}
                 <div className="mb-4">
-                  <div className="flex justify-between text-[9px] font-mono uppercase tracking-[0.14em] text-ink-400 mb-1.5">
+                  <div className="flex justify-between text-[10px] text-ink-100 mb-1.5 uppercase tracking-[0.1em] font-medium">
                     <span>Storage</span>
-                    <span className="text-ink-200 tabular-nums">
+                    <span className="text-ink-200 tabular-nums normal-case font-mono">
                       {(ws.storageMb / 1024).toFixed(1)}/{ws.storageLimitMb / 1024}GB
                     </span>
                   </div>
-                  <div className="h-px bg-ink-700 relative overflow-hidden">
+                  <div className="h-1 bg-paper-200 relative overflow-hidden rounded-full">
                     <div
-                      className="absolute inset-y-0 left-0 bg-acid"
+                      className="absolute inset-y-0 left-0 bg-accent rounded-full"
                       style={{
                         width: `${Math.min(
                           100,
                           (ws.storageMb / ws.storageLimitMb) * 100
                         )}%`,
                       }}
-                    ></div>
+                    />
                   </div>
                 </div>
 
@@ -401,7 +394,7 @@ export function Overview() {
                     Apri <ArrowUpRight size={11} />
                   </Button>
                   <Button
-                    variant="acid"
+                    variant="primary"
                     size="sm"
                     onClick={() => {
                       if (owner) {
@@ -420,7 +413,7 @@ export function Overview() {
       </div>
 
       {/* Footer block */}
-      <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5">
         <FooterTile
           icon={<Sparkles size={14} />}
           label="Top progetto del mese"
@@ -446,7 +439,7 @@ export function Overview() {
           icon={<AlertCircle size={14} />}
           label="Attenzione richiesta"
           value="2 alert attivi"
-          sub="Pagamento Romano fallito · Trial PlantBased"
+          sub="Pagamento Romano fallito · Trial PlantBased in scadenza"
           warn
         />
       </div>
@@ -471,22 +464,30 @@ function FooterTile({
     <Card className="p-5">
       <div
         className={cn(
-          "flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] mb-3",
-          warn ? "text-warn" : "text-acid"
+          "flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] mb-3 font-semibold",
+          warn ? "text-lacquer" : "text-accent"
         )}
       >
         {icon}
         <span>{label}</span>
       </div>
       <div
-        className="font-display text-xl text-ink-50 font-light tracking-ultra-tight leading-tight mb-1"
+        className="font-display text-xl text-ink-900 font-normal tracking-ultra-tight leading-tight mb-1"
         style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
       >
         {value}
       </div>
-      <div className="text-[10px] font-mono uppercase tracking-[0.14em] text-ink-400">
+      <div className="text-[12px] text-ink-200">
         {sub}
       </div>
     </Card>
   );
+}
+
+function shade(hex: string) {
+  if (!hex.startsWith("#") || hex.length !== 7) return hex;
+  const r = Math.max(0, parseInt(hex.slice(1, 3), 16) - 70);
+  const g = Math.max(0, parseInt(hex.slice(3, 5), 16) - 70);
+  const b = Math.max(0, parseInt(hex.slice(5, 7), 16) - 70);
+  return `rgb(${r}, ${g}, ${b})`;
 }

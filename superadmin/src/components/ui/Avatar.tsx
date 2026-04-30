@@ -21,20 +21,30 @@ export function Avatar({
   return (
     <div
       className={cn(
-        "rounded-sm flex items-center justify-center font-mono font-semibold tracking-tight shrink-0",
+        "rounded-md flex items-center justify-center font-display font-medium tracking-tight shrink-0",
         sizes[size],
         className
       )}
       style={{
-        backgroundColor: `${color}20`,
-        color: color,
-        boxShadow: `inset 0 0 0 1px ${color}40`,
+        backgroundColor: `${color}1f`,
+        color: shade(color),
+        boxShadow: `inset 0 0 0 1px ${color}55`,
+        fontVariationSettings: "'opsz' 144, 'SOFT' 30",
       }}
       title={name}
     >
       {initials(name)}
     </div>
   );
+}
+
+// Darken a hex color a touch so it reads on light bg
+function shade(hex: string) {
+  if (!hex.startsWith("#") || hex.length !== 7) return hex;
+  const r = Math.max(0, parseInt(hex.slice(1, 3), 16) - 60);
+  const g = Math.max(0, parseInt(hex.slice(3, 5), 16) - 60);
+  const b = Math.max(0, parseInt(hex.slice(5, 7), 16) - 60);
+  return `rgb(${r}, ${g}, ${b})`;
 }
 
 export function AvatarStack({
@@ -54,11 +64,11 @@ export function AvatarStack({
           name={m.name}
           color={m.color}
           size="sm"
-          className="ring-2 ring-ink-900"
+          className="ring-2 ring-white"
         />
       ))}
       {rest > 0 && (
-        <span className="w-7 h-7 rounded-sm bg-ink-700 hairline text-ink-200 text-[10px] font-mono flex items-center justify-center ring-2 ring-ink-900">
+        <span className="w-7 h-7 rounded-md bg-paper-100 hairline text-ink-200 text-[10px] font-mono flex items-center justify-center ring-2 ring-white">
           +{rest}
         </span>
       )}

@@ -17,29 +17,29 @@ export function Stat({
 }) {
   return (
     <div className={cn("flex flex-col gap-2", className)}>
-      <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.18em] text-ink-300">
-        <span className="w-1 h-1 bg-acid"></span>
+      <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.14em] text-ink-100 font-semibold">
+        <span className="w-1 h-1 bg-accent rounded-full" />
         {label}
       </div>
       <div className="flex items-baseline gap-2">
         <span
           className={cn(
-            "font-display font-light tabular-nums tracking-monster",
-            emphasis ? "text-5xl text-ink-50" : "text-3xl text-ink-100"
+            "font-display font-light tabular-nums tracking-monster text-ink-900",
+            emphasis ? "text-[44px]" : "text-3xl"
           )}
-          style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 0" }}
+          style={{ fontVariationSettings: "'opsz' 144, 'SOFT' 30" }}
         >
           {value}
         </span>
         {unit && (
-          <span className="text-xs font-mono text-ink-300 uppercase">{unit}</span>
+          <span className="text-[11px] text-ink-100">{unit}</span>
         )}
       </div>
       {delta && (
         <div
           className={cn(
-            "text-[10px] font-mono uppercase tracking-[0.12em] flex items-center gap-1",
-            delta.positive ? "text-good" : "text-bad"
+            "text-[10px] uppercase tracking-[0.1em] font-medium flex items-center gap-1",
+            delta.positive ? "text-sage" : "text-lacquer"
           )}
         >
           <span>{delta.positive ? "↗" : "↘"}</span>
