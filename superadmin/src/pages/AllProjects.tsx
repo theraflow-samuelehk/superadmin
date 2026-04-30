@@ -35,10 +35,10 @@ export function AllProjects() {
           </span>
         </div>
         <h1
-          className="font-display font-bold text-slate-900 tracking-monster leading-[1]"
-          style={{ fontSize: "clamp(36px, 5vw, 56px)" }}
+          className="display-tight font-bold text-slate-900"
+          style={{ fontSize: "clamp(40px, 5.5vw, 64px)" }}
         >
-          <span className="gradient-text">{projects.length}</span> progetti, ovunque.
+          <span className="gradient-text-rich">{projects.length}</span> progetti, ovunque.
         </h1>
         <p className="mt-3 text-[15px] text-slate-600 max-w-xl">
           Visione trasversale su tutti i workspace. Le categorie sono libere — ognuna nasce dall'admin che la crea.

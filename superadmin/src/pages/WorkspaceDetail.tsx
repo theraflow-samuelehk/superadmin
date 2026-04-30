@@ -106,8 +106,8 @@ export function WorkspaceDetail() {
             </div>
 
             <h1
-              className="font-display font-bold text-slate-900 tracking-monster leading-[1]"
-              style={{ fontSize: "clamp(36px, 4.5vw, 56px)" }}
+              className="display-tight font-bold text-slate-900"
+              style={{ fontSize: "clamp(38px, 5vw, 64px)" }}
             >
               {ws.name}
             </h1>

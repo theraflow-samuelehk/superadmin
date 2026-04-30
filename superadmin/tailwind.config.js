@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Plus Jakarta Sans"', "sans-serif"],
-        sans: ['"Geist"', "sans-serif"],
-        mono: ['"Geist Mono"', "monospace"],
+        display: ['"Bricolage Grotesque"', "sans-serif"],
+        sans: ['"Onest"', "sans-serif"],
+        mono: ['"JetBrains Mono"', "monospace"],
       },
       colors: {
         // Slate scale — main neutral

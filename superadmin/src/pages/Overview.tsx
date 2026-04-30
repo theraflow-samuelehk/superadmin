@@ -32,11 +32,12 @@ import {
   projectsByWorkspace,
 } from "../lib/mock";
 import { Card } from "../components/ui/Card";
-import { Stat } from "../components/ui/Stat";
+import { SpotlightCard } from "../components/ui/SpotlightCard";
 import { Badge } from "../components/ui/Badge";
-import { Avatar, AvatarStack, gradientFor } from "../components/ui/Avatar";
+import { AvatarStack, gradientFor } from "../components/ui/Avatar";
 import { SectionLabel } from "../components/ui/SectionLabel";
 import { Button } from "../components/ui/Button";
+import { CountUp } from "../components/ui/CountUp";
 import { useImpersonation } from "../components/shell/Layout";
 import { formatCurrency, formatNumber, relativeTime, cn } from "../lib/utils";
 import { membersByWorkspace } from "../lib/mock";
@@ -49,110 +50,163 @@ export function Overview() {
     {
       label: "Workspace attivi",
       value: platformKPIs.activeWorkspaces,
-      unit: `/ ${platformKPIs.totalWorkspaces}`,
-      delta: { value: "+2 questa settimana", positive: true },
-      icon: <Building2 size={13} />,
+      total: platformKPIs.totalWorkspaces,
+      delta: "+2 settimana",
+      icon: <Building2 size={14} />,
+      color: "violet",
     },
     {
       label: "Progetti live",
       value: platformKPIs.liveProjects,
-      unit: `/ ${platformKPIs.totalProjects}`,
-      delta: { value: "+5 ultimi 7gg", positive: true },
-      icon: <Rocket size={13} />,
+      total: platformKPIs.totalProjects,
+      delta: "+5 ultimi 7gg",
+      icon: <Rocket size={14} />,
+      color: "fuchsia",
     },
     {
       label: "MRR totale",
-      value: formatCurrency(platformKPIs.mrr),
-      delta: { value: "+12.4% MoM", positive: true },
+      value: platformKPIs.mrr,
+      currency: true,
+      delta: "+12.4% MoM",
+      icon: <Wallet size={14} />,
+      color: "pink",
       emphasis: true,
-      icon: <Wallet size={13} />,
     },
     {
       label: "Visite (30gg)",
-      value: formatNumber(platformKPIs.totalVisits30d),
-      delta: { value: "+18% vs prec.", positive: true },
-      icon: <MousePointerClick size={13} />,
+      value: platformKPIs.totalVisits30d,
+      compact: true,
+      delta: "+18% vs prec.",
+      icon: <MousePointerClick size={14} />,
+      color: "sky",
     },
     {
       label: "Lead (30gg)",
-      value: formatNumber(platformKPIs.totalLeads30d),
-      delta: { value: "+22% vs prec.", positive: true },
-      icon: <UserPlus size={13} />,
+      value: platformKPIs.totalLeads30d,
+      compact: true,
+      delta: "+22% vs prec.",
+      icon: <UserPlus size={14} />,
+      color: "emerald",
     },
   ];
 
+  const colorMap: Record<string, string> = {
+    violet: "from-violet-100 to-violet-50 text-violet-700 ring-violet-200/50",
+    fuchsia: "from-fuchsia-100 to-fuchsia-50 text-fuchsia-700 ring-fuchsia-200/50",
+    pink: "from-pink-100 to-pink-50 text-pink-700 ring-pink-200/50",
+    sky: "from-sky-100 to-sky-50 text-sky-700 ring-sky-200/50",
+    emerald: "from-emerald-100 to-emerald-50 text-emerald-700 ring-emerald-200/50",
+  };
+
   return (
-    <div className="px-6 lg:px-10 py-8 max-w-[1600px] mx-auto">
-      {/* Hero header */}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="mb-12 pt-2"
-      >
-        <div className="flex items-center gap-3 mb-6">
-          <span
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white"
-            style={{ background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)" }}
-          >
-            <Sparkles size={12} /> Super Admin
-          </span>
-          <span className="text-[12px] text-slate-500">
-            {new Date().toLocaleDateString("it-IT", {
-              weekday: "long",
-              day: "2-digit",
-              month: "long",
-            })}
-          </span>
-          <div className="flex-1" />
-          <Button variant="primary" size="md">
-            <Plus size={14} /> Nuovo workspace
-          </Button>
+    <div className="px-6 lg:px-12 py-10 max-w-[1600px] mx-auto">
+      {/* Hero with blobs */}
+      <div className="relative mb-16 pt-2">
+        {/* Decorative blobs */}
+        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
+          <div className="blob blob-violet w-[420px] h-[420px] -top-32 -left-20" />
+          <div className="blob blob-pink w-[360px] h-[360px] top-12 right-0" style={{ animationDelay: "-4s" }} />
+          <div className="blob blob-sky w-[300px] h-[300px] top-40 left-1/3 opacity-30" style={{ animationDelay: "-7s" }} />
         </div>
 
-        <h1
-          className="font-display font-bold text-slate-900 tracking-monster leading-[1] text-balance"
-          style={{ fontSize: "clamp(40px, 6.5vw, 80px)" }}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
-          Il palazzo che hai costruito,
-          <br />
-          <span className="gradient-text">in un colpo d'occhio.</span>
-        </h1>
-        <p className="mt-5 max-w-2xl text-[16px] text-slate-600 leading-relaxed">
-          Sei super admin di <strong className="text-slate-900">{platformKPIs.totalWorkspaces} workspace</strong>,{" "}
-          <strong className="text-slate-900">{platformKPIs.totalProjects} progetti</strong>, <strong className="text-slate-900">{platformKPIs.totalUsers} utenti</strong>.
-          Per intervenire dentro un workspace, attiva la modalità <span className="font-semibold text-violet-600">View As</span>.
-        </p>
-      </motion.div>
+          <div className="flex items-center gap-3 mb-7 flex-wrap">
+            <span
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.12em] text-white shadow-glow"
+              style={{ background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)" }}
+            >
+              <Sparkles size={12} /> Super Admin
+            </span>
+            <span className="text-[12.5px] text-slate-500 font-medium">
+              {new Date().toLocaleDateString("it-IT", {
+                weekday: "long",
+                day: "2-digit",
+                month: "long",
+              })}
+            </span>
+            <div className="flex-1" />
+            <Button variant="primary" size="md">
+              <Plus size={14} strokeWidth={2.5} /> Nuovo workspace
+            </Button>
+          </div>
+
+          <h1
+            className="display-tight font-bold text-slate-900 text-balance"
+            style={{ fontSize: "clamp(48px, 8vw, 116px)" }}
+          >
+            Il palazzo che hai
+            <br />
+            costruito,{" "}
+            <span className="gradient-text-rich">in un colpo d'occhio.</span>
+          </h1>
+          <p className="mt-7 max-w-2xl text-[16.5px] text-slate-600 leading-relaxed">
+            Sei super admin di <strong className="text-slate-900 font-semibold">{platformKPIs.totalWorkspaces} workspace</strong>,{" "}
+            <strong className="text-slate-900 font-semibold">{platformKPIs.totalProjects} progetti</strong>, <strong className="text-slate-900 font-semibold">{platformKPIs.totalUsers} utenti</strong>.
+            Per intervenire dentro un workspace, attiva la modalità <span className="font-bold gradient-text">View As</span>.
+          </p>
+        </motion.div>
+      </div>
 
       {/* KPI strip */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-3 mb-12">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-14">
         {kpis.map((kpi, i) => (
           <motion.div
             key={kpi.label}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.05 + i * 0.04, duration: 0.4 }}
+            transition={{ delay: 0.05 + i * 0.05, duration: 0.4 }}
           >
-            <Card className="p-5 h-full">
-              <Stat {...kpi} />
-            </Card>
+            <SpotlightCard className="p-5 h-full">
+              <div className="flex items-start justify-between mb-4">
+                <div className={cn("inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br ring-1", colorMap[kpi.color])}>
+                  {kpi.icon}
+                </div>
+                <span className="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
+                  <TrendingUp size={11} /> {kpi.delta}
+                </span>
+              </div>
+              <div className="text-[12px] text-slate-500 font-semibold mb-1.5">{kpi.label}</div>
+              <div className="flex items-baseline gap-2">
+                <span
+                  className={cn(
+                    "display-md font-bold text-slate-900 tabular-nums",
+                    kpi.emphasis && "gradient-text-rich"
+                  )}
+                  style={{ fontSize: kpi.emphasis ? "44px" : "34px" }}
+                >
+                  {kpi.currency ? (
+                    <CountUp to={kpi.value} format="currency" duration={1.6} />
+                  ) : kpi.compact ? (
+                    <CountUp to={kpi.value} format="compact" duration={1.4} />
+                  ) : (
+                    <CountUp to={kpi.value} duration={1.2} />
+                  )}
+                </span>
+                {kpi.total !== undefined && (
+                  <span className="text-[14px] text-slate-400 font-semibold">/ {kpi.total}</span>
+                )}
+              </div>
+            </SpotlightCard>
           </motion.div>
         ))}
       </div>
 
       {/* Chart + Activity */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-14">
         <Card className="lg:col-span-2 p-6">
           <div className="flex items-start justify-between mb-6 flex-wrap gap-3">
             <div>
               <div className="flex items-center gap-2 mb-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
-                <span className="text-[12px] text-slate-500 font-semibold uppercase tracking-wider">
+                <span className="text-[12px] text-slate-500 font-bold uppercase tracking-[0.1em]">
                   Andamento · 14 giorni
                 </span>
               </div>
-              <h3 className="font-display text-[24px] text-slate-900 font-bold tracking-ultra-tight">
+              <h3 className="display-sm font-bold text-slate-900" style={{ fontSize: "26px" }}>
                 Visite, lead e fatturato
               </h3>
             </div>
@@ -183,14 +237,14 @@ export function Overview() {
                   fontSize={11}
                   tickLine={false}
                   axisLine={false}
-                  style={{ fontFamily: "Geist Mono" }}
+                  style={{ fontFamily: "JetBrains Mono" }}
                 />
                 <YAxis
                   stroke="#94a3b8"
                   fontSize={11}
                   tickLine={false}
                   axisLine={false}
-                  style={{ fontFamily: "Geist Mono" }}
+                  style={{ fontFamily: "JetBrains Mono" }}
                 />
                 <Tooltip
                   contentStyle={{
@@ -198,7 +252,7 @@ export function Overview() {
                     border: "1px solid #e2e8f0",
                     borderRadius: "12px",
                     fontSize: "12px",
-                    fontFamily: "Geist",
+                    fontFamily: "Onest",
                     boxShadow: "0 4px 16px -4px rgba(15, 23, 42, 0.1)",
                   }}
                   labelStyle={{ color: "#0f172a", fontWeight: 600 }}
@@ -225,7 +279,7 @@ export function Overview() {
         <Card className="p-6">
           <div className="flex items-center gap-2 mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-[12px] text-slate-500 font-semibold uppercase tracking-wider">
+            <span className="text-[12px] text-slate-500 font-bold uppercase tracking-[0.1em]">
               Attività live
             </span>
           </div>
@@ -298,23 +352,23 @@ export function Overview() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05 + i * 0.03, duration: 0.4 }}
             >
-              <Card interactive className="p-5">
+              <SpotlightCard className="p-5">
                 <div className="flex items-start justify-between mb-5">
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-12 h-12 rounded-xl flex items-center justify-center font-display font-bold text-white text-lg shrink-0"
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center display-sm font-bold text-white text-[18px] shrink-0"
                       style={{ backgroundImage: gradientFor(owner?.avatarColor || ws.id) }}
                     >
                       {ws.name[0]}
                     </div>
                     <div>
-                      <div className="text-[15px] font-semibold text-slate-900 tracking-tight">
+                      <div className="display-sm text-[16px] font-bold text-slate-900">
                         {ws.name}
                       </div>
                       <div className="text-[12px] text-slate-500 mt-0.5 flex items-center gap-1.5">
                         <span className="font-mono">/{ws.slug}</span>
                         {ws.badge && (
-                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-violet-100 text-violet-700 rounded-md text-[9px] font-bold uppercase tracking-wider">
+                          <span className="inline-flex items-center gap-1 px-1.5 py-0.5 bg-violet-100 text-violet-700 rounded-md text-[9.5px] font-bold uppercase tracking-wider">
                             {ws.badge}
                           </span>
                         )}
@@ -334,33 +388,33 @@ export function Overview() {
                   </Badge>
                 </div>
 
-                <div className="grid grid-cols-3 gap-3 mb-5 p-4 bg-slate-50 rounded-xl border border-slate-100">
+                <div className="grid grid-cols-3 gap-3 mb-5 p-4 bg-slate-50/70 rounded-2xl border border-slate-100">
                   <div>
-                    <div className="font-display text-[24px] text-slate-900 font-bold tabular-nums leading-none">
+                    <div className="display-md font-bold text-slate-900 tabular-nums" style={{ fontSize: "28px" }}>
                       {wsProjects.length}
                     </div>
-                    <div className="text-[10.5px] text-slate-500 mt-1.5 font-medium">Progetti</div>
+                    <div className="text-[10.5px] text-slate-500 mt-1.5 font-bold uppercase tracking-wider">Progetti</div>
                   </div>
                   <div className="border-l border-slate-200 pl-3">
-                    <div className="font-display text-[24px] gradient-text font-bold tabular-nums leading-none">
+                    <div className="display-md font-bold gradient-text-rich tabular-nums" style={{ fontSize: "28px" }}>
                       {liveCount}
                     </div>
-                    <div className="text-[10.5px] text-slate-500 mt-1.5 font-medium">Live</div>
+                    <div className="text-[10.5px] text-slate-500 mt-1.5 font-bold uppercase tracking-wider">Live</div>
                   </div>
                   <div className="border-l border-slate-200 pl-3">
-                    <div className="font-display text-[24px] text-slate-900 font-bold tabular-nums leading-none">
+                    <div className="display-md font-bold text-slate-900 tabular-nums" style={{ fontSize: "28px" }}>
                       {ws.monthlyRevenue > 0
                         ? "€" + formatNumber(ws.monthlyRevenue)
                         : "—"}
                     </div>
-                    <div className="text-[10.5px] text-slate-500 mt-1.5 font-medium">MRR</div>
+                    <div className="text-[10.5px] text-slate-500 mt-1.5 font-bold uppercase tracking-wider">MRR</div>
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-[10.5px] text-slate-400 font-semibold uppercase tracking-wider">Plan</span>
-                    <span className="text-[12px] text-slate-700 font-semibold">{ws.plan}</span>
+                    <span className="text-[10.5px] text-slate-400 font-bold uppercase tracking-wider">Plan</span>
+                    <span className="text-[12px] text-slate-700 font-bold uppercase tracking-wide">{ws.plan}</span>
                   </div>
                   <AvatarStack
                     members={members.map((m) => ({
@@ -382,7 +436,7 @@ export function Overview() {
                     <div
                       className="absolute inset-y-0 left-0 rounded-full"
                       style={{
-                        background: "linear-gradient(90deg, #8b5cf6, #ec4899)",
+                        background: "linear-gradient(90deg, #8b5cf6, #ec4899, #fb923c)",
                         width: `${Math.min(100, (ws.storageMb / ws.storageLimitMb) * 100)}%`,
                       }}
                     />
@@ -411,16 +465,16 @@ export function Overview() {
                     <Eye size={12} /> View as
                   </Button>
                 </div>
-              </Card>
+              </SpotlightCard>
             </motion.div>
           );
         })}
       </div>
 
       {/* Footer block */}
-      <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-5">
         <FooterTile
-          icon={<Sparkles size={14} />}
+          icon={<Sparkles size={16} />}
           color="violet"
           label="Top progetto del mese"
           value={
@@ -436,14 +490,14 @@ export function Overview() {
           )} negli ultimi 30 giorni`}
         />
         <FooterTile
-          icon={<TrendingUp size={14} />}
+          icon={<TrendingUp size={16} />}
           color="emerald"
           label="Workspace in crescita"
           value="Studio Marchetti"
           sub="+38% lead rispetto al mese scorso"
         />
         <FooterTile
-          icon={<AlertCircle size={14} />}
+          icon={<AlertCircle size={16} />}
           color="rose"
           label="Attenzione richiesta"
           value="2 alert attivi"
@@ -468,24 +522,24 @@ function FooterTile({
   sub: string;
 }) {
   const bg = {
-    violet: "from-violet-50 to-fuchsia-50 border-violet-100",
-    emerald: "from-emerald-50 to-sky-50 border-emerald-100",
-    rose: "from-rose-50 to-amber-50 border-rose-100",
+    violet: "from-violet-50 via-fuchsia-50 to-pink-50 border-violet-100",
+    emerald: "from-emerald-50 via-teal-50 to-sky-50 border-emerald-100",
+    rose: "from-rose-50 via-orange-50 to-amber-50 border-rose-100",
   };
-  const iconColor = {
-    violet: "bg-violet-100 text-violet-600",
-    emerald: "bg-emerald-100 text-emerald-600",
-    rose: "bg-rose-100 text-rose-600",
+  const iconBg = {
+    violet: "bg-gradient-to-br from-violet-500 to-pink-500 text-white shadow-glow",
+    emerald: "bg-gradient-to-br from-emerald-500 to-teal-500 text-white",
+    rose: "bg-gradient-to-br from-rose-500 to-orange-500 text-white",
   };
   return (
-    <Card className={`p-5 bg-gradient-to-br ${bg[color]} shadow-soft`}>
-      <div className={cn("inline-flex items-center justify-center w-9 h-9 rounded-xl mb-3", iconColor[color])}>
+    <Card className={`p-6 bg-gradient-to-br ${bg[color]} border`}>
+      <div className={cn("inline-flex items-center justify-center w-11 h-11 rounded-2xl mb-4", iconBg[color])}>
         {icon}
       </div>
-      <div className="text-[11px] text-slate-500 font-semibold uppercase tracking-wider mb-1">
+      <div className="text-[11px] text-slate-500 font-bold uppercase tracking-wider mb-1.5">
         {label}
       </div>
-      <div className="font-display text-[22px] text-slate-900 font-bold tracking-ultra-tight leading-tight mb-1.5">
+      <div className="display-sm font-bold text-slate-900 leading-tight mb-1.5" style={{ fontSize: "22px" }}>
         {value}
       </div>
       <div className="text-[12.5px] text-slate-600">{sub}</div>

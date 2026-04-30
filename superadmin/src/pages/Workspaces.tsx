@@ -50,10 +50,10 @@ export function Workspaces() {
         <div className="flex items-end justify-between gap-4 flex-wrap">
           <div>
             <h1
-              className="font-display font-bold text-slate-900 tracking-monster leading-[1]"
-              style={{ fontSize: "clamp(36px, 5vw, 56px)" }}
+              className="display-tight font-bold text-slate-900"
+              style={{ fontSize: "clamp(40px, 5.5vw, 64px)" }}
             >
-              Tutti i <span className="gradient-text">workspace</span>.
+              Tutti i <span className="gradient-text-rich">workspace</span>.
             </h1>
             <p className="mt-3 text-[15px] text-slate-600 max-w-xl">
               Ogni riga è un mondo a sé. Filtra, ispeziona, oppure entra in modalità{" "}

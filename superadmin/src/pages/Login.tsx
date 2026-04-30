@@ -46,14 +46,14 @@ export function Login() {
             Restricted Access · Super Admin
           </div>
           <h1
-            className="font-display font-bold tracking-monster leading-[0.95]"
-            style={{ fontSize: "clamp(50px, 8vw, 100px)" }}
+            className="display-tight font-bold"
+            style={{ fontSize: "clamp(56px, 8.5vw, 116px)" }}
           >
             Tutta la
             <br />
             tua piattaforma.
             <br />
-            <span className="text-white/70 font-normal">In un solo posto.</span>
+            <span className="text-white/70 font-light">In un solo posto.</span>
           </h1>
           <p className="mt-7 max-w-md text-[15px] text-white/80 leading-relaxed">
             Una console privata per chi gestisce un palazzo di workspace. Niente è pubblico, niente è demo.
@@ -115,9 +115,7 @@ export function Login() {
           <div className="text-[11px] uppercase tracking-wider text-violet-600 mb-3 font-bold">
             Authentication
           </div>
-          <h2
-            className="font-display text-[42px] text-slate-900 font-bold tracking-monster leading-[1] mb-4"
-          >
+          <h2 className="display-md text-[44px] text-slate-900 font-bold mb-4">
             Accedi alla console.
           </h2>
           <p className="text-[14.5px] text-slate-600 mb-10 leading-relaxed">

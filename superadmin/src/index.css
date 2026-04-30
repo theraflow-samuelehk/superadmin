@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@300..600&family=Plus+Jakarta+Sans:wght@400..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Onest:wght@300..800&family=JetBrains+Mono:wght@300..600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -13,8 +13,8 @@
     height: 100%;
     background: #ffffff;
     color: #0f172a;
-    font-family: "Geist", sans-serif;
-    font-feature-settings: "ss01", "cv11";
+    font-family: "Onest", sans-serif;
+    font-feature-settings: "ss01", "cv11", "tnum";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -37,8 +37,40 @@
 }
 
 @layer components {
+  .display {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-variation-settings: "opsz" 96, "wdth" 100;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+  }
+  .display-md {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-variation-settings: "opsz" 48, "wdth" 100;
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .display-sm {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-variation-settings: "opsz" 24, "wdth" 100;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  .display-tight {
+    font-family: "Bricolage Grotesque", sans-serif;
+    font-variation-settings: "opsz" 96, "wdth" 88;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+  }
+
   .gradient-text {
     background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .gradient-text-rich {
+    background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 50%, #ec4899 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -96,6 +128,71 @@
   .scrollbar-thin::-webkit-scrollbar { width: 6px; height: 6px; }
   .scrollbar-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
   .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+  /* Spotlight effect on hover — set --x and --y via JS */
+  .spotlight {
+    position: relative;
+    overflow: hidden;
+  }
+  .spotlight::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      400px circle at var(--x, 50%) var(--y, 0%),
+      rgba(139, 92, 246, 0.12),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+  .spotlight:hover::before {
+    opacity: 1;
+  }
+
+  /* Blob decorations */
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(48px);
+    opacity: 0.55;
+    pointer-events: none;
+    animation: float 14s ease-in-out infinite;
+  }
+  .blob-violet { background: radial-gradient(circle, #c4b5fd, transparent 70%); }
+  .blob-pink { background: radial-gradient(circle, #f9a8d4, transparent 70%); }
+  .blob-sky { background: radial-gradient(circle, #7dd3fc, transparent 70%); }
+  .blob-amber { background: radial-gradient(circle, #fcd34d, transparent 70%); }
+
+  /* Sheen for headlines */
+  .sheen {
+    background: linear-gradient(
+      105deg,
+      #0f172a 0%,
+      #0f172a 40%,
+      #6d28d9 50%,
+      #0f172a 60%,
+      #0f172a 100%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: sheen 6s ease-in-out infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(20px, -30px) scale(1.08); }
+}
+
+@keyframes sheen {
+  0% { background-position: 200% 0; }
+  100% { background-position: -100% 0; }
 }
 
 ::-webkit-scrollbar { width: 12px; height: 12px; }

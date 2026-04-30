@@ -45,10 +45,10 @@ export function Users() {
         <div className="flex items-end justify-between gap-4 flex-wrap">
           <div>
             <h1
-              className="font-display font-bold text-slate-900 tracking-monster leading-[1]"
-              style={{ fontSize: "clamp(36px, 5vw, 56px)" }}
+              className="display-tight font-bold text-slate-900"
+              style={{ fontSize: "clamp(40px, 5.5vw, 64px)" }}
             >
-              Chi vede <span className="gradient-text">cosa</span>.
+              Chi vede <span className="gradient-text-rich">cosa</span>.
             </h1>
             <p className="mt-3 text-[15px] text-slate-600 max-w-xl">
               Tre livelli di accesso: <span className="text-violet-600 font-semibold">Super Admin</span> assoluti,
