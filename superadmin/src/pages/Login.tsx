@@ -50,22 +50,22 @@ export function Login() {
             className="display-tight font-bold"
             style={{ fontSize: "clamp(56px, 8.5vw, 116px)" }}
           >
-            Il tuo studio,
+            Tutti i clienti.
             <br />
-            in <em className="not-italic">flusso</em>.
+            Ogni progetto.
             <br />
             <span className="text-white/70 font-light">Da un solo posto.</span>
           </h1>
           <p className="mt-7 max-w-md text-[15px] text-white/80 leading-relaxed">
-            TheraFlow è la console di chi gestisce un palazzo di studi: workspace, progetti, domini e clienti.
-            Niente è pubblico, niente è demo. Tutto è registrato, tutto è tracciabile.
+            TheraFlow Operations è la console riservata a Samuele e Thomas.
+            Da qui gestisci ogni workspace cliente, ogni dominio, ogni piano. Niente sfugge.
           </p>
 
           <ul className="mt-8 space-y-3 max-w-sm">
             {[
-              "Vedi tutti i workspace dei tuoi clienti",
-              "Impersona qualunque admin con un click",
-              "Audit log completo di ogni azione",
+              "Visione completa su tutti i workspace dei clienti",
+              "Entra come admin con View As in un click",
+              "Billing, domini, alert — tutto sotto controllo",
             ].map((item) => (
               <li key={item} className="flex items-start gap-2.5 text-[14px] text-white/90">
                 <span className="w-5 h-5 rounded-full bg-white/20 backdrop-blur flex items-center justify-center shrink-0 mt-0.5">

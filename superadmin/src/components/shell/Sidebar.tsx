@@ -141,7 +141,7 @@ export function Sidebar() {
               </span>
             </div>
             <p className="text-[12px] text-white/80 leading-relaxed mb-3">
-              Connetti il dominio madre Hostinger per attivare i sottodomini automatici.
+              Ogni cliente si registra su theraflow.io e ottiene il suo workspace. Tu lo vedi qui.
             </p>
             <button className="text-[11px] font-bold text-white/95 hover:text-white flex items-center gap-1 group">
               Configura

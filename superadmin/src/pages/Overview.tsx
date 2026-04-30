@@ -181,7 +181,7 @@ export function Overview() {
                   onClick={() => navigate("/users")}
                   className="text-[13px] px-5 h-12 rounded-xl border border-white/20 text-white/90 hover:bg-white/10 font-semibold flex items-center gap-2 transition-colors"
                 >
-                  Inviti utenti <ArrowUpRight size={14} />
+                  Utenti & Ruoli <ArrowUpRight size={14} />
                 </button>
               </div>
             </div>
@@ -215,12 +215,12 @@ export function Overview() {
               [
                 "✦ Studio Marchetti · deploy live · 12m fa",
                 "✦ Glow-Up · +38 lead questa settimana",
-                "✦ Aromafit · €6.210 ultimi 30gg",
-                "✦ Nordico Shop · €18.420 ecommerce",
-                "✦ ReviewBooster · 89 nuovi clienti",
-                "✦ De Santis · booking online deploying",
-                "✦ Funnel Lash · 18.4K visite",
-                "✦ Trial PlantBased · 3 giorni alla scadenza",
+                "✦ Aromafit · €6.210 entrate · ultimi 30gg",
+                "✦ Nordico Studio · €18.420 ecommerce attivo",
+                "✦ PlantBased Life · trial in scadenza · 3gg",
+                "✦ De Santis Agency · nuovo progetto deploying",
+                "✦ Funnel Lash · 18.4K visite · +22%",
+                "✦ Nuovo client registrato · workspace creato",
               ].map((t, i) => (
                 <span key={`${n}-${i}`} className="shrink-0">
                   {t}
@@ -387,10 +387,10 @@ export function Overview() {
           <span className="text-[11px] tracking-[0.18em] text-violet-600 uppercase font-bold pt-1">02</span>
           <div>
             <h2 className="heading-xl text-slate-900" style={{ fontSize: "30px" }}>
-              I tuoi <span className="editorial-italic font-light text-slate-700">workspace</span>.
+              Workspace dei <span className="editorial-italic font-light text-slate-700">clienti</span>.
             </h2>
             <p className="text-[13.5px] text-slate-500 mt-1.5">
-              {workspaces.length} totali · ognuno con i suoi progetti, membri, domini.
+              {workspaces.length} workspace attivi · ogni riga è un cliente con i suoi progetti e membri.
             </p>
           </div>
         </div>
@@ -580,7 +580,7 @@ export function Overview() {
           color="rose"
           label="Attenzione richiesta"
           value="2 alert attivi"
-          sub="Pagamento Romano fallito · Trial PlantBased in scadenza"
+          sub="Pagamento Romano non andato a buon fine · Trial PlantBased in scadenza"
         />
       </div>
     </div>

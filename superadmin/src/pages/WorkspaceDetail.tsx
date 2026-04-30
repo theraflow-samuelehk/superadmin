@@ -374,7 +374,7 @@ export function WorkspaceDetail() {
                 <span className="text-[13px] font-bold text-slate-900">Promuovi a dominio</span>
               </div>
               <p className="text-[12.5px] text-slate-600 leading-relaxed mb-3.5">
-                Hai un progetto pronto per pubblicità? Collega un dominio reale a un sottodominio.
+                Collega un dominio reale a qualsiasi sottodominio di questo workspace per portarlo live.
               </p>
               <Button variant="primary" size="sm" className="w-full justify-center">
                 Collega dominio <ChevronRight size={13} />
