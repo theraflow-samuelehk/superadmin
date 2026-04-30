@@ -5,6 +5,7 @@ import { users } from "../../lib/mock";
 import { useMobileNav } from "./MobileNav";
 import { useCommandPalette } from "./CommandPalette";
 import { useNotifications } from "../ui/NotificationsPanel";
+import { t } from "../../lib/i18n";
 
 export function Topbar() {
   const me = users[0];
@@ -38,7 +39,7 @@ export function Topbar() {
       >
         <Search size={14} className="text-slate-400" />
         <span className="flex-1 text-[13px] text-slate-400">
-          Cerca workspace, progetti, utenti…
+          {t("topbar.search_placeholder")}
         </span>
         <kbd className="text-[10px] font-mono text-slate-400 bg-white border border-slate-200 rounded px-1.5 py-0.5 flex items-center gap-1">
           <Command size={10} /> K
@@ -73,7 +74,7 @@ export function Topbar() {
         <div className="hidden sm:block text-right leading-tight">
           <div className="text-[13px] font-semibold text-slate-900">{me.name.split(" ")[0]}</div>
           <div className="text-[10px] uppercase tracking-wider gradient-text font-bold">
-            Super Admin
+            {t("topbar.role_superadmin")}
           </div>
         </div>
         <Avatar name={me.name} color={me.avatarColor} size="md" />

@@ -1,0 +1,70 @@
+{
+  "_note": "English translation — fill in when needed. Keys must match it.json exactly.",
+  "brand": {
+    "name": "TheraFlow",
+    "hub": "Studio Hub",
+    "operations": "Operations",
+    "tagline": "Everything flows. From one place."
+  },
+
+  "nav": {
+    "groups": {
+      "intelligence": "Intelligence",
+      "operations": "Operations",
+      "system": "System"
+    },
+    "overview": "Overview",
+    "workspaces": "Workspaces",
+    "projects": "All Projects",
+    "users": "Users & Invites",
+    "domains": "Domains & DNS",
+    "billing": "Billing",
+    "activity": "Activity",
+    "settings": "Settings",
+    "quick_find": "Quick find",
+    "all_systems": "All systems"
+  },
+
+  "sidebar": {
+    "pro_tip_label": "Pro Tip",
+    "pro_tip_text": "Use View As to enter a workspace as if you were the client's admin.",
+    "pro_tip_cta": "Go to workspaces"
+  },
+
+  "topbar": {
+    "search_placeholder": "Search workspaces, projects, users…",
+    "role_superadmin": "Super Admin"
+  },
+
+  "common": {
+    "filter_all": "All",
+    "live": "live",
+    "draft": "draft",
+    "archived": "archived",
+    "deploying": "deploying",
+    "active": "active",
+    "paused": "paused",
+    "trial": "trial",
+    "suspended": "suspended",
+    "projects": "Projects",
+    "members": "Members",
+    "categories": "Categories",
+    "deploy": "Deploy",
+    "revenue": "Revenue",
+    "visits": "Visits",
+    "leads": "Leads",
+    "plan": "Plan",
+    "not_available": "—",
+    "view_all": "View all",
+    "back": "Back",
+    "open": "Open",
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "loading": "Loading…",
+    "error": "Error",
+    "empty": "No results",
+    "search": "Search…",
+    "internal": "INTERNAL"
+  }
+}
