@@ -175,13 +175,13 @@ export function Overview() {
               </p>
               <div className="mt-7 flex gap-3 flex-wrap">
                 <Button variant="primary" size="lg" onClick={() => navigate("/workspaces")}>
-                  Vedi i workspace <ArrowUpRight size={15} />
+                  Workspace clienti <ArrowUpRight size={15} />
                 </Button>
                 <button
-                  onClick={() => navigate("/users")}
+                  onClick={() => navigate("/activity")}
                   className="text-[13px] px-5 h-12 rounded-xl border border-white/20 text-white/90 hover:bg-white/10 font-semibold flex items-center gap-2 transition-colors"
                 >
-                  Utenti & Ruoli <ArrowUpRight size={14} />
+                  Log attività <ArrowUpRight size={14} />
                 </button>
               </div>
 
@@ -225,14 +225,14 @@ export function Overview() {
           <div className="marquee-track text-[12px] text-white/60 font-mono uppercase tracking-[0.14em]">
             {[...Array(2)].flatMap((_, n) =>
               [
-                "✦ Studio Marchetti · deploy live · 12m fa",
+                "✦ Lash Academy · deploy live · 12m fa",
                 "✦ Glow-Up · +38 lead questa settimana",
                 "✦ Aromafit · €6.210 entrate · ultimi 30gg",
-                "✦ Nordico Studio · €18.420 ecommerce attivo",
-                "✦ PlantBased Life · trial in scadenza · 3gg",
-                "✦ De Santis Agency · nuovo progetto deploying",
-                "✦ Funnel Lash · 18.4K visite · +22%",
-                "✦ Nuovo client registrato · workspace creato",
+                "✦ Nordico Shop · €18.420 ecommerce attivo",
+                "✦ ReviewBooster · 89 nuovi lead · 30gg",
+                "✦ Fresh-IQ · 14.8K visite mensili",
+                "✦ Funnel Segretarie · 78 lead · ultimi 30gg",
+                "✦ ReviewShield · deploy 5g fa · tutto ok",
               ].map((t, i) => (
                 <span key={`${n}-${i}`} className="shrink-0">
                   {t}
@@ -567,32 +567,30 @@ export function Overview() {
         <FooterTile
           icon={<Sparkles size={18} />}
           color="violet"
-          label="Top progetto del mese"
+          label="Progetto con più entrate (30gg)"
           value={
             projects
               .filter((p) => p.revenue30d)
               .sort((a, b) => (b.revenue30d || 0) - (a.revenue30d || 0))[0]
               ?.name || "—"
           }
-          sub={`+${formatCurrency(
-            projects.sort(
-              (a, b) => (b.revenue30d || 0) - (a.revenue30d || 0)
-            )[0]?.revenue30d || 0
+          sub={`${formatCurrency(
+            projects.sort((a, b) => (b.revenue30d || 0) - (a.revenue30d || 0))[0]?.revenue30d || 0
           )} negli ultimi 30 giorni`}
         />
         <FooterTile
           icon={<TrendingUp size={18} />}
           color="emerald"
-          label="Workspace in crescita"
+          label="Workspace più attivo"
           value="Studio Marchetti"
-          sub="+38% lead rispetto al mese scorso"
+          sub="3 progetti live · +287 lead questo mese"
         />
         <FooterTile
           icon={<AlertCircle size={18} />}
           color="rose"
-          label="Attenzione richiesta"
-          value="2 alert attivi"
-          sub="Pagamento Romano non andato a buon fine · Trial PlantBased in scadenza"
+          label="Nessun alert attivo"
+          value="Tutto regolare"
+          sub="Tutti i workspace sono attivi e i pagamenti in regola"
         />
       </div>
     </div>

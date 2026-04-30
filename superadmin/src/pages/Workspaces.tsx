@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Search, Eye, ArrowUpRight, Plus, SlidersHorizontal } from "lucide-react";
+import { Search, Eye, ArrowUpRight, SlidersHorizontal } from "lucide-react";
 import {
   workspaces,
   getUser,
@@ -57,11 +57,6 @@ export function Workspaces() {
             Una riga per ogni cliente registrato su TheraFlow. Filtra per stato o piano, oppure usa{" "}
             <span className="font-semibold text-cyan-300">View As</span> per entrare nel loro pannello.
           </>
-        }
-        action={
-          <Button variant="primary" size="lg">
-            <Plus size={14} /> Crea workspace
-          </Button>
         }
         stats={[
           { label: "Totali", value: workspaces.length },

@@ -1,4 +1,4 @@
-import { Search, Bell, Command, Plus, Menu } from "lucide-react";
+import { Search, Bell, Command, Menu } from "lucide-react";
 import { Avatar } from "../ui/Avatar";
 import { BrandMark } from "../ui/Brand";
 import { users } from "../../lib/mock";
@@ -54,11 +54,6 @@ export function Topbar() {
       </button>
 
       <div className="hidden md:block flex-1" />
-
-      {/* Quick actions desktop */}
-      <button className="hidden md:flex items-center gap-2 px-3 h-9 rounded-xl bg-cyan-50 text-cyan-700 text-[12px] font-semibold hover:bg-cyan-100 transition-colors border border-cyan-100">
-        <Plus size={13} strokeWidth={2.5} /> Nuovo
-      </button>
 
       {/* Notifications */}
       <button

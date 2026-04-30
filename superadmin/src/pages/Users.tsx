@@ -11,9 +11,8 @@ import { PageHero } from "../components/ui/PageHero";
 import { relativeTime, cn } from "../lib/utils";
 
 const PENDING_INVITES = [
-  { email: "elena@gracecosmetics.it", workspace: "Studio Marchetti Beauty", role: "staff", sentAt: new Date(Date.now() - 2 * 86400000) },
-  { email: "paolo@plantbased.life", workspace: "PlantBased Life", role: "admin", sentAt: new Date(Date.now() - 1 * 86400000) },
-  { email: "valentina@nordico.studio", workspace: "Nordico Studio", role: "staff", sentAt: new Date(Date.now() - 5 * 3600000) },
+  { email: "elena@studiomarchetti.it", workspace: "Studio Marchetti Beauty", role: "staff", sentAt: new Date(Date.now() - 2 * 86400000) },
+  { email: "marco@nordico.studio",     workspace: "Nordico Studio",          role: "staff", sentAt: new Date(Date.now() - 5 * 3600000) },
 ];
 
 export function Users() {
@@ -52,7 +51,7 @@ export function Users() {
         }
         action={
           <Button variant="primary" size="lg">
-            <Mail size={14} /> Invita utente
+            <Mail size={14} /> Invita a workspace
           </Button>
         }
         stats={[

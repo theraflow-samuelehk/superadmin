@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import {
   ArrowLeft,
   Globe,
-  Plus,
   Eye,
   ExternalLink,
   Users as UsersIcon,
@@ -182,9 +181,6 @@ export function WorkspaceDetail() {
                 Progetti del <span className="editorial-italic font-light text-slate-700">workspace</span>
               </h2>
             </div>
-            <Button variant="primary" size="sm">
-              <Plus size={13} /> Nuovo progetto
-            </Button>
           </div>
 
           {/* Categories */}

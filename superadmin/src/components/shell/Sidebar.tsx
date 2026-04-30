@@ -141,10 +141,10 @@ export function Sidebar() {
               </span>
             </div>
             <p className="text-[12px] text-white/80 leading-relaxed mb-3">
-              Ogni cliente si registra su theraflow.io e ottiene il suo workspace. Tu lo vedi qui.
+              Usa <span className="text-cyan-300 font-bold">View As</span> per entrare in un workspace come se fossi l'admin del cliente.
             </p>
             <button className="text-[11px] font-bold text-white/95 hover:text-white flex items-center gap-1 group">
-              Configura
+              Vai ai workspace
               <ChevronRight size={12} className="transition-transform group-hover:translate-x-0.5" />
             </button>
           </div>
