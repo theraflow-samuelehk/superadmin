@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=Onest:wght@300..800&family=JetBrains+Mono:wght@300..600&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@200,300,400,500,700,800,900&f[]=switzer@300,400,500,600,700,800&f[]=erode@300,400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300..600&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -7,59 +8,69 @@
 @layer base {
   :root {
     color-scheme: light;
+    --grid-color: rgba(15, 23, 42, 0.05);
+    --grid-size: 28px;
   }
 
   html, body, #root {
     height: 100%;
-    background: #ffffff;
+    background: #f8fafc;
     color: #0f172a;
-    font-family: "Onest", sans-serif;
-    font-feature-settings: "ss01", "cv11", "tnum";
+    font-family: "Switzer", sans-serif;
+    font-feature-settings: "ss01", "cv01", "tnum";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     margin: 0;
-    background-color: #ffffff;
+    background-color: #f8fafc;
     background-image:
-      radial-gradient(at 4% 0%, rgba(196, 181, 253, 0.32) 0px, transparent 55%),
-      radial-gradient(at 96% 0%, rgba(244, 114, 182, 0.22) 0px, transparent 55%),
-      radial-gradient(at 96% 100%, rgba(125, 211, 252, 0.18) 0px, transparent 60%),
-      radial-gradient(at 4% 100%, rgba(167, 139, 250, 0.16) 0px, transparent 55%);
+      radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.18) 0px, transparent 50%),
+      radial-gradient(at 100% 0%, rgba(244, 114, 182, 0.13) 0px, transparent 55%),
+      radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.13) 0px, transparent 55%),
+      radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+      radial-gradient(circle at center, var(--grid-color) 0.7px, transparent 0.7px);
+    background-size: auto, auto, auto, auto, var(--grid-size) var(--grid-size);
     background-attachment: fixed;
   }
 
   ::selection {
-    background: #ddd6fe;
-    color: #4c1d95;
+    background: #c4b5fd;
+    color: #2e1065;
   }
 }
 
 @layer components {
   .display {
-    font-family: "Bricolage Grotesque", sans-serif;
-    font-variation-settings: "opsz" 96, "wdth" 100;
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-weight: 800;
     letter-spacing: -0.04em;
-    line-height: 0.95;
+    line-height: 0.92;
   }
-  .display-md {
-    font-family: "Bricolage Grotesque", sans-serif;
-    font-variation-settings: "opsz" 48, "wdth" 100;
+  .display-light {
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-weight: 300;
     letter-spacing: -0.03em;
     line-height: 1;
   }
+  .display-md {
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
   .display-sm {
-    font-family: "Bricolage Grotesque", sans-serif;
-    font-variation-settings: "opsz" 24, "wdth" 100;
+    font-family: "Cabinet Grotesk", sans-serif;
+    font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.05;
   }
-  .display-tight {
-    font-family: "Bricolage Grotesque", sans-serif;
-    font-variation-settings: "opsz" 96, "wdth" 88;
-    letter-spacing: -0.045em;
-    line-height: 0.92;
+  .editorial-italic {
+    font-family: "Erode", serif;
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: -0.01em;
   }
 
   .gradient-text {
@@ -70,7 +81,14 @@
     color: transparent;
   }
   .gradient-text-rich {
-    background: linear-gradient(135deg, #8b5cf6 0%, #d946ef 50%, #ec4899 100%);
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 30%, #d946ef 60%, #ec4899 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .gradient-text-warm {
+    background: linear-gradient(135deg, #ec4899 0%, #f97316 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -79,42 +97,55 @@
 
   .gradient-border {
     position: relative;
+    isolation: isolate;
   }
   .gradient-border::before {
     content: "";
     position: absolute;
-    inset: -1px;
+    inset: 0;
     border-radius: inherit;
-    padding: 1px;
-    background: linear-gradient(135deg, #c4b5fd 0%, #f9a8d4 100%);
+    padding: 1.5px;
+    background: linear-gradient(135deg, #c4b5fd 0%, #f9a8d4 50%, #fdba74 100%);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
+    z-index: 1;
+  }
+
+  .gradient-border-animated::before {
+    background: conic-gradient(from 0deg, #8b5cf6, #ec4899, #f97316, #fde047, #34d399, #38bdf8, #8b5cf6);
+    animation: rotate-border 6s linear infinite;
   }
 
   .btn-primary {
-    background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    background: linear-gradient(135deg, #6d28d9 0%, #c026d3 50%, #ec4899 100%);
     color: white;
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.4) inset,
+      0 1px 0 rgba(255, 255, 255, 0.3) inset,
       0 1px 2px rgba(15, 23, 42, 0.1),
-      0 8px 24px -8px rgba(139, 92, 246, 0.45);
+      0 8px 24px -8px rgba(139, 92, 246, 0.5);
     transition: all 0.18s ease;
   }
   .btn-primary:hover {
-    background: linear-gradient(135deg, #7c3aed 0%, #db2777 100%);
+    background: linear-gradient(135deg, #5b21b6 0%, #a21caf 50%, #db2777 100%);
     transform: translateY(-1px);
     box-shadow:
-      0 1px 0 rgba(255, 255, 255, 0.4) inset,
+      0 1px 0 rgba(255, 255, 255, 0.3) inset,
       0 4px 12px rgba(15, 23, 42, 0.12),
-      0 12px 28px -8px rgba(139, 92, 246, 0.55);
+      0 12px 32px -8px rgba(139, 92, 246, 0.6);
   }
 
   .surface {
     background: #ffffff;
     border-radius: 16px;
     box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05), 0 0 0 1px rgba(15, 23, 42, 0.04);
+  }
+
+  .panel-dark {
+    background: #0f172a;
+    color: #f8fafc;
+    border-radius: 16px;
   }
 }
 
@@ -129,18 +160,35 @@
   .scrollbar-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
   .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-  /* Spotlight effect on hover — set --x and --y via JS */
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .dot-pattern {
+    background-image: radial-gradient(circle at center, rgba(15, 23, 42, 0.1) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  .dot-pattern-dark {
+    background-image: radial-gradient(circle at center, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* Spotlight effect on hover */
   .spotlight {
     position: relative;
     overflow: hidden;
   }
-  .spotlight::before {
+  .spotlight::after {
     content: "";
     position: absolute;
     inset: 0;
     background: radial-gradient(
       400px circle at var(--x, 50%) var(--y, 0%),
-      rgba(139, 92, 246, 0.12),
+      rgba(168, 85, 247, 0.13),
       transparent 40%
     );
     opacity: 0;
@@ -148,7 +196,7 @@
     pointer-events: none;
     border-radius: inherit;
   }
-  .spotlight:hover::before {
+  .spotlight:hover::after {
     opacity: 1;
   }
 
@@ -156,32 +204,23 @@
   .blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(48px);
-    opacity: 0.55;
+    filter: blur(56px);
+    opacity: 0.65;
     pointer-events: none;
     animation: float 14s ease-in-out infinite;
   }
-  .blob-violet { background: radial-gradient(circle, #c4b5fd, transparent 70%); }
-  .blob-pink { background: radial-gradient(circle, #f9a8d4, transparent 70%); }
-  .blob-sky { background: radial-gradient(circle, #7dd3fc, transparent 70%); }
-  .blob-amber { background: radial-gradient(circle, #fcd34d, transparent 70%); }
+  .blob-violet { background: radial-gradient(circle, #a78bfa, transparent 70%); }
+  .blob-pink { background: radial-gradient(circle, #f472b6, transparent 70%); }
+  .blob-sky { background: radial-gradient(circle, #38bdf8, transparent 70%); }
+  .blob-amber { background: radial-gradient(circle, #fbbf24, transparent 70%); }
+  .blob-fuchsia { background: radial-gradient(circle, #e879f9, transparent 70%); }
 
-  /* Sheen for headlines */
-  .sheen {
-    background: linear-gradient(
-      105deg,
-      #0f172a 0%,
-      #0f172a 40%,
-      #6d28d9 50%,
-      #0f172a 60%,
-      #0f172a 100%
-    );
-    background-size: 200% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    animation: sheen 6s ease-in-out infinite;
+  /* Marquee */
+  .marquee-track {
+    display: flex;
+    gap: 3rem;
+    animation: marquee 40s linear infinite;
+    white-space: nowrap;
   }
 }
 
@@ -190,12 +229,16 @@
   50% { transform: translate(20px, -30px) scale(1.08); }
 }
 
-@keyframes sheen {
-  0% { background-position: 200% 0; }
-  100% { background-position: -100% 0; }
+@keyframes rotate-border {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 
 ::-webkit-scrollbar { width: 12px; height: 12px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #e2e8f0; border: 3px solid transparent; background-clip: padding-box; border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: #cbd5e1; background-clip: padding-box; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border: 3px solid transparent; background-clip: padding-box; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; background-clip: padding-box; }

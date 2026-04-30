@@ -4,8 +4,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['"Bricolage Grotesque"', "sans-serif"],
-        sans: ['"Onest"', "sans-serif"],
+        display: ['"Cabinet Grotesk"', "sans-serif"],
+        sans: ['"Switzer"', "sans-serif"],
+        editorial: ['"Erode"', "serif"],
         mono: ['"JetBrains Mono"', "monospace"],
       },
       colors: {

@@ -21,6 +21,7 @@ import {
   MousePointerClick,
   UserPlus,
   Plus,
+  Zap,
 } from "lucide-react";
 import {
   workspaces,
@@ -35,7 +36,6 @@ import { Card } from "../components/ui/Card";
 import { SpotlightCard } from "../components/ui/SpotlightCard";
 import { Badge } from "../components/ui/Badge";
 import { AvatarStack, gradientFor } from "../components/ui/Avatar";
-import { SectionLabel } from "../components/ui/SectionLabel";
 import { Button } from "../components/ui/Button";
 import { CountUp } from "../components/ui/CountUp";
 import { useImpersonation } from "../components/shell/Layout";
@@ -45,6 +45,12 @@ import { membersByWorkspace } from "../lib/mock";
 export function Overview() {
   const navigate = useNavigate();
   const { enter } = useImpersonation();
+
+  const heroStats = [
+    { v: platformKPIs.totalWorkspaces, l: "Workspace", color: "violet" },
+    { v: platformKPIs.totalProjects, l: "Progetti", color: "fuchsia" },
+    { v: platformKPIs.totalUsers, l: "Utenti", color: "pink" },
+  ];
 
   const kpis = [
     {
@@ -99,60 +105,125 @@ export function Overview() {
   };
 
   return (
-    <div className="px-6 lg:px-12 py-10 max-w-[1600px] mx-auto">
-      {/* Hero with blobs */}
-      <div className="relative mb-16 pt-2">
-        {/* Decorative blobs */}
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-hidden">
-          <div className="blob blob-violet w-[420px] h-[420px] -top-32 -left-20" />
-          <div className="blob blob-pink w-[360px] h-[360px] top-12 right-0" style={{ animationDelay: "-4s" }} />
-          <div className="blob blob-sky w-[300px] h-[300px] top-40 left-1/3 opacity-30" style={{ animationDelay: "-7s" }} />
-        </div>
+    <div className="px-6 lg:px-12 py-8 max-w-[1600px] mx-auto">
+      {/* HERO STATEMENT — dark card with everything */}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        className="relative rounded-3xl overflow-hidden mb-10 panel-dark"
+        style={{
+          backgroundImage:
+            "radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.45) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.35) 0px, transparent 55%), radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.25) 0px, transparent 55%), radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.3) 0px, transparent 50%), linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%)",
+        }}
+      >
+        {/* Dot pattern overlay */}
+        <div className="absolute inset-0 dot-pattern-dark opacity-60" />
 
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <div className="flex items-center gap-3 mb-7 flex-wrap">
+        {/* Decorative blobs */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] blob blob-violet opacity-25" />
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] blob blob-pink opacity-20" style={{ animationDelay: "-4s" }} />
+
+        <div className="relative p-8 lg:p-12">
+          {/* Top bar */}
+          <div className="flex items-center gap-3 mb-10 flex-wrap">
             <span
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.12em] text-white shadow-glow"
-              style={{ background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)" }}
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.14em] text-white border border-white/20"
+              style={{ background: "linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(236, 72, 153, 0.4))", backdropFilter: "blur(8px)" }}
             >
               <Sparkles size={12} /> Super Admin
             </span>
-            <span className="text-[12.5px] text-slate-500 font-medium">
+            <span className="text-[12.5px] text-white/60 font-medium">
               {new Date().toLocaleDateString("it-IT", {
                 weekday: "long",
                 day: "2-digit",
                 month: "long",
+                year: "numeric",
               })}
             </span>
             <div className="flex-1" />
-            <Button variant="primary" size="md">
-              <Plus size={14} strokeWidth={2.5} /> Nuovo workspace
-            </Button>
+            <button className="text-[11px] font-bold uppercase tracking-wider text-white/80 hover:text-white flex items-center gap-1.5">
+              <Zap size={12} /> Tutti i sistemi <span className="text-emerald-400">·</span> Online
+            </button>
           </div>
 
-          <h1
-            className="display-tight font-bold text-slate-900 text-balance"
-            style={{ fontSize: "clamp(48px, 8vw, 116px)" }}
-          >
-            Il palazzo che hai
-            <br />
-            costruito,{" "}
-            <span className="gradient-text-rich">in un colpo d'occhio.</span>
-          </h1>
-          <p className="mt-7 max-w-2xl text-[16.5px] text-slate-600 leading-relaxed">
-            Sei super admin di <strong className="text-slate-900 font-semibold">{platformKPIs.totalWorkspaces} workspace</strong>,{" "}
-            <strong className="text-slate-900 font-semibold">{platformKPIs.totalProjects} progetti</strong>, <strong className="text-slate-900 font-semibold">{platformKPIs.totalUsers} utenti</strong>.
-            Per intervenire dentro un workspace, attiva la modalità <span className="font-bold gradient-text">View As</span>.
-          </p>
-        </motion.div>
-      </div>
+          <div className="grid lg:grid-cols-[1.4fr_1fr] gap-10 items-end">
+            {/* Left: massive headline */}
+            <div>
+              <h1
+                className="display font-black text-white leading-[0.88] text-balance"
+                style={{ fontSize: "clamp(48px, 7.5vw, 108px)" }}
+              >
+                Tutto.
+                <br />
+                Di tutti.
+                <br />
+                <span className="editorial-italic font-light text-white/70">Senza far rumore.</span>
+              </h1>
+              <p className="mt-7 max-w-md text-[15.5px] text-white/70 leading-relaxed">
+                Sei super admin di una piattaforma multi-tenant. Vedi ogni workspace, ogni progetto, ogni utente. Per intervenire dentro un workspace, attiva la modalità{" "}
+                <span className="text-violet-300 font-semibold">View As</span>.
+              </p>
+              <div className="mt-7 flex gap-3 flex-wrap">
+                <Button variant="primary" size="lg" onClick={() => navigate("/workspaces")}>
+                  <Plus size={15} strokeWidth={2.5} /> Nuovo workspace
+                </Button>
+                <button
+                  onClick={() => navigate("/users")}
+                  className="text-[13px] px-5 h-12 rounded-xl border border-white/20 text-white/90 hover:bg-white/10 font-semibold flex items-center gap-2 transition-colors"
+                >
+                  Inviti utenti <ArrowUpRight size={14} />
+                </button>
+              </div>
+            </div>
+
+            {/* Right: stats stacked */}
+            <div className="space-y-3">
+              {heroStats.map((s, i) => (
+                <motion.div
+                  key={s.l}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 + i * 0.08 }}
+                  className="flex items-center justify-between gap-6 p-5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur"
+                >
+                  <span className="text-[13px] text-white/70 font-semibold uppercase tracking-wider">
+                    {s.l}
+                  </span>
+                  <span className="display font-black tabular-nums text-white" style={{ fontSize: "56px" }}>
+                    <CountUp to={s.v} duration={1.6} />
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom marquee */}
+        <div className="relative border-t border-white/10 py-3 overflow-hidden bg-black/20">
+          <div className="marquee-track text-[12px] text-white/60 font-mono uppercase tracking-[0.14em]">
+            {[...Array(2)].flatMap((_, n) =>
+              [
+                "✦ Studio Marchetti · deploy live · 12m fa",
+                "✦ Glow-Up · +38 lead questa settimana",
+                "✦ Aromafit · €6.210 ultimi 30gg",
+                "✦ Nordico Shop · €18.420 ecommerce",
+                "✦ ReviewBooster · 89 nuovi clienti",
+                "✦ De Santis · booking online deploying",
+                "✦ Funnel Lash · 18.4K visite",
+                "✦ Trial PlantBased · 3 giorni alla scadenza",
+              ].map((t, i) => (
+                <span key={`${n}-${i}`} className="shrink-0">
+                  {t}
+                </span>
+              ))
+            )}
+          </div>
+        </div>
+      </motion.div>
 
       {/* KPI strip */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-14">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-12">
         {kpis.map((kpi, i) => (
           <motion.div
             key={kpi.label}
@@ -160,7 +231,7 @@ export function Overview() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05 + i * 0.05, duration: 0.4 }}
           >
-            <SpotlightCard className="p-5 h-full">
+            <SpotlightCard className={cn("p-5 h-full relative", kpi.emphasis && "gradient-border")}>
               <div className="flex items-start justify-between mb-4">
                 <div className={cn("inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br ring-1", colorMap[kpi.color])}>
                   {kpi.icon}
@@ -169,14 +240,14 @@ export function Overview() {
                   <TrendingUp size={11} /> {kpi.delta}
                 </span>
               </div>
-              <div className="text-[12px] text-slate-500 font-semibold mb-1.5">{kpi.label}</div>
+              <div className="text-[11.5px] text-slate-500 font-bold uppercase tracking-wider mb-1.5">{kpi.label}</div>
               <div className="flex items-baseline gap-2">
                 <span
                   className={cn(
-                    "display-md font-bold text-slate-900 tabular-nums",
+                    "display font-black tabular-nums text-slate-900",
                     kpi.emphasis && "gradient-text-rich"
                   )}
-                  style={{ fontSize: kpi.emphasis ? "44px" : "34px" }}
+                  style={{ fontSize: kpi.emphasis ? "44px" : "36px" }}
                 >
                   {kpi.currency ? (
                     <CountUp to={kpi.value} format="currency" duration={1.6} />
@@ -187,7 +258,7 @@ export function Overview() {
                   )}
                 </span>
                 {kpi.total !== undefined && (
-                  <span className="text-[14px] text-slate-400 font-semibold">/ {kpi.total}</span>
+                  <span className="text-[14px] text-slate-400 font-semibold tabular-nums">/ {kpi.total}</span>
                 )}
               </div>
             </SpotlightCard>
@@ -202,12 +273,12 @@ export function Overview() {
             <div>
               <div className="flex items-center gap-2 mb-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
-                <span className="text-[12px] text-slate-500 font-bold uppercase tracking-[0.1em]">
+                <span className="text-[11.5px] text-slate-500 font-bold uppercase tracking-[0.14em]">
                   Andamento · 14 giorni
                 </span>
               </div>
-              <h3 className="display-sm font-bold text-slate-900" style={{ fontSize: "26px" }}>
-                Visite, lead e fatturato
+              <h3 className="display-md text-slate-900" style={{ fontSize: "26px" }}>
+                Visite, lead e <span className="editorial-italic font-light gradient-text-warm">fatturato</span>
               </h3>
             </div>
             <div className="flex gap-2">
@@ -222,55 +293,30 @@ export function Overview() {
               <AreaChart data={platformTimeseries}>
                 <defs>
                   <linearGradient id="vio" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.4} />
+                    <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.45} />
                     <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="pnk" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#ec4899" stopOpacity={0.25} />
+                    <stop offset="0%" stopColor="#ec4899" stopOpacity={0.3} />
                     <stop offset="100%" stopColor="#ec4899" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" vertical={false} />
-                <XAxis
-                  dataKey="date"
-                  stroke="#94a3b8"
-                  fontSize={11}
-                  tickLine={false}
-                  axisLine={false}
-                  style={{ fontFamily: "JetBrains Mono" }}
-                />
-                <YAxis
-                  stroke="#94a3b8"
-                  fontSize={11}
-                  tickLine={false}
-                  axisLine={false}
-                  style={{ fontFamily: "JetBrains Mono" }}
-                />
+                <XAxis dataKey="date" stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} style={{ fontFamily: "JetBrains Mono" }} />
+                <YAxis stroke="#94a3b8" fontSize={11} tickLine={false} axisLine={false} style={{ fontFamily: "JetBrains Mono" }} />
                 <Tooltip
                   contentStyle={{
                     background: "#ffffff",
                     border: "1px solid #e2e8f0",
                     borderRadius: "12px",
                     fontSize: "12px",
-                    fontFamily: "Onest",
+                    fontFamily: "Switzer",
                     boxShadow: "0 4px 16px -4px rgba(15, 23, 42, 0.1)",
                   }}
                   labelStyle={{ color: "#0f172a", fontWeight: 600 }}
                 />
-                <Area
-                  type="monotone"
-                  dataKey="visite"
-                  stroke="#8b5cf6"
-                  strokeWidth={2.5}
-                  fill="url(#vio)"
-                />
-                <Area
-                  type="monotone"
-                  dataKey="lead"
-                  stroke="#ec4899"
-                  strokeWidth={2}
-                  fill="url(#pnk)"
-                />
+                <Area type="monotone" dataKey="visite" stroke="#8b5cf6" strokeWidth={2.5} fill="url(#vio)" />
+                <Area type="monotone" dataKey="lead" stroke="#ec4899" strokeWidth={2} fill="url(#pnk)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -279,7 +325,7 @@ export function Overview() {
         <Card className="p-6">
           <div className="flex items-center gap-2 mb-5">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-[12px] text-slate-500 font-bold uppercase tracking-[0.1em]">
+            <span className="text-[11.5px] text-slate-500 font-bold uppercase tracking-[0.14em]">
               Attività live
             </span>
           </div>
@@ -327,16 +373,22 @@ export function Overview() {
       </div>
 
       {/* Workspaces grid */}
-      <SectionLabel
-        index="02"
-        title="Tutti i workspace"
-        subtitle={`${workspaces.length} totali · ognuno con i suoi progetti, membri e domini`}
-        action={
-          <Button variant="ghost" size="sm" onClick={() => navigate("/workspaces")}>
-            Vedi tutti <ArrowUpRight size={13} />
-          </Button>
-        }
-      />
+      <div className="flex items-end justify-between gap-4 mb-7">
+        <div className="flex items-baseline gap-3">
+          <span className="text-[11px] tracking-[0.18em] text-violet-600 uppercase font-bold pt-1">02</span>
+          <div>
+            <h2 className="display-md text-slate-900" style={{ fontSize: "32px" }}>
+              I tuoi <span className="editorial-italic font-light">workspace</span>.
+            </h2>
+            <p className="text-[13.5px] text-slate-500 mt-1.5">
+              {workspaces.length} totali · ognuno con i suoi progetti, membri, domini.
+            </p>
+          </div>
+        </div>
+        <Button variant="ghost" size="sm" onClick={() => navigate("/workspaces")}>
+          Vedi tutti <ArrowUpRight size={13} />
+        </Button>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
         {workspaces.map((ws, i) => {
@@ -356,13 +408,13 @@ export function Overview() {
                 <div className="flex items-start justify-between mb-5">
                   <div className="flex items-center gap-3">
                     <div
-                      className="w-12 h-12 rounded-2xl flex items-center justify-center display-sm font-bold text-white text-[18px] shrink-0"
+                      className="w-12 h-12 rounded-2xl flex items-center justify-center display font-black text-white text-[18px] shrink-0"
                       style={{ backgroundImage: gradientFor(owner?.avatarColor || ws.id) }}
                     >
                       {ws.name[0]}
                     </div>
                     <div>
-                      <div className="display-sm text-[16px] font-bold text-slate-900">
+                      <div className="display-sm font-bold text-slate-900" style={{ fontSize: "16px" }}>
                         {ws.name}
                       </div>
                       <div className="text-[12px] text-slate-500 mt-0.5 flex items-center gap-1.5">
@@ -390,19 +442,19 @@ export function Overview() {
 
                 <div className="grid grid-cols-3 gap-3 mb-5 p-4 bg-slate-50/70 rounded-2xl border border-slate-100">
                   <div>
-                    <div className="display-md font-bold text-slate-900 tabular-nums" style={{ fontSize: "28px" }}>
+                    <div className="display font-black text-slate-900 tabular-nums leading-none" style={{ fontSize: "30px" }}>
                       {wsProjects.length}
                     </div>
                     <div className="text-[10.5px] text-slate-500 mt-1.5 font-bold uppercase tracking-wider">Progetti</div>
                   </div>
                   <div className="border-l border-slate-200 pl-3">
-                    <div className="display-md font-bold gradient-text-rich tabular-nums" style={{ fontSize: "28px" }}>
+                    <div className="display font-black gradient-text-rich tabular-nums leading-none" style={{ fontSize: "30px" }}>
                       {liveCount}
                     </div>
                     <div className="text-[10.5px] text-slate-500 mt-1.5 font-bold uppercase tracking-wider">Live</div>
                   </div>
                   <div className="border-l border-slate-200 pl-3">
-                    <div className="display-md font-bold text-slate-900 tabular-nums" style={{ fontSize: "28px" }}>
+                    <div className="display font-black text-slate-900 tabular-nums leading-none" style={{ fontSize: "30px" }}>
                       {ws.monthlyRevenue > 0
                         ? "€" + formatNumber(ws.monthlyRevenue)
                         : "—"}
@@ -424,7 +476,6 @@ export function Overview() {
                   />
                 </div>
 
-                {/* Storage bar */}
                 <div className="mb-5">
                   <div className="flex justify-between text-[11px] mb-2">
                     <span className="text-slate-500 font-medium">Storage</span>
@@ -474,7 +525,7 @@ export function Overview() {
       {/* Footer block */}
       <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-5">
         <FooterTile
-          icon={<Sparkles size={16} />}
+          icon={<Sparkles size={18} />}
           color="violet"
           label="Top progetto del mese"
           value={
@@ -490,14 +541,14 @@ export function Overview() {
           )} negli ultimi 30 giorni`}
         />
         <FooterTile
-          icon={<TrendingUp size={16} />}
+          icon={<TrendingUp size={18} />}
           color="emerald"
           label="Workspace in crescita"
           value="Studio Marchetti"
           sub="+38% lead rispetto al mese scorso"
         />
         <FooterTile
-          icon={<AlertCircle size={16} />}
+          icon={<AlertCircle size={18} />}
           color="rose"
           label="Attenzione richiesta"
           value="2 alert attivi"
@@ -527,13 +578,13 @@ function FooterTile({
     rose: "from-rose-50 via-orange-50 to-amber-50 border-rose-100",
   };
   const iconBg = {
-    violet: "bg-gradient-to-br from-violet-500 to-pink-500 text-white shadow-glow",
-    emerald: "bg-gradient-to-br from-emerald-500 to-teal-500 text-white",
-    rose: "bg-gradient-to-br from-rose-500 to-orange-500 text-white",
+    violet: "bg-gradient-to-br from-violet-500 via-fuchsia-500 to-pink-500 text-white shadow-glow",
+    emerald: "bg-gradient-to-br from-emerald-500 via-teal-500 to-sky-500 text-white",
+    rose: "bg-gradient-to-br from-rose-500 via-orange-500 to-amber-500 text-white",
   };
   return (
     <Card className={`p-6 bg-gradient-to-br ${bg[color]} border`}>
-      <div className={cn("inline-flex items-center justify-center w-11 h-11 rounded-2xl mb-4", iconBg[color])}>
+      <div className={cn("inline-flex items-center justify-center w-12 h-12 rounded-2xl mb-4", iconBg[color])}>
         {icon}
       </div>
       <div className="text-[11px] text-slate-500 font-bold uppercase tracking-wider mb-1.5">
