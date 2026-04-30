@@ -140,7 +140,7 @@ export function AllProjects() {
                   {p.customDomain ? (
                     <span className="font-semibold gradient-text">{p.customDomain}</span>
                   ) : (
-                    <span className="font-mono text-slate-600">{p.subdomain}.workspace.io</span>
+                    <span className="font-mono text-slate-600">{p.subdomain}.theraflow.io</span>
                   )}
                   <ExternalLink size={11} className="text-slate-400 ml-auto" />
                 </div>

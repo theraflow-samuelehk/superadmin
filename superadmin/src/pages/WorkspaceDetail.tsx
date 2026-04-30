@@ -257,7 +257,7 @@ export function WorkspaceDetail() {
                         <span className="text-slate-500 font-mono text-[11px]">{p.subdomain}</span>
                       </>
                     ) : (
-                      <span className="font-mono text-slate-600">{p.subdomain}.workspace.io</span>
+                      <span className="font-mono text-slate-600">{p.subdomain}.theraflow.io</span>
                     )}
                     <ExternalLink size={11} className="text-slate-400 ml-auto" />
                   </div>

@@ -1,5 +1,6 @@
-import { Search, Bell, Command, Plus, Menu, Sparkles } from "lucide-react";
+import { Search, Bell, Command, Plus, Menu } from "lucide-react";
 import { Avatar } from "../ui/Avatar";
+import { BrandMark } from "../ui/Brand";
 import { users } from "../../lib/mock";
 import { useMobileNav } from "./MobileNav";
 import { useCommandPalette } from "./CommandPalette";
@@ -23,15 +24,10 @@ export function Topbar() {
       </button>
 
       {/* Mobile brand */}
-      <div className="lg:hidden flex items-center gap-2">
-        <div
-          className="w-8 h-8 rounded-lg flex items-center justify-center"
-          style={{ background: "linear-gradient(135deg, #06b6d4, #3b82f6, #6366f1)" }}
-        >
-          <Sparkles size={14} className="text-white" strokeWidth={2.5} />
-        </div>
+      <div className="lg:hidden flex items-center gap-2.5">
+        <BrandMark size={32} />
         <span className="heading-md text-slate-900" style={{ fontSize: "15px" }}>
-          workspace
+          TheraFlow
         </span>
       </div>
 

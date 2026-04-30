@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Check } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { Button } from "../components/ui/Button";
+import { BrandMark } from "../components/ui/Brand";
 
 export function Login() {
   const navigate = useNavigate();
@@ -28,11 +29,11 @@ export function Login() {
 
         {/* Brand */}
         <div className="flex items-center gap-3 mb-auto relative">
-          <div className="w-11 h-11 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center border border-white/30">
-            <Sparkles size={20} className="text-white" strokeWidth={2.5} />
-          </div>
+          <BrandMark size={44} />
           <div className="leading-tight">
-            <div className="font-display text-[18px] text-white font-bold">workspace</div>
+            <div className="heading-md text-white" style={{ fontSize: "18px" }}>
+              TheraFlow
+            </div>
             <div className="text-[10.5px] uppercase tracking-[0.18em] text-white/80 font-bold">
               Studio Hub · Operations
             </div>
@@ -49,20 +50,20 @@ export function Login() {
             className="display-tight font-bold"
             style={{ fontSize: "clamp(56px, 8.5vw, 116px)" }}
           >
-            Tutta la
+            Il tuo studio,
             <br />
-            tua piattaforma.
+            in <em className="not-italic">flusso</em>.
             <br />
-            <span className="text-white/70 font-light">In un solo posto.</span>
+            <span className="text-white/70 font-light">Da un solo posto.</span>
           </h1>
           <p className="mt-7 max-w-md text-[15px] text-white/80 leading-relaxed">
-            Una console privata per chi gestisce un palazzo di workspace. Niente è pubblico, niente è demo.
-            Tutto è registrato, tutto è tracciabile.
+            TheraFlow è la console di chi gestisce un palazzo di studi: workspace, progetti, domini e clienti.
+            Niente è pubblico, niente è demo. Tutto è registrato, tutto è tracciabile.
           </p>
 
           <ul className="mt-8 space-y-3 max-w-sm">
             {[
-              "Vedi tutti i workspace di tutti gli utenti",
+              "Vedi tutti i workspace dei tuoi clienti",
               "Impersona qualunque admin con un click",
               "Audit log completo di ogni azione",
             ].map((item) => (
@@ -104,22 +105,18 @@ export function Login() {
           className="w-full max-w-sm"
         >
           <div className="flex items-center gap-3 mb-12 lg:hidden">
-            <div className="w-11 h-11 rounded-xl flex items-center justify-center"
-              style={{ background: "linear-gradient(135deg, #8b5cf6, #ec4899)" }}
-            >
-              <Sparkles size={20} className="text-white" />
-            </div>
-            <span className="font-display text-lg text-slate-900 font-bold">workspace</span>
+            <BrandMark size={44} />
+            <span className="heading-md text-slate-900" style={{ fontSize: "18px" }}>TheraFlow</span>
           </div>
 
           <div className="text-[11px] uppercase tracking-wider text-violet-600 mb-3 font-bold">
             Authentication
           </div>
           <h2 className="display-md text-[44px] text-slate-900 font-bold mb-4">
-            Accedi alla console.
+            Accedi a TheraFlow.
           </h2>
           <p className="text-[14.5px] text-slate-600 mb-10 leading-relaxed">
-            Solo email autorizzate. Per accessi speciali, contatta Samuele direttamente.
+            Solo super admin autorizzati. Per accessi speciali, contatta direttamente il team TheraFlow.
           </p>
 
           <div className="space-y-4">

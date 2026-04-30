@@ -15,6 +15,7 @@ import {
   X,
 } from "lucide-react";
 import { useMobileNav } from "./MobileNav";
+import { BrandLockup } from "../ui/Brand";
 
 const items = [
   { to: "/", label: "Overview", icon: LayoutDashboard, group: "intel", color: "cyan" },
@@ -96,27 +97,7 @@ export function Sidebar() {
 
         {/* Brand + mobile close */}
         <div className="relative px-5 py-5 border-b border-white/[0.06] flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center relative"
-              style={{
-                background: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #6366f1 100%)",
-                boxShadow:
-                  "0 0 0 1px rgba(255,255,255,0.1) inset, 0 8px 24px -4px rgba(6, 182, 212, 0.5)",
-              }}
-            >
-              <Sparkles size={18} className="text-white" strokeWidth={2.5} />
-              <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-[#0b0a1f]" />
-            </div>
-            <div className="leading-tight">
-              <div className="heading-md text-white" style={{ fontSize: "16px" }}>
-                workspace
-              </div>
-              <div className="text-[10px] uppercase tracking-[0.16em] gradient-text-warm font-bold mt-px">
-                Studio Hub
-              </div>
-            </div>
-          </div>
+          <BrandLockup variant="dark" size="md" online />
           {/* Close on mobile */}
           <button
             onClick={() => setOpen(false)}

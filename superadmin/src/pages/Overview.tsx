@@ -164,14 +164,13 @@ export function Overview() {
                 className="display font-black text-white leading-[0.88] text-balance"
                 style={{ fontSize: "clamp(48px, 7.5vw, 108px)" }}
               >
-                Tutto.
+                Tutto fluisce.
                 <br />
-                Di tutti.
-                <br />
-                <span className="editorial-italic font-light text-white/70">Senza far rumore.</span>
+                <span className="editorial-italic font-light text-white/70">Da un solo posto.</span>
               </h1>
               <p className="mt-7 max-w-md text-[15.5px] text-white/70 leading-relaxed">
-                Sei super admin di una piattaforma multi-tenant. Vedi ogni workspace, ogni progetto, ogni utente. Per intervenire dentro un workspace, attiva la modalità{" "}
+                Benvenuto in TheraFlow. Da qui vedi ogni workspace, ogni progetto, ogni cliente.
+                Per intervenire dentro un workspace, attiva la modalità{" "}
                 <span className="text-cyan-300 font-semibold">View As</span>.
               </p>
               <div className="mt-7 flex gap-3 flex-wrap">

@@ -113,7 +113,7 @@ export const projects: Project[] = [
 ];
 
 export const activity: ActivityEvent[] = [
-  { id: "a1", type: "deploy", workspaceId: "ws_marchetti", actor: "Giulia Marchetti", message: "Deploy live → lash.workspace.io", timestamp: d(0, 0.2) },
+  { id: "a1", type: "deploy", workspaceId: "ws_marchetti", actor: "Giulia Marchetti", message: "Deploy live → lash.theraflow.io", timestamp: d(0, 0.2) },
   { id: "a2", type: "invite", workspaceId: "ws_nordico", actor: "Luca Bianchi", message: "Invitato dani@nordico.studio come Staff", timestamp: d(0, 1) },
   { id: "a3", type: "domain", workspaceId: "ws_studio", actor: "Samuele", message: "Dominio aromafit.it collegato", timestamp: d(0, 3) },
   { id: "a4", type: "billing", workspaceId: "ws_marchetti", actor: "Sistema", message: "Upgrade: Starter → Growth (+€49/mo)", timestamp: d(0, 4) },
