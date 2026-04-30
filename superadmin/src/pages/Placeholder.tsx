@@ -28,7 +28,7 @@ export function Placeholder({ title, index }: { title: string; index: string }) 
         >
           <Sparkles size={22} className="text-white" />
         </div>
-        <h2 className="font-display text-[24px] text-slate-900 font-bold tracking-ultra-tight mb-2">
+        <h2 className="heading-lg text-slate-900 mb-2" style={{ fontSize: "22px" }}>
           Modulo in arrivo
         </h2>
         <p className="text-[13.5px] text-slate-600 max-w-md leading-relaxed">

@@ -152,8 +152,8 @@ export function WorkspaceDetail() {
           <div className="flex items-end justify-between gap-4 mb-6">
             <div className="flex items-baseline gap-3">
               <span className="text-[11px] tracking-wider text-violet-600 uppercase font-bold pt-1">03</span>
-              <h2 className="font-display text-[26px] text-slate-900 tracking-ultra-tight font-bold leading-none">
-                Progetti del workspace
+              <h2 className="heading-xl text-slate-900" style={{ fontSize: "26px" }}>
+                Progetti del <span className="editorial-italic font-light text-slate-700">workspace</span>
               </h2>
             </div>
             <Button variant="primary" size="sm">
@@ -202,7 +202,7 @@ export function WorkspaceDetail() {
                       <div className="inline-flex items-center px-2 py-0.5 rounded-md bg-violet-50 text-violet-700 text-[10px] font-bold uppercase tracking-wider mb-2">
                         {p.category}
                       </div>
-                      <div className="font-display text-[19px] text-slate-900 font-bold tracking-ultra-tight leading-tight">
+                      <div className="heading-md text-slate-900" style={{ fontSize: "18px" }}>
                         {p.name}
                       </div>
                     </div>

@@ -92,7 +92,7 @@ export function AllProjects() {
                     <div className="inline-flex items-center px-2 py-0.5 rounded-md bg-violet-50 text-violet-700 text-[10px] font-bold uppercase tracking-wider mb-2">
                       {p.category}
                     </div>
-                    <div className="font-display text-[19px] text-slate-900 font-bold tracking-ultra-tight leading-tight">
+                    <div className="heading-md text-slate-900" style={{ fontSize: "18px" }}>
                       {p.name}
                     </div>
                     <div className="text-[11.5px] text-slate-500 mt-1 font-medium">

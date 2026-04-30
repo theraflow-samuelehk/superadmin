@@ -225,7 +225,7 @@ function RoleCard({
       <div className={cn("w-11 h-11 rounded-xl flex items-center justify-center mb-4", bg[color])}>
         {icon}
       </div>
-      <div className="font-display text-[18px] text-slate-900 font-bold tracking-tight mb-2">{name}</div>
+      <div className="heading-md text-slate-900 mb-2" style={{ fontSize: "17px" }}>{name}</div>
       <p className="text-[13px] text-slate-600 leading-relaxed">{desc}</p>
     </Card>
   );

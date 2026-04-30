@@ -22,7 +22,7 @@ export function SectionLabel({
           </span>
         )}
         <div>
-          <h2 className="font-display text-[28px] text-slate-900 tracking-ultra-tight font-bold leading-none">
+          <h2 className="heading-xl text-slate-900" style={{ fontSize: "26px" }}>
             {title}
           </h2>
           {subtitle && (

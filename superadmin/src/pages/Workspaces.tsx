@@ -134,7 +134,7 @@ export function Workspaces() {
                     {ws.name[0]}
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[14px] font-semibold text-slate-900 truncate flex items-center gap-2">
+                    <div className="heading-md text-slate-900 truncate flex items-center gap-2" style={{ fontSize: "14.5px" }}>
                       {ws.name}
                       {ws.badge && (
                         <span className="inline-flex items-center px-1.5 py-0.5 bg-violet-100 text-violet-700 rounded-md text-[9px] font-bold uppercase tracking-wider">

@@ -277,7 +277,7 @@ export function Overview() {
                   Andamento · 14 giorni
                 </span>
               </div>
-              <h3 className="display-md text-slate-900" style={{ fontSize: "26px" }}>
+              <h3 className="heading-lg text-slate-900" style={{ fontSize: "24px" }}>
                 Visite, lead e <span className="editorial-italic font-light gradient-text-warm">fatturato</span>
               </h3>
             </div>
@@ -377,8 +377,8 @@ export function Overview() {
         <div className="flex items-baseline gap-3">
           <span className="text-[11px] tracking-[0.18em] text-violet-600 uppercase font-bold pt-1">02</span>
           <div>
-            <h2 className="display-md text-slate-900" style={{ fontSize: "32px" }}>
-              I tuoi <span className="editorial-italic font-light">workspace</span>.
+            <h2 className="heading-xl text-slate-900" style={{ fontSize: "30px" }}>
+              I tuoi <span className="editorial-italic font-light text-slate-700">workspace</span>.
             </h2>
             <p className="text-[13.5px] text-slate-500 mt-1.5">
               {workspaces.length} totali · ognuno con i suoi progetti, membri, domini.
@@ -414,7 +414,7 @@ export function Overview() {
                       {ws.name[0]}
                     </div>
                     <div>
-                      <div className="display-sm font-bold text-slate-900" style={{ fontSize: "16px" }}>
+                      <div className="heading-md text-slate-900" style={{ fontSize: "16px" }}>
                         {ws.name}
                       </div>
                       <div className="text-[12px] text-slate-500 mt-0.5 flex items-center gap-1.5">
@@ -590,7 +590,7 @@ function FooterTile({
       <div className="text-[11px] text-slate-500 font-bold uppercase tracking-wider mb-1.5">
         {label}
       </div>
-      <div className="display-sm font-bold text-slate-900 leading-tight mb-1.5" style={{ fontSize: "22px" }}>
+      <div className="heading-lg text-slate-900 mb-1.5" style={{ fontSize: "20px" }}>
         {value}
       </div>
       <div className="text-[12.5px] text-slate-600">{sub}</div>

@@ -20,14 +20,14 @@ export function Stat({
 }) {
   return (
     <div className={cn("flex flex-col gap-2", className)}>
-      <div className="flex items-center gap-2 text-[12px] text-slate-500 font-medium">
+      <div className="flex items-center gap-2 text-[11px] text-slate-500 font-bold uppercase tracking-wider">
         {icon && <span className="text-violet-500">{icon}</span>}
         {label}
       </div>
       <div className="flex items-baseline gap-2">
         <span
           className={cn(
-            "font-display font-bold tabular-nums tracking-monster text-slate-900 leading-none",
+            "num-display tabular-nums text-slate-900",
             emphasis ? "text-[40px]" : "text-[30px]"
           )}
         >
