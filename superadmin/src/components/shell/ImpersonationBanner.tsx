@@ -20,7 +20,7 @@ export function ImpersonationBanner({
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -50, opacity: 0 }}
           transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-          className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-pink-500 text-white relative z-50 shadow-lg"
+          className="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-500 text-white relative z-50 shadow-lg"
         >
           <div className="px-6 py-3 flex items-center gap-4">
             <div className="flex items-center gap-2 text-[12px] font-bold uppercase tracking-wider">
@@ -42,7 +42,7 @@ export function ImpersonationBanner({
 
             <button
               onClick={onExit}
-              className="flex items-center gap-1.5 bg-white text-violet-700 px-3 py-1.5 rounded-lg text-[12px] font-semibold uppercase tracking-wide hover:bg-violet-50 hover:scale-[1.02] transition-all shadow-sm"
+              className="flex items-center gap-1.5 bg-white text-blue-700 px-3 py-1.5 rounded-lg text-[12px] font-semibold uppercase tracking-wide hover:bg-cyan-50 hover:scale-[1.02] transition-all shadow-sm"
             >
               <X size={12} /> Esci
             </button>

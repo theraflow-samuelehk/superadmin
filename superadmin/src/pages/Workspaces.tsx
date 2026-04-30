@@ -14,6 +14,7 @@ import { Card } from "../components/ui/Card";
 import { Badge } from "../components/ui/Badge";
 import { Avatar, AvatarStack, gradientFor } from "../components/ui/Avatar";
 import { Button } from "../components/ui/Button";
+import { Sparkline, generateTrend } from "../components/ui/Sparkline";
 import { useImpersonation } from "../components/shell/Layout";
 import { formatCurrency, cn } from "../lib/utils";
 
@@ -42,7 +43,7 @@ export function Workspaces() {
         <div className="flex items-center gap-3 mb-5">
           <span
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white"
-            style={{ background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)" }}
+            style={{ background: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 60%, #6366f1 100%)" }}
           >
             02 — Workspaces
           </span>
@@ -102,13 +103,14 @@ export function Workspaces() {
 
       {/* Table */}
       <Card className="overflow-hidden p-0">
-        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr_140px] gap-4 px-5 py-3.5 border-b border-slate-100 text-[10.5px] uppercase tracking-wider text-slate-500 font-bold bg-slate-50/50">
+        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr_100px_140px] gap-4 px-5 py-3.5 border-b border-slate-100 text-[10.5px] uppercase tracking-wider text-slate-500 font-bold bg-slate-50/50">
           <div>Workspace</div>
           <div>Owner</div>
           <div>Plan</div>
           <div className="text-right">Progetti</div>
           <div className="text-right">MRR</div>
           <div>Membri</div>
+          <div>Trend</div>
           <div className="text-right">Azioni</div>
         </div>
 
@@ -124,7 +126,7 @@ export function Workspaces() {
                 initial={{ opacity: 0, x: -8 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.025, duration: 0.3 }}
-                className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr_140px] gap-4 px-5 py-4 items-center hover:bg-slate-50/60 group transition-colors"
+                className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr_100px_140px] gap-4 px-5 py-4 items-center hover:bg-slate-50/60 group transition-colors"
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <div
@@ -183,6 +185,16 @@ export function Workspaces() {
                   <AvatarStack
                     members={members.map((m) => ({ name: m.name, color: m.avatarColor }))}
                     max={4}
+                  />
+                </div>
+
+                <div>
+                  <Sparkline
+                    data={generateTrend(ws.id, 12, ws.status === "active" ? "up" : ws.status === "paused" ? "down" : "flat")}
+                    width={88}
+                    height={26}
+                    stroke={ws.status === "active" ? "#06b6d4" : ws.status === "paused" ? "#f43f5e" : "#94a3b8"}
+                    strokeWidth={1.5}
                   />
                 </div>
 

@@ -8,7 +8,7 @@ export function Placeholder({ title, index }: { title: string; index: string }) 
         <div className="flex items-center gap-3 mb-5">
           <span
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white"
-            style={{ background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)" }}
+            style={{ background: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 60%, #6366f1 100%)" }}
           >
             {index} — {title}
           </span>
@@ -24,7 +24,7 @@ export function Placeholder({ title, index }: { title: string; index: string }) 
       <Card className="p-12 flex flex-col items-center justify-center text-center bg-gradient-to-br from-violet-50 via-white to-pink-50">
         <div
           className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 shadow-glow"
-          style={{ background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)" }}
+          style={{ background: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 60%, #6366f1 100%)" }}
         >
           <Sparkles size={22} className="text-white" />
         </div>

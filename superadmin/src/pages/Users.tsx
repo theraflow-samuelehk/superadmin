@@ -37,7 +37,7 @@ export function Users() {
         <div className="flex items-center gap-3 mb-5">
           <span
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white"
-            style={{ background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)" }}
+            style={{ background: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 60%, #6366f1 100%)" }}
           >
             04 — Utenti
           </span>

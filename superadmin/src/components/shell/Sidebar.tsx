@@ -10,20 +10,32 @@ import {
   Activity,
   Settings,
   Sparkles,
+  ChevronRight,
 } from "lucide-react";
 
 const items = [
-  { to: "/", label: "Overview", icon: LayoutDashboard, group: "intel", color: "text-violet-500" },
-  { to: "/workspaces", label: "Workspaces", icon: Building2, group: "intel", color: "text-pink-500" },
-  { to: "/projects", label: "Tutti i progetti", icon: FolderKanban, group: "intel", color: "text-sky-500" },
-  { to: "/users", label: "Utenti & Inviti", icon: Users, group: "intel", color: "text-emerald-500" },
+  { to: "/", label: "Overview", icon: LayoutDashboard, group: "intel", color: "cyan" },
+  { to: "/workspaces", label: "Workspaces", icon: Building2, group: "intel", color: "blue" },
+  { to: "/projects", label: "Tutti i progetti", icon: FolderKanban, group: "intel", color: "indigo" },
+  { to: "/users", label: "Utenti & Inviti", icon: Users, group: "intel", color: "emerald" },
 
-  { to: "/domains", label: "Domini & DNS", icon: Globe, group: "ops", color: "text-amber-500" },
-  { to: "/billing", label: "Billing", icon: CreditCard, group: "ops", color: "text-fuchsia-500" },
-  { to: "/activity", label: "Attività", icon: Activity, group: "ops", color: "text-rose-500" },
+  { to: "/domains", label: "Domini & DNS", icon: Globe, group: "ops", color: "sky" },
+  { to: "/billing", label: "Billing", icon: CreditCard, group: "ops", color: "violet" },
+  { to: "/activity", label: "Attività", icon: Activity, group: "ops", color: "amber" },
 
-  { to: "/settings", label: "Impostazioni", icon: Settings, group: "system", color: "text-slate-500" },
+  { to: "/settings", label: "Impostazioni", icon: Settings, group: "system", color: "slate" },
 ];
+
+const colorMap: Record<string, { active: string; bg: string; ring: string }> = {
+  cyan:     { active: "text-cyan-300", bg: "bg-cyan-500/15", ring: "ring-cyan-400/30" },
+  blue:     { active: "text-blue-300", bg: "bg-blue-500/15", ring: "ring-blue-400/30" },
+  indigo:   { active: "text-indigo-300", bg: "bg-indigo-500/15", ring: "ring-indigo-400/30" },
+  sky:      { active: "text-sky-300", bg: "bg-sky-500/15", ring: "ring-sky-400/30" },
+  emerald:  { active: "text-emerald-300", bg: "bg-emerald-500/15", ring: "ring-emerald-400/30" },
+  violet:   { active: "text-violet-300", bg: "bg-violet-500/15", ring: "ring-violet-400/30" },
+  amber:    { active: "text-amber-300", bg: "bg-amber-500/15", ring: "ring-amber-400/30" },
+  slate:    { active: "text-slate-300", bg: "bg-slate-500/15", ring: "ring-slate-400/30" },
+};
 
 export function Sidebar() {
   const groups = {
@@ -33,62 +45,107 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-[256px] shrink-0 bg-white/70 backdrop-blur-xl border-r border-slate-200/70 flex flex-col h-screen sticky top-0">
+    <aside
+      className="w-[260px] shrink-0 flex flex-col h-screen sticky top-0 relative overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(180deg, #0b0a1f 0%, #0f0e22 50%, #0a0a1a 100%)",
+      }}
+    >
+      {/* Decorative glow */}
+      <div className="absolute -top-32 -right-20 w-72 h-72 rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(6, 182, 212, 0.28), transparent 70%)",
+          filter: "blur(48px)",
+        }}
+      />
+      <div className="absolute bottom-0 -left-20 w-72 h-72 rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, rgba(99, 102, 241, 0.22), transparent 70%)",
+          filter: "blur(48px)",
+        }}
+      />
+
+      {/* Right edge highlight */}
+      <div className="absolute top-0 right-0 bottom-0 w-px bg-gradient-to-b from-cyan-400/30 via-blue-500/20 to-transparent" />
+
       {/* Brand */}
-      <div className="px-5 py-5 border-b border-slate-200/70">
+      <div className="relative px-5 py-5 border-b border-white/[0.06]">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center shadow-glow"
-            style={{ background: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)" }}
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center relative"
+            style={{
+              background: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #6366f1 100%)",
+              boxShadow:
+                "0 0 0 1px rgba(255,255,255,0.1) inset, 0 8px 24px -4px rgba(6, 182, 212, 0.5)",
+            }}
           >
             <Sparkles size={18} className="text-white" strokeWidth={2.5} />
+            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-[#0b0a1f]" />
           </div>
           <div className="leading-tight">
-            <div className="font-display text-[16px] text-slate-900 font-bold tracking-tight">
+            <div className="heading-md text-white" style={{ fontSize: "16px" }}>
               workspace
             </div>
-            <div className="text-[10px] uppercase tracking-[0.16em] gradient-text font-bold mt-px">
+            <div className="text-[10px] uppercase tracking-[0.16em] gradient-text-warm font-bold mt-px">
               Studio Hub
             </div>
           </div>
         </div>
       </div>
 
+      {/* Search hint */}
+      <div className="relative px-4 pt-4">
+        <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.04] border border-white/[0.06] text-[12px] text-slate-400 hover:bg-white/[0.06] transition-colors cursor-pointer">
+          <span className="text-slate-500">⌘</span>
+          <span>Quick find</span>
+          <span className="ml-auto text-[10px] font-mono text-slate-500 bg-white/5 border border-white/10 rounded px-1.5 py-0.5">
+            K
+          </span>
+        </div>
+      </div>
+
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 overflow-y-auto scrollbar-thin">
+      <nav className="relative flex-1 px-3 py-4 overflow-y-auto scrollbar-thin">
         <NavGroup label="Intelligence" items={groups.intel} />
         <NavGroup label="Operations" items={groups.ops} className="mt-6" />
         <NavGroup label="System" items={groups.system} className="mt-6" />
       </nav>
 
-      {/* Upgrade card */}
-      <div className="px-3 pb-3">
-        <div className="relative rounded-2xl p-4 overflow-hidden bg-gradient-to-br from-violet-50 via-pink-50 to-sky-50 border border-white">
-          <div
-            className="absolute inset-0 opacity-50 pointer-events-none"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 20% 0%, rgba(139, 92, 246, 0.15), transparent 60%)",
-            }}
-          />
-          <div className="relative">
-            <div className="text-[11px] font-bold gradient-text uppercase tracking-wider mb-1">
+      {/* Pro Tip card */}
+      <div className="relative px-3 pb-3">
+        <div
+          className="relative rounded-2xl p-4 overflow-hidden border border-white/[0.06]"
+          style={{
+            background:
+              "linear-gradient(135deg, rgba(6, 182, 212, 0.22) 0%, rgba(59, 130, 246, 0.18) 50%, rgba(99, 102, 241, 0.14) 100%)",
+          }}
+        >
+          <div className="flex items-center gap-1.5 mb-2">
+            <Sparkles size={12} className="text-cyan-300" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-200">
               Pro Tip
-            </div>
-            <p className="text-[12px] text-slate-600 leading-relaxed mb-3">
-              Connetti il dominio madre Hostinger per attivare i sottodomini automatici.
-            </p>
-            <button className="text-[11px] font-bold text-violet-600 hover:text-violet-700">
-              Configura →
-            </button>
+            </span>
           </div>
+          <p className="text-[12px] text-white/80 leading-relaxed mb-3">
+            Connetti il dominio madre Hostinger per attivare i sottodomini automatici.
+          </p>
+          <button className="text-[11px] font-bold text-white/95 hover:text-white flex items-center gap-1 group">
+            Configura
+            <ChevronRight size={12} className="transition-transform group-hover:translate-x-0.5" />
+          </button>
         </div>
       </div>
 
-      {/* Footer */}
-      <div className="px-5 py-3 border-t border-slate-200/70">
+      {/* Footer status */}
+      <div className="relative px-5 py-3 border-t border-white/[0.06]">
         <div className="flex items-center gap-2 text-[11px] font-medium">
-          <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-          <span className="text-slate-500">Tutti i sistemi operativi</span>
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+          </span>
+          <span className="text-slate-300">Tutti i sistemi</span>
+          <span className="ml-auto text-emerald-300 font-bold">99.98%</span>
         </div>
       </div>
     </aside>
@@ -106,12 +163,13 @@ function NavGroup({
 }) {
   return (
     <div className={className}>
-      <div className="px-3 mb-2 text-[10px] uppercase tracking-[0.16em] text-slate-400 font-bold">
+      <div className="px-3 mb-2 text-[9px] uppercase tracking-[0.22em] text-slate-500 font-bold">
         {label}
       </div>
       <ul className="space-y-0.5">
         {items.map((item) => {
           const Icon = item.icon;
+          const c = colorMap[item.color];
           return (
             <li key={item.to}>
               <NavLink
@@ -121,26 +179,28 @@ function NavGroup({
                   cn(
                     "group relative flex items-center gap-3 px-3 py-2 text-[13.5px] rounded-xl transition-all",
                     isActive
-                      ? "bg-white text-slate-900 shadow-soft font-semibold"
-                      : "text-slate-600 hover:bg-white/60 hover:text-slate-900"
+                      ? "bg-white/[0.06] text-white"
+                      : "text-slate-400 hover:bg-white/[0.03] hover:text-slate-200"
                   )
                 }
               >
                 {({ isActive }) => (
                   <>
-                    <Icon
-                      size={16}
-                      strokeWidth={2}
+                    <span
                       className={cn(
-                        "transition-colors",
-                        isActive ? item.color : "text-slate-400 group-hover:" + item.color
+                        "w-7 h-7 rounded-lg flex items-center justify-center transition-all",
+                        isActive
+                          ? cn(c.bg, "ring-1", c.ring, c.active)
+                          : "text-slate-500 group-hover:text-slate-300"
                       )}
-                    />
-                    <span className="tracking-tight">{item.label}</span>
+                    >
+                      <Icon size={14} strokeWidth={2} />
+                    </span>
+                    <span className="font-medium tracking-tight">{item.label}</span>
                     {isActive && (
                       <span
-                        className="ml-auto w-1.5 h-1.5 rounded-full"
-                        style={{ background: "linear-gradient(135deg, #8b5cf6, #ec4899)" }}
+                        className="ml-auto w-1 h-4 rounded-full"
+                        style={{ background: "linear-gradient(180deg, #06b6d4, #6366f1)" }}
                       />
                     )}
                   </>

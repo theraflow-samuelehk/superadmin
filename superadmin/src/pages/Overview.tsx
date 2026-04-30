@@ -38,6 +38,7 @@ import { Badge } from "../components/ui/Badge";
 import { AvatarStack, gradientFor } from "../components/ui/Avatar";
 import { Button } from "../components/ui/Button";
 import { CountUp } from "../components/ui/CountUp";
+import { Sparkline, generateTrend } from "../components/ui/Sparkline";
 import { useImpersonation } from "../components/shell/Layout";
 import { formatCurrency, formatNumber, relativeTime, cn } from "../lib/utils";
 import { membersByWorkspace } from "../lib/mock";
@@ -59,7 +60,7 @@ export function Overview() {
       total: platformKPIs.totalWorkspaces,
       delta: "+2 settimana",
       icon: <Building2 size={14} />,
-      color: "violet",
+      color: "cyan",
     },
     {
       label: "Progetti live",
@@ -67,7 +68,7 @@ export function Overview() {
       total: platformKPIs.totalProjects,
       delta: "+5 ultimi 7gg",
       icon: <Rocket size={14} />,
-      color: "fuchsia",
+      color: "blue",
     },
     {
       label: "MRR totale",
@@ -75,7 +76,7 @@ export function Overview() {
       currency: true,
       delta: "+12.4% MoM",
       icon: <Wallet size={14} />,
-      color: "pink",
+      color: "indigo",
       emphasis: true,
     },
     {
@@ -97,11 +98,12 @@ export function Overview() {
   ];
 
   const colorMap: Record<string, string> = {
-    violet: "from-violet-100 to-violet-50 text-violet-700 ring-violet-200/50",
-    fuchsia: "from-fuchsia-100 to-fuchsia-50 text-fuchsia-700 ring-fuchsia-200/50",
-    pink: "from-pink-100 to-pink-50 text-pink-700 ring-pink-200/50",
+    cyan: "from-cyan-100 to-cyan-50 text-cyan-700 ring-cyan-200/50",
+    blue: "from-blue-100 to-blue-50 text-blue-700 ring-blue-200/50",
+    indigo: "from-indigo-100 to-indigo-50 text-indigo-700 ring-indigo-200/50",
     sky: "from-sky-100 to-sky-50 text-sky-700 ring-sky-200/50",
     emerald: "from-emerald-100 to-emerald-50 text-emerald-700 ring-emerald-200/50",
+    violet: "from-violet-100 to-violet-50 text-violet-700 ring-violet-200/50",
   };
 
   return (
@@ -114,22 +116,23 @@ export function Overview() {
         className="relative rounded-3xl overflow-hidden mb-10 panel-dark"
         style={{
           backgroundImage:
-            "radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.45) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.35) 0px, transparent 55%), radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.25) 0px, transparent 55%), radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.3) 0px, transparent 50%), linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%)",
+            "radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.45) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.4) 0px, transparent 55%), radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.28) 0px, transparent 55%), radial-gradient(at 0% 100%, rgba(56, 189, 248, 0.32) 0px, transparent 50%), linear-gradient(180deg, #0a1628 0%, #0e1d3a 50%, #0a1838 100%)",
         }}
       >
         {/* Dot pattern overlay */}
         <div className="absolute inset-0 dot-pattern-dark opacity-60" />
 
         {/* Decorative blobs */}
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] blob blob-violet opacity-25" />
-        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] blob blob-pink opacity-20" style={{ animationDelay: "-4s" }} />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] blob blob-cyan opacity-30" />
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] blob blob-blue opacity-25" style={{ animationDelay: "-4s" }} />
+        <div className="absolute top-1/2 right-1/3 w-[300px] h-[300px] blob blob-indigo opacity-20" style={{ animationDelay: "-8s" }} />
 
         <div className="relative p-8 lg:p-12">
           {/* Top bar */}
           <div className="flex items-center gap-3 mb-10 flex-wrap">
             <span
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.14em] text-white border border-white/20"
-              style={{ background: "linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(236, 72, 153, 0.4))", backdropFilter: "blur(8px)" }}
+              style={{ background: "linear-gradient(135deg, rgba(6, 182, 212, 0.45), rgba(99, 102, 241, 0.45))", backdropFilter: "blur(8px)" }}
             >
               <Sparkles size={12} /> Super Admin
             </span>
@@ -162,7 +165,7 @@ export function Overview() {
               </h1>
               <p className="mt-7 max-w-md text-[15.5px] text-white/70 leading-relaxed">
                 Sei super admin di una piattaforma multi-tenant. Vedi ogni workspace, ogni progetto, ogni utente. Per intervenire dentro un workspace, attiva la modalità{" "}
-                <span className="text-violet-300 font-semibold">View As</span>.
+                <span className="text-cyan-300 font-semibold">View As</span>.
               </p>
               <div className="mt-7 flex gap-3 flex-wrap">
                 <Button variant="primary" size="lg" onClick={() => navigate("/workspaces")}>
@@ -282,8 +285,8 @@ export function Overview() {
               </h3>
             </div>
             <div className="flex gap-2">
-              <Badge variant="violet">Visite</Badge>
-              <Badge variant="info" dot>Lead</Badge>
+              <Badge variant="info">Visite</Badge>
+              <Badge variant="violet" dot>Lead</Badge>
               <Badge variant="trial" dot>€</Badge>
             </div>
           </div>
@@ -293,12 +296,12 @@ export function Overview() {
               <AreaChart data={platformTimeseries}>
                 <defs>
                   <linearGradient id="vio" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#8b5cf6" stopOpacity={0.45} />
-                    <stop offset="100%" stopColor="#8b5cf6" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#06b6d4" stopOpacity={0.45} />
+                    <stop offset="100%" stopColor="#06b6d4" stopOpacity={0} />
                   </linearGradient>
                   <linearGradient id="pnk" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#ec4899" stopOpacity={0.3} />
-                    <stop offset="100%" stopColor="#ec4899" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#6366f1" stopOpacity={0.3} />
+                    <stop offset="100%" stopColor="#6366f1" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" vertical={false} />
@@ -315,8 +318,8 @@ export function Overview() {
                   }}
                   labelStyle={{ color: "#0f172a", fontWeight: 600 }}
                 />
-                <Area type="monotone" dataKey="visite" stroke="#8b5cf6" strokeWidth={2.5} fill="url(#vio)" />
-                <Area type="monotone" dataKey="lead" stroke="#ec4899" strokeWidth={2} fill="url(#pnk)" />
+                <Area type="monotone" dataKey="visite" stroke="#06b6d4" strokeWidth={2.5} fill="url(#vio)" />
+                <Area type="monotone" dataKey="lead" stroke="#6366f1" strokeWidth={2} fill="url(#pnk)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -473,6 +476,25 @@ export function Overview() {
                       name: m.name,
                       color: m.avatarColor,
                     }))}
+                  />
+                </div>
+
+                {/* Sparkline trend */}
+                <div className="flex items-center justify-between mb-4 px-3 py-2.5 rounded-xl bg-gradient-to-br from-violet-50/60 via-pink-50/40 to-transparent border border-slate-100">
+                  <div>
+                    <div className="text-[9.5px] text-slate-400 font-bold uppercase tracking-wider">
+                      Trend visite · 14gg
+                    </div>
+                    <div className="text-[11px] text-emerald-600 font-bold mt-0.5">
+                      ↗ +{12 + (i * 3)}% vs prec.
+                    </div>
+                  </div>
+                  <Sparkline
+                    data={generateTrend(ws.id, 14, ws.status === "active" ? "up" : ws.status === "paused" ? "down" : "flat")}
+                    width={96}
+                    height={32}
+                    stroke={ws.status === "active" ? "#8b5cf6" : ws.status === "paused" ? "#f43f5e" : "#94a3b8"}
+                    strokeWidth={1.75}
                   />
                 </div>
 
