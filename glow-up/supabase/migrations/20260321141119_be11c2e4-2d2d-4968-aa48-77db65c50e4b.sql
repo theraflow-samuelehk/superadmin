@@ -1,0 +1,2 @@
+ALTER TABLE public.tutorial_videos ADD COLUMN menu_section text DEFAULT NULL;
+COMMENT ON COLUMN public.tutorial_videos.menu_section IS 'Menu section key where this video should appear in the ? FAB (e.g. dashboard, agenda, clienti, servizi)';

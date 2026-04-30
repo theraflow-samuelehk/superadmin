@@ -1,0 +1,1 @@
+ALTER TABLE public.salon_integrations ADD COLUMN IF NOT EXISTS whatsapp_verify_token text;

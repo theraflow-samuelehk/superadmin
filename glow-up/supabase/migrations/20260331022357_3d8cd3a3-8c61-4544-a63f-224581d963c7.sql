@@ -1,0 +1,1 @@
+UPDATE public.salon_integrations SET whatsapp_enabled = true WHERE user_id = '03006b10-6270-496e-8c87-fdf0d71be837';

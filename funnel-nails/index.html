@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#e91e8c">
+<title>Corso Ricostruzione Unghie + Inserimento Lavorativo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--pink:#e91e8c;--pink-light:#fdf2f8;--pink-dark:#9d174d;--gold:#d4a03c;--gold-soft:#fdf6e3;--green:#16a34a;--green-soft:#dcfce7;--red:#dc2626;--dark:#111;--text:#3a3a3a;--muted:#888;--light:#faf9f7;--white:#fff;--font:'Inter',sans-serif}
+body{font-family:var(--font);color:var(--text);background:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+img{max-width:100%;display:block}
+.c{max-width:680px;margin:0 auto;padding:0 24px}
+.sec{padding:56px 24px}
+
+/* TOPBAR */
+.topbar{background:var(--pink);color:#fff;text-align:center;padding:10px 16px;font-size:12px;font-weight:700;letter-spacing:.02em}
+.topbar span{animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.5}}
+
+/* CREATIVE CARD */
+.creative{max-width:500px;margin:0 auto;background:linear-gradient(135deg,#9d174d 0%,#e91e8c 50%,#f472b6 100%);border-radius:20px;padding:36px 32px;color:#fff;text-align:center;box-shadow:0 16px 48px rgba(233,30,140,0.25)}
+.creative__badge{display:inline-block;background:#fff;color:var(--pink);padding:5px 16px;border-radius:20px;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px}
+.creative h2{font-size:24px;font-weight:900;line-height:1.2;margin-bottom:6px}
+.creative h2 em{color:#fde68a;font-style:normal}
+.creative__sub{font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:20px}
+.creative__list{text-align:left;display:flex;flex-direction:column;gap:8px;margin-bottom:24px;padding:0 12px}
+.creative__list li{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:600}
+.creative__list li .ck{width:22px;height:22px;border-radius:50%;background:#fff;color:var(--pink);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px}
+.creative__price{margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:10px}
+.creative__price-old{font-size:18px;color:rgba(255,255,255,0.4);text-decoration:line-through;font-weight:600}
+.creative__price-now{font-size:38px;font-weight:900;color:#fde68a}
+.creative__price-label{font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.creative__cta{display:inline-block;padding:16px 40px;background:#fff;color:var(--pink);border-radius:50px;font-size:15px;font-weight:800;transition:all .3s;box-shadow:0 6px 24px rgba(0,0,0,0.15)}
+.creative__cta:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,0,0,0.2)}
+.creative__note{font-size:10px;color:rgba(255,255,255,0.4);margin-top:10px}
+
+/* HERO */
+.hero{position:relative;overflow:hidden}
+.hero img{width:100%;height:400px;object-fit:cover}
+.hero__overlay{position:absolute;inset:0;background:linear-gradient(transparent 20%,rgba(0,0,0,0.75));display:flex;flex-direction:column;justify-content:flex-end;padding:32px 28px;color:#fff}
+.hero h1{font-size:clamp(24px,5.5vw,38px);font-weight:900;line-height:1.15;margin-bottom:8px}
+.hero h1 em{color:#f9a8d4;font-style:normal}
+.hero p{font-size:15px;color:rgba(255,255,255,0.7);max-width:500px}
+
+/* SECTIONS */
+h2{font-size:clamp(22px,4.5vw,30px);font-weight:800;color:var(--dark);line-height:1.25;margin-bottom:10px}
+h2 em{color:var(--pink);font-style:normal}
+.sub{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:24px}
+
+/* MODULI */
+.moduli__grid{display:flex;flex-direction:column;gap:12px}
+.modulo{display:flex;align-items:center;gap:16px;padding:20px;background:var(--white);border-radius:16px;border:1.5px solid #f0e0ee;transition:all .3s}
+.modulo:hover{border-color:var(--pink);box-shadow:0 4px 16px rgba(233,30,140,0.08)}
+.modulo__icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0;background:var(--pink-light)}
+.modulo h4{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:2px}
+.modulo p{font-size:12px;color:var(--muted);line-height:1.5}
+.modulo__content{flex:1}
+.modulo__durata{font-size:11px;font-weight:600;color:var(--pink);background:var(--pink-light);padding:3px 10px;border-radius:20px;white-space:nowrap}
+
+/* LEZIONI ACCORDION */
+.lezioni-section{text-align:center;margin-bottom:32px}
+.lezioni-section h2{margin-bottom:4px}
+.lezioni-section .sub-pink{color:var(--pink);font-size:16px;font-weight:700;margin-bottom:16px}
+.lezioni-section .arrow-down{font-size:32px;margin-bottom:24px;color:var(--green)}
+.lezioni-cat{font-size:22px;font-weight:800;color:var(--dark);text-align:center;margin-bottom:12px}
+.lezioni-list{display:flex;flex-direction:column;gap:4px;margin-bottom:32px}
+.lezione{background:rgba(233,150,180,0.3);border-radius:8px}
+.lezione__q{display:flex;align-items:center;padding:16px 20px;cursor:pointer;font-size:14px;font-weight:700;color:var(--pink-dark);gap:12px}
+.lezione__q .plus{font-size:20px;color:var(--pink);flex-shrink:0;width:20px;text-align:center}
+.lezione__q .label{flex:1;text-align:center}
+.lezione__q .chevron{font-size:16px;color:var(--pink);flex-shrink:0}
+.lezione.open .lezione__q .chevron{transform:rotate(90deg)}
+.lezione__a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.lezione.open .lezione__a{max-height:300px}
+.lezione__a p{padding:8px 24px 16px;font-size:14px;color:var(--dark);line-height:1.7}
+
+/* CERT BOX */
+.cert-box{margin-top:24px;text-align:center;background:var(--pink-light);border-radius:20px;padding:28px 24px;border:2px solid rgba(233,30,140,0.15)}
+.cert-box img{max-width:400px;width:100%;margin:0 auto 16px;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.1)}
+.cert-box h3{font-size:18px;font-weight:800;color:var(--dark);margin-bottom:6px}
+.cert-box p{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* ASSUNZIONE */
+.assunzione-box{margin-top:20px;background:linear-gradient(135deg,var(--green),#15803d);border-radius:20px;padding:28px 24px;color:#fff;text-align:center}
+.assunzione-box .ass-icon{font-size:48px;margin-bottom:10px}
+.assunzione-box h3{font-size:22px;font-weight:900;margin-bottom:6px}
+.assunzione-box p{font-size:14px;color:rgba(255,255,255,0.7);line-height:1.6}
+
+/* BENEFITS */
+.benefits__grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:500px){.benefits__grid{grid-template-columns:1fr}}
+.benefit{padding:20px;background:var(--light);border-radius:16px;text-align:center}
+.benefit__icon{font-size:32px;margin-bottom:8px}
+.benefit h4{font-size:14px;font-weight:700;color:var(--dark);margin-bottom:3px}
+.benefit p{font-size:12px;color:var(--muted);line-height:1.5}
+
+/* JOB */
+.job{background:var(--green-soft);border-radius:20px;padding:28px 24px;border:2px solid rgba(22,163,74,0.15)}
+.job h3{font-size:18px;font-weight:800;color:var(--green);margin-bottom:14px;text-align:center}
+.job__grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:500px){.job__grid{grid-template-columns:1fr}}
+.job__item{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--white);border-radius:12px;font-size:13px;font-weight:600;color:var(--dark)}
+.job__item span{font-size:20px;flex-shrink:0}
+
+/* PRICE */
+.price-box{text-align:center;background:var(--light);border-radius:20px;padding:32px 24px;border:2px solid var(--pink)}
+.price-box .old{font-size:14px;color:var(--muted);text-decoration:line-through}
+.price-box .current{font-size:48px;font-weight:900;color:var(--pink)}
+.price-box .note{font-size:12px;color:var(--muted);margin-top:6px}
+
+/* TESTIMONIALS */
+.testi__grid{display:flex;flex-direction:column;gap:10px}
+.testi{padding:20px;background:var(--light);border-radius:14px}
+.testi__stars{color:var(--gold);font-size:14px;letter-spacing:2px;margin-bottom:6px}
+.testi__text{font-size:13px;color:var(--text);line-height:1.65;font-style:italic;margin-bottom:8px}
+.testi__author{font-size:12px;font-weight:700;color:var(--dark)}
+.testi__info{font-size:10px;color:var(--muted)}
+
+/* FAQ */
+.obj{border-bottom:1px solid #eee;padding:14px 0}
+.obj__q{display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:14px;font-weight:600;color:var(--dark);gap:10px}
+.obj__q svg{width:14px;height:14px;stroke:var(--muted);stroke-width:2;fill:none;flex-shrink:0;transition:transform .3s}
+.obj.open .obj__q svg{transform:rotate(180deg)}
+.obj__a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.obj.open .obj__a{max-height:400px}
+.obj__a p{padding-top:10px;font-size:13px;color:var(--muted);line-height:1.7}
+
+/* CTA */
+.cta-btn{display:block;text-align:center;padding:18px;background:var(--pink);color:#fff;border-radius:16px;font-size:16px;font-weight:800;transition:all .3s;box-shadow:0 6px 24px rgba(233,30,140,0.25);max-width:480px;margin:0 auto;position:relative;overflow:hidden}
+.cta-btn::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,0.15) 50%,transparent 70%);animation:shine 4s infinite}
+@keyframes shine{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(233,30,140,0.35)}
+.cta-sub{text-align:center;font-size:11px;color:var(--muted);margin-top:8px}
+
+/* URGENCY */
+.urgency{background:var(--pink);color:#fff;padding:20px;border-radius:16px;text-align:center}
+.urgency__big{font-size:28px;font-weight:900;margin-bottom:4px}
+.urgency p{font-size:13px;color:rgba(255,255,255,0.7)}
+
+/* GUARANTEE */
+.guarantee{text-align:center;padding:28px;border:2px solid var(--pink);border-radius:16px;background:var(--pink-light)}
+.guarantee__icon{font-size:40px;margin-bottom:8px}
+.guarantee h3{font-size:16px;font-weight:800;color:var(--dark);margin-bottom:6px}
+.guarantee p{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* FORM */
+.form-candidatura{max-width:520px;margin:0 auto}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
+.form-group{margin-bottom:14px}
+.form-group label{display:block;font-size:12px;font-weight:600;color:var(--dark);margin-bottom:5px}
+.form-group input,.form-group select{width:100%;padding:12px 14px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:14px;font-family:var(--font);background:var(--white);transition:border-color .2s}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--pink)}
+.pay-choice{display:flex;flex-direction:column;gap:8px}
+.pay-radio{cursor:pointer}
+.pay-radio input{display:none}
+.pay-radio__box{display:flex;align-items:center;gap:12px;padding:14px 16px;border:1.5px solid #e0e0e0;border-radius:12px;transition:all .2s;background:var(--white)}
+.pay-radio input:checked+.pay-radio__box{border-color:var(--pink);background:var(--pink-light);box-shadow:0 2px 8px rgba(233,30,140,0.08)}
+.pay-radio__icon{font-size:24px;flex-shrink:0}
+.pay-radio__box strong{font-size:14px;color:var(--dark);display:block}
+.pay-radio__box small{font-size:11px;color:var(--muted);line-height:1.4}
+
+/* FOOTER */
+footer{padding:20px;text-align:center;font-size:10px;color:#ccc;background:var(--dark)}
+footer a{color:rgba(255,255,255,0.3)}
+
+/* WHATSAPP */
+.whatsapp-float{position:fixed;bottom:24px;right:24px;width:60px;height:60px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,0.4);z-index:999999}
+.whatsapp-float svg{width:32px;height:32px;fill:#fff}
+
+/* MOBILE */
+@media(max-width:600px){
+  .sec{padding:36px 16px}
+  .c{padding:0 16px}
+  .topbar{padding:8px 12px;font-size:11px}
+  .creative{padding:24px 18px;border-radius:14px}
+  .creative h2{font-size:20px}
+  .creative__price-now{font-size:32px}
+  .creative__cta{padding:14px 32px;font-size:14px;width:100%;text-align:center}
+  .hero img{height:240px}
+  h2{font-size:22px}
+  .modulo{padding:16px;gap:12px}
+  .modulo__icon{width:48px;height:48px;font-size:24px}
+  .price-box .current{font-size:40px}
+  .whatsapp-float{bottom:20px;right:16px;width:56px;height:56px}
+  .whatsapp-float svg{width:28px;height:28px}
+}
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1313613270661919');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1313613270661919&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar"><span>Ultimi posti disponibili — Le iscrizioni chiudono a breve</span></div>
+
+<!-- CREATIVE CARD -->
+<section class="sec" style="background:var(--pink-light);padding-bottom:32px">
+  <div class="creative">
+    <div class="creative__badge">Posti limitati</div>
+    <h2>Corso Ricostruzione Unghie + <em>Inserimento Lavorativo</em></h2>
+    <div class="creative__sub">Formati con noi, lavora nella tua zona. I centri estetici ti aspettano.</div>
+    <ul class="creative__list">
+      <li><span class="ck">&#10003;</span> Corso online completo da zero a esperta</li>
+      <li><span class="ck">&#10003;</span> Attestato di partecipazione</li>
+      <li><span class="ck">&#10003;</span> Inserimento lavorativo nella tua zona</li>
+      <li><span class="ck">&#10003;</span> Lezioni pratiche step by step</li>
+      <li><span class="ck">&#10003;</span> Accesso illimitato ai contenuti</li>
+      <li><span class="ck">&#10003;</span> Supporto dedicato</li>
+    </ul>
+    <div class="creative__price">
+      <span class="creative__price-old">&euro;149</span>
+      <span class="creative__price-now">&euro;50</span>
+      <span class="creative__price-label">offerta limitata</span>
+    </div>
+    <a href="#iscriviti" class="creative__cta">Iscriviti ora — Ultimi posti</a>
+    <div class="creative__note">I centri estetici hanno gia fatto richiesta di personale formato</div>
+  </div>
+</section>
+
+<!-- HERO -->
+<section class="hero">
+  <img src="img/hero.jpg" alt="Corso ricostruzione unghie">
+  <div class="hero__overlay">
+    <h1>Diventa nail artist e lavora <em>nella tua zona</em></h1>
+    <p>Ti formiamo, ricevi l'attestato e ti inseriamo direttamente nei centri estetici della tua citta.</p>
+  </div>
+</section>
+
+<!-- COSA TROVERAI ALL'INTERNO -->
+<section class="sec" style="background:var(--white)">
+  <div class="c">
+    <div class="lezioni-section">
+      <h2>Cosa troverai <em>all'interno</em></h2>
+      <div class="sub-pink">Dalla Teoria Alla Pratica</div>
+      <div class="arrow-down">&#11015;</div>
+    </div>
+
+    <!-- LEZIONI TEORICHE -->
+    <div class="lezioni-cat">Lezioni Teoriche &#128218;</div>
+    <div class="lezioni-list">
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Introduzione al corso</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Una panoramica completa del percorso formativo. <strong>Scoprirai come e' strutturato il corso, quali competenze acquisirai e come sfruttare al massimo ogni lezione</strong> per diventare una professionista.</p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Studio degli Strumenti</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Imparerai a conoscere tutti gli strumenti professionali utilizzati nella ricostruzione unghie. <strong>Lime, buffer, pennelli, lampada UV/LED, pinzette e molto altro: saprai esattamente quando e come usare ciascuno strumento.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Anatomia dell'unghia</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Studio approfondito della struttura dell'unghia: matrice, letto ungueale, lamina, cuticole e iponichio. <strong>Conoscere l'anatomia e' fondamentale per lavorare in sicurezza e ottenere risultati professionali.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Malattie e Problematiche</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Imparerai a riconoscere le principali patologie e problematiche ungueali. <strong>Saprai identificare micosi, onicolisi, psoriasi ungueale e capire quando non intervenire e indirizzare la cliente da un dermatologo.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Prevenzione, Cura e Igiene</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Protocolli completi di igiene e sterilizzazione degli strumenti. <strong>Imparerai le procedure corrette di sanificazione, disinfezione e prevenzione delle infezioni per garantire la massima sicurezza alle tue clienti.</strong></p></div></div>
+    </div>
+
+    <!-- LEZIONI PRATICHE -->
+    <div class="lezioni-cat">Lezioni Pratiche &#128133;</div>
+    <div class="lezioni-list">
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Tecniche di preparazione dell'unghia naturale</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Imparerai tutti i passaggi per preparare correttamente l'unghia naturale prima di qualsiasi trattamento. <strong>Una preparazione accurata e' la base per una ricostruzione duratura e professionale.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Utilizzo dei Preparatori e la loro funzione</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Scoprirai i vari preparatori utilizzati nella ricostruzione delle unghie, comprendendo la loro funzione specifica. <strong>Imparerai come ciascun prodotto contribuira a garantire una perfetta adesione del gel, una lunga durata e proteggere l'unghia naturale durante il trattamento.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Tecniche di limatura dell'unghia naturale</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Imparerai la direzione corretta, la grana adatta e l'angolazione perfetta per limare l'unghia naturale. <strong>Una limatura professionale evita danni alla lamina e prepara l'unghia al meglio per il trattamento.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Dry Manicure</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>La tecnica di manicure a secco piu utilizzata e richiesta nei centri estetici professionali. <strong>Imparerai a rimuovere le cuticole e preparare l'unghia senza ammollo, per risultati piu precisi e duraturi.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Corretta opacizzazione della lamina ungueale</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Imparerai come opacizzare correttamente la superficie dell'unghia. <strong>Questo passaggio e' cruciale per garantire la massima adesione del gel e prevenire distacchi prematuri.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Corretto posizionamento nail form</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Scoprirai come posizionare la nail form in modo perfetto sotto l'unghia naturale. <strong>Un posizionamento corretto e' essenziale per ottenere allungamenti simmetrici, con la giusta curvatura e struttura.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Tecniche di stesura del Gel</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Imparerai la stesura uniforme del gel con la quantita giusta e i movimenti corretti. <strong>Dalla base al top coat, ogni passaggio sara spiegato nel dettaglio per un risultato impeccabile e duraturo.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Metodo di applicazione della nail form e del gel per la forma ovale</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Tecnica completa per realizzare la forma ovale, una delle piu eleganti e richieste. <strong>Imparerai a creare una forma perfettamente simmetrica con una struttura solida e naturale.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Metodo di applicazione nail form e gel per forma quadrata moderna</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>La forma quadrata moderna e' un trend che non passa mai di moda. <strong>Imparerai a realizzarla con angoli definiti e una struttura bilanciata, perfetta per ogni tipo di mano.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Tecniche limatura per forma ovale e quadrata</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Imparerai le tecniche di limatura specifiche per perfezionare sia la forma ovale che quella quadrata. <strong>Ogni forma richiede movimenti e angolazioni diverse per un risultato professionale.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Ricostruzione con Dual Form Moderna</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>La tecnica piu veloce e innovativa per realizzare ricostruzioni perfette. <strong>Con la dual form risparmierai tempo mantenendo un livello qualitativo altissimo, ideale per il lavoro in salone.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Tecniche per French Manicure professionale</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Imparerai a realizzare la french manicure classica, il baby boomer e le varianti moderne. <strong>Il servizio piu richiesto dalle clienti, eseguito con precisione professionale.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Realizzare un Refill Professionale</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Imparerai la tecnica completa per eseguire un refill perfetto. <strong>Saprai gestire la ricrescita, riequilibrare la struttura e mantenere le unghie delle tue clienti sempre impeccabili.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">5 Tecniche di Decorazione</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Cinque tecniche creative per rendere uniche le tue creazioni: glitter, effetto marmorizzato, cromato, micropittura e stamping. <strong>Imparerai a offrire nail art di tendenza che le tue clienti ameranno.</strong></p></div></div>
+      <div class="lezione"><div class="lezione__q" onclick="toggleLezione(this)"><span class="plus">+</span><span class="label">Rimozione</span><span class="chevron">&#8250;</span></div><div class="lezione__a"><p>Imparerai a rimuovere il gel in modo sicuro e professionale. <strong>Scoprirai la tecnica corretta per non danneggiare l'unghia naturale, preservandone la salute e la bellezza.</strong></p></div></div>
+    </div>
+
+    <!-- CERTIFICATO -->
+    <div class="cert-box">
+      <img src="img/certificato.jpg" alt="Attestato di Partecipazione">
+      <h3>Attestato di Partecipazione</h3>
+      <p>Al termine del corso riceverai l'<strong>Attestato di Partecipazione</strong> che certifica le tue competenze in ricostruzione unghie e nail art. Il tuo biglietto da visita per i centri estetici.</p>
+    </div>
+
+    <!-- INSERIMENTO LAVORATIVO -->
+    <div class="assunzione-box">
+      <div class="ass-icon">&#128142;</div>
+      <h3>Il passaggio piu importante: ti inseriamo al lavoro</h3>
+      <p>Una volta ottenuto l'attestato, <strong>ti mettiamo in contatto con i centri estetici della tua zona</strong> che cercano nail artist formate. Il tuo nuovo lavoro inizia qui.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DESIGNS IMAGE -->
+<section class="sec" style="background:var(--pink-light);text-align:center;padding:40px 24px">
+  <img src="img/designs.jpg" alt="Nail art professionali" style="max-width:600px;width:100%;margin:0 auto;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.08)">
+  <p style="font-size:14px;color:var(--muted);margin-top:16px;max-width:500px;margin-left:auto;margin-right:auto">Imparerai a realizzare unghie perfette: french manicure, ombre, glitter, nail art creative e molto altro.</p>
+</section>
+
+<!-- DETTAGLI LAVORO -->
+<section class="sec" style="background:var(--white)">
+  <div class="c">
+    <h2>Il lavoro che ti aspetta</h2>
+    <p class="sub">I centri estetici della tua zona cercano nail artist formate.</p>
+    <div class="job">
+      <h3>Nail Artist nei Centri Estetici</h3>
+      <div class="job__grid">
+        <div class="job__item"><span>&#128141;</span> Lavoro nei centri della tua citta</div>
+        <div class="job__item"><span>&#128176;</span> Stipendio da 1.000 a 1.800&euro;/mese</div>
+        <div class="job__item"><span>&#128197;</span> Orari flessibili</div>
+        <div class="job__item"><span>&#127891;</span> Attestato riconosciuto</div>
+        <div class="job__item"><span>&#10024;</span> Lavoro creativo e gratificante</div>
+        <div class="job__item"><span>&#128200;</span> Settore in forte crescita</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM CANDIDATURA -->
+<section class="sec" style="background:var(--pink-light);padding:48px 24px" id="iscriviti">
+  <div class="c">
+    <h2 style="text-align:center">Iscriviti al <em>corso</em></h2>
+    <p class="sub" style="text-align:center">Compila il modulo e inizia il tuo percorso da nail artist.</p>
+    <form class="form-candidatura" action="process_candidatura.php" method="POST" onsubmit="fbq('track','Purchase',{value:50.00,currency:'EUR'});">
+      <div class="form-row">
+        <div class="form-group"><label>Nome *</label><input type="text" name="nome" required placeholder="Il tuo nome"></div>
+        <div class="form-group"><label>Cognome *</label><input type="text" name="cognome" required placeholder="Il tuo cognome"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Telefono *</label><input type="tel" name="telefono" required placeholder="Es. 333 1234567"></div>
+        <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="La tua email (opzionale)"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Citta *</label><input type="text" name="citta" required placeholder="La tua citta"></div>
+        <div class="form-group">
+          <label>Provincia *</label>
+          <select name="provincia" required>
+            <option value="">Seleziona...</option>
+            <option value="MI">Milano</option><option value="RM">Roma</option><option value="NA">Napoli</option><option value="TO">Torino</option><option value="PA">Palermo</option><option value="GE">Genova</option><option value="BO">Bologna</option><option value="FI">Firenze</option><option value="BA">Bari</option><option value="CT">Catania</option><option value="VE">Venezia</option><option value="VR">Verona</option><option value="ME">Messina</option><option value="PD">Padova</option><option value="TS">Trieste</option><option value="TA">Taranto</option><option value="BS">Brescia</option><option value="PR">Parma</option><option value="RC">Reggio Calabria</option><option value="RE">Reggio Emilia</option><option value="MO">Modena</option><option value="PG">Perugia</option><option value="CA">Cagliari</option><option value="LI">Livorno</option><option value="SA">Salerno</option><option value="CE">Caserta</option><option value="AV">Avellino</option><option value="BN">Benevento</option><option value="CZ">Catanzaro</option><option value="CS">Cosenza</option><option value="AG">Agrigento</option><option value="SR">Siracusa</option><option value="RG">Ragusa</option><option value="EN">Enna</option><option value="CL">Caltanissetta</option><option value="TP">Trapani</option><option value="SS">Sassari</option><option value="NU">Nuoro</option><option value="OR">Oristano</option><option value="AQ">L'Aquila</option><option value="PE">Pescara</option><option value="CH">Chieti</option><option value="TE">Teramo</option><option value="CB">Campobasso</option><option value="IS">Isernia</option><option value="AN">Ancona</option><option value="PU">Pesaro e Urbino</option><option value="MC">Macerata</option><option value="AP">Ascoli Piceno</option><option value="FM">Fermo</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group"><label>Via e Numero Civico *</label><input type="text" name="indirizzo" required placeholder="Es. Via Roma 15"></div>
+      <div class="form-row">
+        <div class="form-group"><label>CAP *</label><input type="text" name="cap" required placeholder="Es. 00100" maxlength="5"></div>
+        <div class="form-group"><label>Scala / Interno</label><input type="text" name="scala" placeholder="Es. Scala B, Int. 3"></div>
+      </div>
+      <div class="form-group">
+        <label>Come preferisci pagare? *</label>
+        <div class="pay-choice">
+          <label class="pay-radio">
+            <input type="radio" name="metodo_pagamento" value="bonifico">
+            <div class="pay-radio__box">
+              <span class="pay-radio__icon">&#127974;</span>
+              <div>
+                <strong>Bonifico Bancario</strong>
+                <small>Paghi subito e ricevi accesso immediato al corso via email</small>
+              </div>
+            </div>
+          </label>
+          <label class="pay-radio">
+            <input type="radio" name="metodo_pagamento" value="contrassegno" checked>
+            <div class="pay-radio__box">
+              <span class="pay-radio__icon">&#128230;</span>
+              <div>
+                <strong>Pagamento alla Consegna</strong>
+                <small>Ricevi il materiale a casa e paghi 50&euro; al corriere</small>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+      <button type="submit" class="cta-btn" style="width:100%;border:none;cursor:pointer;font-family:var(--font)">Iscriviti Ora — Solo 50&euro;</button>
+      <div class="cta-sub">Ultimi posti disponibili &middot; Ti contattiamo entro 24h</div>
+    </form>
+  </div>
+</section>
+
+<!-- BENEFICI -->
+<section class="sec" style="background:var(--white)">
+  <div class="c">
+    <h2>Perche scegliere <em>questo corso</em></h2>
+    <div class="benefits__grid">
+      <div class="benefit"><div class="benefit__icon">&#127891;</div><h4>Da zero a esperta</h4><p>Pensato per principianti. Impari tutto passo dopo passo.</p></div>
+      <div class="benefit"><div class="benefit__icon">&#128188;</div><h4>Inserimento garantito</h4><p>Dopo l'attestato, ti mettiamo in contatto con i centri estetici.</p></div>
+      <div class="benefit"><div class="benefit__icon">&#128250;</div><h4>Video lezioni HD</h4><p>Lezioni pratiche filmate in alta qualita. Impari guardando.</p></div>
+      <div class="benefit"><div class="benefit__icon">&#128274;</div><h4>Accesso illimitato</h4><p>Rivedi le lezioni quando vuoi, per sempre. Nessuna scadenza.</p></div>
+      <div class="benefit"><div class="benefit__icon">&#128176;</div><h4>Solo 50&euro;</h4><p>Investimento minimo per un lavoro creativo e ben pagato.</p></div>
+      <div class="benefit"><div class="benefit__icon">&#10024;</div><h4>Settore in crescita</h4><p>La richiesta di nail artist cresce ogni anno. Lavoro sicuro.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LAVORO IMAGE -->
+<section class="sec" style="background:var(--pink-light);text-align:center;padding:40px 24px">
+  <img src="img/lavoro.jpg" alt="Lavoro come nail artist" style="max-width:600px;width:100%;margin:0 auto;border-radius:16px;box-shadow:0 8px 32px rgba(0,0,0,0.08)">
+  <p style="font-size:14px;color:var(--muted);margin-top:16px;max-width:500px;margin-left:auto;margin-right:auto">Il tuo futuro: lavorare come nail artist professionista nei migliori centri estetici della tua citta.</p>
+</section>
+
+<!-- PREZZO -->
+<section class="sec" style="background:var(--white)">
+  <div class="c">
+    <h2 style="text-align:center">Quanto costa?</h2>
+    <p class="sub" style="text-align:center">Meno di una cena fuori. Per un lavoro che ti cambia la vita.</p>
+    <div class="price-box">
+      <div class="old">Prezzo originale: &euro;149</div>
+      <div class="current">&euro;50</div>
+      <div class="note">Pagamento unico &middot; Accesso immediato &middot; Inserimento lavorativo incluso</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="sec" style="background:var(--pink-light);padding:36px 24px">
+  <a href="#iscriviti" class="cta-btn">Iscriviti adesso — Posti quasi esauriti</a>
+  <div class="cta-sub">50&euro; &middot; Compila il modulo &middot; Ti contattiamo entro 24h</div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="sec" style="background:var(--white)">
+  <div class="c">
+    <h2>Chi l'ha fatto prima di te</h2>
+    <p class="sub">Centinaia di ragazze hanno gia iniziato a lavorare come nail artist.</p>
+    <div class="testi__grid">
+      <div class="testi"><div class="testi__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="testi__text">"Non sapevo nulla di unghie. Il corso mi ha insegnato tutto da zero e dopo 2 settimane lavoravo gia in un centro estetico vicino casa. Non ci credo ancora!"</p><div class="testi__author">Martina C.</div><div class="testi__info">23 anni, Milano — assunta in 14 giorni</div></div>
+      <div class="testi"><div class="testi__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="testi__text">"Per 50 euro ho cambiato vita. Le video lezioni sono chiarissime e il supporto fantastico. Ora lavoro part-time come nail artist e guadagno piu di prima."</p><div class="testi__author">Chiara F.</div><div class="testi__info">28 anni, Roma — lavora part-time</div></div>
+      <div class="testi"><div class="testi__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="testi__text">"Avevo paura fosse una fregatura. Invece il corso e' completo e dopo l'attestato mi hanno messa in contatto con 3 centri estetici nella mia zona."</p><div class="testi__author">Federica R.</div><div class="testi__info">31 anni, Napoli — scelta tra 3 offerte</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec" style="background:var(--pink-light)">
+  <div class="c">
+    <h2>Domande frequenti</h2>
+    <div class="obj"><div class="obj__q" onclick="this.parentElement.classList.toggle('open')">E' adatto a chi parte da zero?<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="obj__a"><p>Assolutamente si. Il corso e' pensato per principianti. Ogni lezione ti guida passo dopo passo, dalla teoria alla pratica. Non serve nessuna esperienza precedente.</p></div></div>
+    <div class="obj"><div class="obj__q" onclick="this.parentElement.classList.toggle('open')">Quanto dura il corso?<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="obj__a"><p>Vai al tuo ritmo. In media le nostre allieve completano il corso in 1-2 settimane. Hai accesso illimitato, quindi puoi rivedere le lezioni quando vuoi.</p></div></div>
+    <div class="obj"><div class="obj__q" onclick="this.parentElement.classList.toggle('open')">Come funziona l'inserimento lavorativo?<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="obj__a"><p>Dopo aver completato il corso e ottenuto l'attestato, ti mettiamo in contatto con i centri estetici della tua zona che cercano nail artist formate. Noi facciamo da ponte tra te e i datori di lavoro.</p></div></div>
+    <div class="obj"><div class="obj__q" onclick="this.parentElement.classList.toggle('open')">Posso pagare alla consegna?<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="obj__a"><p>Si. Un corriere ti porta il materiale a casa e paghi 50 euro alla consegna. Dentro trovi le credenziali per accedere al corso online.</p></div></div>
+    <div class="obj"><div class="obj__q" onclick="this.parentElement.classList.toggle('open')">E se non trovo lavoro?<svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div><div class="obj__a"><p>Se completi il corso, ottieni l'attestato e non riusciamo a inserirti in un centro estetico, ti rimborsiamo ogni centesimo. Garanzia totale.</p></div></div>
+  </div>
+</section>
+
+<!-- URGENCY -->
+<section class="sec" style="background:var(--white)">
+  <div class="c">
+    <div class="urgency">
+      <div class="urgency__big">Ultimi posti disponibili</div>
+      <p>I centri estetici della tua zona hanno gia fatto richiesta di nail artist formate. Quando i posti finiscono, le iscrizioni si chiudono.</p>
+    </div>
+  </div>
+</section>
+
+<!-- GARANZIA -->
+<section class="sec" style="background:var(--pink-light)">
+  <div class="c">
+    <div class="guarantee">
+      <div class="guarantee__icon">&#128170;</div>
+      <h3>La nostra garanzia</h3>
+      <p>Se completi il corso, ottieni l'attestato e non ti inseriamo in un centro estetico, <strong>ti rimborsiamo ogni centesimo</strong>. Il rischio e' zero. La promessa e' concreta.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINALE -->
+<section class="sec" style="background:var(--dark);padding:56px 24px;text-align:center;color:#fff">
+  <div class="c">
+    <h2 style="color:#fff;margin-bottom:8px">Non aspettare che i posti finiscano.</h2>
+    <p style="font-size:15px;color:rgba(255,255,255,0.5);margin-bottom:24px;max-width:440px;margin-left:auto;margin-right:auto">50 euro oggi. Un lavoro creativo e ben pagato domani. La tua carriera da nail artist inizia qui.</p>
+    <a href="#iscriviti" class="cta-btn" style="background:var(--pink);box-shadow:0 8px 32px rgba(233,30,140,0.35)">Iscriviti ora — Ultimi posti disponibili</a>
+  </div>
+</section>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/393343828321?text=Ciao%2C%20sono%20interessata%20al%20corso%20di%20ricostruzione%20unghie.%20Vorrei%20maggiori%20informazioni!" target="_blank" rel="noopener" class="whatsapp-float">
+  <svg viewBox="0 0 32 32"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 3.5 1.129 6.742 3.047 9.379L1.054 31.25l6.078-1.95a15.906 15.906 0 008.872 2.696C24.826 31.996 32 24.82 32 15.996 32 7.176 24.826 0 16.004 0zm9.342 22.618c-.393 1.107-1.947 2.026-3.188 2.295-.848.18-1.955.324-5.684-1.221-4.773-1.977-7.843-6.822-8.082-7.14-.228-.318-1.923-2.562-1.923-4.887 0-2.326 1.217-3.468 1.65-3.94.393-.43 1.045-.607 1.67-.607.203 0 .384.01.547.019.472.02.709.048 1.021.789.393.928 1.35 3.293 1.469 3.533.12.24.24.556.077.874-.152.328-.285.474-.525.746-.24.272-.468.48-.708.773-.218.26-.464.537-.194.97.27.422 1.199 1.977 2.574 3.203 1.768 1.578 3.257 2.068 3.72 2.296.354.175.776.142 1.057-.152.355-.374.793-.994 1.238-1.605.318-.435.717-.49 1.107-.33.393.153 2.495 1.177 2.924 1.391.43.214.714.322.82.498.104.178.104 1.025-.289 2.133z"/></svg>
+</a>
+
+<footer>
+  <a href="#">Privacy Policy</a> &middot; <a href="#">Termini e Condizioni</a>
+</footer>
+
+<script>
+function toggleLezione(el){
+  var lezione=el.parentElement;
+  var plus=el.querySelector('.plus');
+  var chevron=el.querySelector('.chevron');
+  var wasOpen=lezione.classList.contains('open');
+  lezione.classList.toggle('open');
+  if(wasOpen){plus.textContent='+';chevron.innerHTML='&#8250;';}
+  else{plus.textContent='\u2013';chevron.innerHTML='&#8249;';}
+}
+if(history.scrollRestoration) history.scrollRestoration='manual';
+window.scrollTo(0,0);
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body>
+</html>

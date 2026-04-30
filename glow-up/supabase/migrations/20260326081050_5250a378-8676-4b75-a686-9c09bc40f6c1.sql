@@ -1,0 +1,1 @@
+ALTER TABLE public.funnel_events ADD COLUMN fb_lead_id text DEFAULT NULL;

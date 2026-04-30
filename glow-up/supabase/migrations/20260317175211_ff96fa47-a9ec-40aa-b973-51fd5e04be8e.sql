@@ -1,0 +1,1 @@
+UPDATE public.reminder_flow_nodes SET whatsapp_sent_at = NULL, whatsapp_delivered_at = NULL, whatsapp_message_sid = NULL WHERE whatsapp_sent_at IS NOT NULL;

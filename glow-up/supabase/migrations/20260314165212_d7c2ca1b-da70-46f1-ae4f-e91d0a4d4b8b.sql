@@ -1,0 +1,1 @@
+ALTER TABLE public.salon_integrations ADD COLUMN IF NOT EXISTS test_mode boolean NOT NULL DEFAULT false;

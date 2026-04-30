@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulatore Profitto COD</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0f0f0f; color: #e0e0e0; min-height: 100vh; padding: 20px; }
+  .container { max-width: 900px; margin: 0 auto; }
+  h1 { text-align: center; font-size: 28px; margin-bottom: 8px; color: #fff; }
+  .subtitle { text-align: center; color: #888; margin-bottom: 30px; font-size: 14px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .input-group { display: flex; flex-direction: column; gap: 6px; }
+  .input-group label { font-size: 13px; color: #aaa; font-weight: 500; }
+  .input-group input { background: #1a1a1a; border: 1px solid #333; border-radius: 8px; padding: 12px 14px; color: #fff; font-size: 16px; outline: none; transition: border-color 0.2s; }
+  .input-group input:focus { border-color: #646cff; }
+  .input-group .hint { font-size: 11px; color: #666; }
+  .btn { width: 100%; padding: 14px; background: #646cff; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-bottom: 30px; }
+  .btn:hover { background: #535bf2; }
+  .results { display: none; }
+  .results.show { display: block; }
+  .result-header { font-size: 20px; font-weight: 700; margin-bottom: 16px; color: #fff; }
+  .funnel { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 24px; }
+  .funnel-step { background: #1a1a1a; border-radius: 10px; padding: 16px; text-align: center; }
+  .funnel-step .num { font-size: 26px; font-weight: 700; color: #646cff; }
+  .funnel-step .lbl { font-size: 12px; color: #888; margin-top: 4px; }
+  .profit-box { background: #1a1a1a; border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .profit-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #222; font-size: 14px; }
+  .profit-row:last-child { border-bottom: none; }
+  .profit-row .label { color: #aaa; }
+  .profit-row .value { font-weight: 600; color: #fff; }
+  .profit-row .value.green { color: #4ade80; }
+  .profit-row .value.red { color: #f87171; }
+  .profit-total { display: flex; justify-content: space-between; padding: 16px 0 0; margin-top: 8px; border-top: 2px solid #333; font-size: 18px; font-weight: 700; }
+  .scenarios { margin-top: 24px; }
+  .scenarios h3 { font-size: 16px; margin-bottom: 12px; color: #fff; }
+  table { width: 100%; border-collapse: collapse; background: #1a1a1a; border-radius: 10px; overflow: hidden; }
+  th { background: #222; padding: 12px 14px; text-align: left; font-size: 12px; color: #888; font-weight: 600; text-transform: uppercase; }
+  td { padding: 10px 14px; font-size: 13px; border-top: 1px solid #222; }
+  tr.highlight { background: #1e1e3a; }
+  .tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .tag.green { background: #064e3b; color: #4ade80; }
+  .tag.red { background: #450a0a; color: #f87171; }
+  .tag.yellow { background: #422006; color: #fbbf24; }
+  .slider-group { margin-top: 24px; background: #1a1a1a; border-radius: 12px; padding: 20px; }
+  .slider-group h3 { font-size: 16px; margin-bottom: 16px; color: #fff; }
+  .slider-row { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
+  .slider-row label { width: 180px; font-size: 13px; color: #aaa; }
+  .slider-row input[type=range] { flex: 1; accent-color: #646cff; }
+  .slider-row .slider-val { width: 60px; text-align: right; font-weight: 600; font-size: 14px; }
+  .live-profit { text-align: center; margin-top: 16px; font-size: 28px; font-weight: 700; }
+  @media (max-width: 600px) {
+    .grid { grid-template-columns: 1fr; }
+    .funnel { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Simulatore Profitto COD</h1>
+  <p class="subtitle">Calcola la percentuale di profitto per e-commerce in contrassegno</p>
+
+  <div class="grid">
+    <div class="input-group">
+      <label>CPA (Costo per Acquisizione) &euro;</label>
+      <input type="number" id="cpa" value="10" min="0" step="0.5" oninput="updateBudget()">
+      <span class="hint">Quanto spendi in ads per ottenere 1 ordine</span>
+    </div>
+    <div class="input-group">
+      <label>Ordini ricevuti</label>
+      <input type="number" id="totalOrders" value="100" min="1" oninput="updateBudget()">
+      <span class="hint">Ordini totali generati dagli ads</span>
+    </div>
+    <div class="input-group">
+      <label>Budget Ads totale &euro;</label>
+      <input type="number" id="adSpend" value="1000" min="0" step="50" readonly style="opacity:0.7">
+      <span class="hint">Calcolato automaticamente: CPA &times; Ordini</span>
+    </div>
+    <div class="input-group">
+      <label>ROAS (da ads)</label>
+      <input type="text" id="roasDisplay" value="-" readonly style="opacity:0.7">
+      <span class="hint">Ricavo lordo / Budget Ads</span>
+    </div>
+    <div class="input-group">
+      <label>Costo prodotto &euro;</label>
+      <input type="number" id="productCost" value="8" min="0" step="0.5">
+      <span class="hint">Costo singolo prodotto (acquisto/sourcing)</span>
+    </div>
+    <div class="input-group">
+      <label>Prezzo di vendita &euro;</label>
+      <input type="number" id="sellingPrice" value="39.90" min="0" step="0.5">
+      <span class="hint">Prezzo al cliente finale</span>
+    </div>
+    <div class="input-group">
+      <label>Costo spedizione &euro;</label>
+      <input type="number" id="shippingCost" value="7" min="0" step="0.5">
+      <span class="hint">Costo per singola spedizione</span>
+    </div>
+    <div class="input-group">
+      <label>Supplemento COD &euro;</label>
+      <input type="number" id="codFee" value="2" min="0" step="0.5">
+      <span class="hint">Costo extra contrassegno dal corriere</span>
+    </div>
+    <div class="input-group">
+      <label>% Ordini confermati</label>
+      <input type="number" id="confirmRate" value="70" min="0" max="100" step="1">
+      <span class="hint">% di ordini che confermi al telefono</span>
+    </div>
+    <div class="input-group">
+      <label>% Consegnati (sui confermati)</label>
+      <input type="number" id="deliveryRate" value="85" min="0" max="100" step="1">
+      <span class="hint">% di confermati effettivamente consegnati</span>
+    </div>
+    <div class="input-group">
+      <label>Costo rientro reso &euro;</label>
+      <input type="number" id="returnCost" value="5" min="0" step="0.5">
+      <span class="hint">Costo extra rientro (14&euro; totale - 9&euro; gia pagati = 5&euro;)</span>
+    </div>
+  </div>
+
+  <button class="btn" onclick="calculate()">Calcola Profitto</button>
+
+  <div class="results" id="results">
+    <div class="result-header">Funnel Ordini</div>
+    <div class="funnel">
+      <div class="funnel-step">
+        <div class="num" id="fTotal">-</div>
+        <div class="lbl">Ordini totali</div>
+      </div>
+      <div class="funnel-step">
+        <div class="num" id="fConfirmed">-</div>
+        <div class="lbl">Confermati</div>
+      </div>
+      <div class="funnel-step">
+        <div class="num" id="fDelivered">-</div>
+        <div class="lbl">Consegnati</div>
+      </div>
+      <div class="funnel-step">
+        <div class="num" id="fReturned">-</div>
+        <div class="lbl">Resi/Non consegnati</div>
+      </div>
+    </div>
+
+    <div class="result-header">Dettaglio Economico</div>
+    <div class="profit-box">
+      <div class="profit-row"><span class="label">Ricavo lordo (consegnati)</span><span class="value" id="rRevenue">-</span></div>
+      <div class="profit-row"><span class="label">Costo prodotti (spediti)</span><span class="value red" id="rProducts">-</span></div>
+      <div class="profit-row"><span class="label">Costo spedizioni (spediti)</span><span class="value red" id="rShipping">-</span></div>
+      <div class="profit-row"><span class="label">Supplemento COD (consegnati)</span><span class="value red" id="rCod">-</span></div>
+      <div class="profit-row"><span class="label">Costo rientro resi (extra)</span><span class="value red" id="rReturns">-</span></div>
+      <div class="profit-row"><span class="label">Spesa Ads</span><span class="value red" id="rAds">-</span></div>
+      <div class="profit-total">
+        <span>PROFITTO NETTO</span>
+        <span id="rProfit">-</span>
+      </div>
+      <div class="profit-row" style="border-top: none;">
+        <span class="label">Margine sul fatturato</span><span class="value" id="rMargin">-</span>
+      </div>
+      <div class="profit-row">
+        <span class="label">Profitto per ordine consegnato</span><span class="value" id="rPerOrder">-</span>
+      </div>
+      <div class="profit-row">
+        <span class="label">ROAS effettivo</span><span class="value" id="rRoas">-</span>
+      </div>
+      <div class="profit-row">
+        <span class="label">CPA (Costo per Acquisizione ordine)</span><span class="value" id="rCpa">-</span>
+      </div>
+      <div class="profit-row">
+        <span class="label">CAC (Costo per cliente consegnato)</span><span class="value" id="rCac">-</span>
+      </div>
+    </div>
+
+    <div class="scenarios">
+      <div class="result-header">Simulazione Scenari</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Confermati</th>
+            <th>Consegnati</th>
+            <th>Ricavo</th>
+            <th>Costi</th>
+            <th>Profitto</th>
+            <th>Margine</th>
+          </tr>
+        </thead>
+        <tbody id="scenarioBody"></tbody>
+      </table>
+    </div>
+
+    <div class="slider-group">
+      <h3>Simulatore Dinamico</h3>
+      <div class="slider-row">
+        <label>% Confermati</label>
+        <input type="range" id="sliderConfirm" min="30" max="100" value="70" oninput="updateSlider()">
+        <span class="slider-val" id="sliderConfirmVal">70%</span>
+      </div>
+      <div class="slider-row">
+        <label>% Consegnati</label>
+        <input type="range" id="sliderDeliver" min="50" max="100" value="85" oninput="updateSlider()">
+        <span class="slider-val" id="sliderDeliverVal">85%</span>
+      </div>
+      <div class="live-profit" id="liveProfit">-</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function updateBudget() {
+  const cpa = parseFloat(document.getElementById('cpa').value) || 0;
+  const orders = parseInt(document.getElementById('totalOrders').value) || 0;
+  const budget = cpa * orders;
+  document.getElementById('adSpend').value = budget.toFixed(2);
+}
+
+function getValues() {
+  return {
+    cpa: parseFloat(document.getElementById('cpa').value) || 0,
+    adSpend: parseFloat(document.getElementById('adSpend').value) || 0,
+    totalOrders: parseInt(document.getElementById('totalOrders').value) || 0,
+    productCost: parseFloat(document.getElementById('productCost').value) || 0,
+    sellingPrice: parseFloat(document.getElementById('sellingPrice').value) || 0,
+    shippingCost: parseFloat(document.getElementById('shippingCost').value) || 0,
+    codFee: parseFloat(document.getElementById('codFee').value) || 0,
+    confirmRate: parseFloat(document.getElementById('confirmRate').value) || 0,
+    deliveryRate: parseFloat(document.getElementById('deliveryRate').value) || 0,
+    returnCost: parseFloat(document.getElementById('returnCost').value) || 0,
+  };
+}
+
+function computeProfit(v, confirmRate, deliveryRate) {
+  const confirmed = Math.round(v.totalOrders * confirmRate / 100);
+  const delivered = Math.round(confirmed * deliveryRate / 100);
+  const returned = confirmed - delivered;
+
+  const revenue = delivered * v.sellingPrice;
+  const costProducts = confirmed * v.productCost;
+  const costShipping = confirmed * v.shippingCost;
+  const costCod = delivered * v.codFee;
+  const costReturns = returned * v.returnCost;
+  const totalCosts = costProducts + costShipping + costCod + costReturns + v.adSpend;
+  const profit = revenue - totalCosts;
+  const margin = revenue > 0 ? (profit / revenue * 100) : 0;
+  const perOrder = delivered > 0 ? profit / delivered : 0;
+  const roas = v.adSpend > 0 ? revenue / v.adSpend : 0;
+  const cac = delivered > 0 ? v.adSpend / delivered : 0;
+
+  return { confirmed, delivered, returned, revenue, costProducts, costShipping, costCod, costReturns, totalCosts, profit, margin, perOrder, roas, cac };
+}
+
+function fmt(n) { return n.toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+function calculate() {
+  const v = getValues();
+  const r = computeProfit(v, v.confirmRate, v.deliveryRate);
+
+  document.getElementById('results').classList.add('show');
+
+  document.getElementById('fTotal').textContent = v.totalOrders;
+  document.getElementById('fConfirmed').textContent = r.confirmed;
+  document.getElementById('fDelivered').textContent = r.delivered;
+  document.getElementById('fReturned').textContent = r.returned;
+
+  document.getElementById('rRevenue').textContent = '€ ' + fmt(r.revenue);
+  document.getElementById('rProducts').textContent = '- € ' + fmt(r.costProducts);
+  document.getElementById('rShipping').textContent = '- € ' + fmt(r.costShipping);
+  document.getElementById('rCod').textContent = '- € ' + fmt(r.costCod);
+  document.getElementById('rReturns').textContent = '- € ' + fmt(r.costReturns);
+  document.getElementById('rAds').textContent = '- € ' + fmt(v.adSpend);
+
+  const profitEl = document.getElementById('rProfit');
+  profitEl.textContent = '€ ' + fmt(r.profit);
+  profitEl.style.color = r.profit >= 0 ? '#4ade80' : '#f87171';
+
+  const marginEl = document.getElementById('rMargin');
+  marginEl.textContent = fmt(r.margin) + '%';
+  marginEl.className = 'value ' + (r.margin >= 0 ? 'green' : 'red');
+
+  const perOrderEl = document.getElementById('rPerOrder');
+  perOrderEl.textContent = '€ ' + fmt(r.perOrder);
+  perOrderEl.className = 'value ' + (r.perOrder >= 0 ? 'green' : 'red');
+
+  document.getElementById('rRoas').textContent = fmt(r.roas) + 'x';
+  document.getElementById('rCac').textContent = '€ ' + fmt(r.cac);
+  document.getElementById('rCpa').textContent = '€ ' + fmt(v.cpa);
+
+  // Update ROAS display field
+  document.getElementById('roasDisplay').value = fmt(r.roas) + 'x';
+
+  // Scenarios
+  const scenarios = [];
+  const confirmRates = [50, 60, 70, 80, 90];
+  const deliveryRates = [70, 80, 85, 90, 95];
+  for (const cr of confirmRates) {
+    for (const dr of deliveryRates) {
+      const s = computeProfit(v, cr, dr);
+      scenarios.push({ cr, dr, ...s });
+    }
+  }
+
+  const tbody = document.getElementById('scenarioBody');
+  tbody.innerHTML = '';
+  for (const s of scenarios) {
+    const isHighlight = s.cr === v.confirmRate && s.dr === v.deliveryRate;
+    const tagClass = s.profit > 0 ? 'green' : s.profit === 0 ? 'yellow' : 'red';
+    tbody.innerHTML += `<tr class="${isHighlight ? 'highlight' : ''}">
+      <td>${s.cr}%</td>
+      <td>${s.dr}%</td>
+      <td>€ ${fmt(s.revenue)}</td>
+      <td>€ ${fmt(s.totalCosts)}</td>
+      <td><span class="tag ${tagClass}">€ ${fmt(s.profit)}</span></td>
+      <td><span class="tag ${tagClass}">${fmt(s.margin)}%</span></td>
+    </tr>`;
+  }
+
+  // Sync sliders
+  document.getElementById('sliderConfirm').value = v.confirmRate;
+  document.getElementById('sliderDeliver').value = v.deliveryRate;
+  document.getElementById('sliderConfirmVal').textContent = v.confirmRate + '%';
+  document.getElementById('sliderDeliverVal').textContent = v.deliveryRate + '%';
+  updateSlider();
+}
+
+function updateSlider() {
+  const v = getValues();
+  const cr = parseInt(document.getElementById('sliderConfirm').value);
+  const dr = parseInt(document.getElementById('sliderDeliver').value);
+  document.getElementById('sliderConfirmVal').textContent = cr + '%';
+  document.getElementById('sliderDeliverVal').textContent = dr + '%';
+
+  const r = computeProfit(v, cr, dr);
+  const el = document.getElementById('liveProfit');
+  el.textContent = '€ ' + fmt(r.profit) + '  (' + fmt(r.margin) + '%)';
+  el.style.color = r.profit >= 0 ? '#4ade80' : '#f87171';
+}
+</script>
+</body>
+</html>

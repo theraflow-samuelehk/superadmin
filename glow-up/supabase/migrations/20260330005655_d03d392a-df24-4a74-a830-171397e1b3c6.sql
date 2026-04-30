@@ -1,0 +1,1 @@
+ALTER TABLE public.facebook_leads ADD COLUMN IF NOT EXISTS source text NOT NULL DEFAULT 'facebook';

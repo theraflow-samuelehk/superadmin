@@ -1,0 +1,1 @@
+ALTER TABLE public.treatment_cards ADD COLUMN discount_pct numeric NOT NULL DEFAULT 10;

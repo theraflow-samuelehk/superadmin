@@ -1,0 +1,1 @@
+ALTER TABLE public.loyalty_points ADD COLUMN appointment_id uuid REFERENCES public.appointments(id);

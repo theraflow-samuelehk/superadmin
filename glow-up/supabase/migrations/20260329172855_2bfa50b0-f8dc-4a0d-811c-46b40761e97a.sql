@@ -1,0 +1,1 @@
+DELETE FROM public.facebook_leads WHERE fb_lead_id LIKE 'test_lead_%';

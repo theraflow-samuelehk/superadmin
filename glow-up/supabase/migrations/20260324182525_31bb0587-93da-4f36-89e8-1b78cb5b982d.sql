@@ -1,0 +1,1 @@
+GRANT SELECT ON public.salon_integrations TO authenticated;

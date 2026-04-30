@@ -1,0 +1,1 @@
+ALTER TABLE public.appointments ADD COLUMN last_reminder_at timestamptz;

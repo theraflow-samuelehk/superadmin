@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="theme-color" content="#1a1a1a">
+<title>Lash Art Academy — Corso Extension Ciglia Professionale</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--black:#0d0d0d;--charcoal:#1a1a1a;--gold:#c9a96e;--gold-dark:#a8884d;--gold-light:#f5edd6;--gold-glow:rgba(201,169,110,0.08);--rose:#c4848f;--cream:#faf8f5;--text:#555;--text-dark:#2a2a2a;--muted:#aaa;--border:#ece6dc;--white:#fff;--serif:'Cormorant Garamond',serif;--sans:'Inter',sans-serif}
+body{font-family:var(--sans);color:var(--text);background:var(--white);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{text-decoration:none;color:inherit}img{max-width:100%;display:block}
+
+/* ANNOUNCEMENT */
+.ann{background:var(--charcoal);padding:14px 20px;display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap}
+.ann__timer{display:flex;gap:8px;align-items:center}
+.ann__block{background:rgba(201,169,110,0.15);padding:6px 10px;border-radius:6px;text-align:center;min-width:44px}
+.ann__num{font-size:16px;font-weight:700;color:var(--gold);font-family:var(--sans)}
+.ann__label{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.ann__sep{color:var(--gold);font-size:16px;font-weight:700}
+.ann__text{color:rgba(255,255,255,0.6);font-size:12px;font-weight:500}
+.ann__text strong{color:var(--gold)}
+.ann__dot{width:6px;height:6px;border-radius:50%;background:#ef4444;animation:blink 1.5s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* NAV */
+.nav{background:var(--white);padding:20px 32px;display:flex;justify-content:center;align-items:center;border-bottom:1px solid var(--border)}
+.nav img{height:64px}
+
+/* VSL */
+.vsl{padding:56px 24px 40px;text-align:center;background:var(--cream)}
+.vsl__kicker{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:var(--gold);margin-bottom:12px}
+.vsl h1{font-family:var(--serif);font-size:clamp(30px,6vw,48px);font-weight:600;color:var(--black);line-height:1.15;margin-bottom:12px;max-width:640px;margin-left:auto;margin-right:auto}
+.vsl h1 em{color:var(--gold);font-style:italic}
+.vsl__sub{font-size:15px;color:var(--muted);margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7}
+.vsl__video{max-width:680px;margin:0 auto;border-radius:12px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.1);border:1px solid var(--border);aspect-ratio:16/9;background:var(--black)}
+.vsl__video iframe{width:100%;height:100%;border:none}
+
+/* TRUST STRIP */
+.trust-strip{display:flex;justify-content:center;gap:40px;flex-wrap:wrap;padding:28px 24px;background:var(--white);border-bottom:1px solid var(--border)}
+.ts{text-align:center}
+.ts__num{font-family:var(--serif);font-size:28px;font-weight:600;color:var(--gold)}
+.ts__label{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-top:2px}
+
+/* SECTIONS */
+.s{padding:72px 24px}
+.c{max-width:720px;margin:0 auto}
+.s-title{font-family:var(--serif);font-size:clamp(26px,5vw,36px);font-weight:600;color:var(--black);line-height:1.2;margin-bottom:8px}
+.s-title em{color:var(--gold);font-style:italic}
+.s-sub{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:32px}
+
+/* HERO IMG */
+.hero-img{position:relative;overflow:hidden}
+.hero-img img{width:100%;height:420px;object-fit:cover}
+.hero-img__overlay{position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(13,13,13,0.8));display:flex;align-items:flex-end;padding:40px 32px}
+.hero-img__text{color:#fff;max-width:500px}
+.hero-img__text h2{font-family:var(--serif);font-size:clamp(24px,5vw,36px);font-weight:600;margin-bottom:6px}
+.hero-img__text p{font-size:14px;color:rgba(255,255,255,0.6)}
+
+/* TECHNIQUE CARDS */
+.tech-cards{display:flex;flex-direction:column;gap:20px}
+.tech{display:flex;gap:24px;padding:28px;background:var(--white);border:1px solid var(--border);border-radius:16px;transition:all .4s}
+.tech:hover{border-color:var(--gold);box-shadow:0 8px 40px var(--gold-glow)}
+.tech__num{font-family:var(--serif);font-size:36px;font-weight:600;color:var(--gold);line-height:1;flex-shrink:0;width:40px}
+.tech h3{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--black);margin-bottom:6px}
+.tech p{font-size:13px;line-height:1.7;color:var(--text)}
+
+/* PERSONA */
+.persona-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:520px){.persona-grid{grid-template-columns:1fr}}
+.persona{padding:22px;background:var(--white);border:1px solid var(--border);border-radius:14px}
+.persona__title{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+.persona__icon{width:36px;height:36px;border-radius:50%;background:var(--gold-light);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;color:var(--gold-dark)}
+.persona h4{font-size:14px;font-weight:700;color:var(--text-dark)}
+.persona p{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* EMOTIONAL BENEFITS */
+.emo{display:flex;gap:16px;padding:20px 24px;border-left:3px solid var(--gold);background:var(--gold-glow);border-radius:0 12px 12px 0;margin-bottom:12px}
+.emo p{font-size:14px;line-height:1.6;color:var(--text)}
+.emo strong{color:var(--text-dark)}
+
+/* STEPS */
+.steps{position:relative;padding-left:32px}
+.steps::before{content:'';position:absolute;left:15px;top:20px;bottom:20px;width:1px;background:var(--border)}
+.step{display:flex;gap:20px;margin-bottom:28px;position:relative}
+.step__dot{width:32px;height:32px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:15px;font-weight:600;color:var(--white);flex-shrink:0;position:relative;z-index:1;box-shadow:0 2px 8px rgba(201,169,110,0.3)}
+.step h3{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--text-dark);margin-bottom:3px}
+.step p{font-size:13px;color:var(--muted);line-height:1.6}
+
+/* CERT GRID */
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:500px){.cert-grid{grid-template-columns:1fr}}
+.cert-grid img{border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,0.06);border:1px solid var(--border)}
+
+/* FOUNDER */
+.founder{display:flex;gap:24px;align-items:center;padding:28px;background:var(--white);border:1px solid var(--border);border-radius:16px}
+.founder__info h3{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--text-dark)}
+.founder__role{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--gold);margin-bottom:10px}
+.founder__bio{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:12px}
+.founder__creds{display:flex;flex-direction:column;gap:6px}
+.founder__cred{font-size:12px;color:var(--text);display:flex;align-items:center;gap:8px}
+.founder__cred::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* REVIEWS */
+.review{padding:28px;background:var(--white);border:1px solid var(--border);border-radius:16px;margin-bottom:16px}
+.review__head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.review__author{font-size:14px;font-weight:700;color:var(--text-dark)}
+.review__info{font-size:11px;color:var(--muted)}
+.review__stars{font-size:14px;color:var(--gold);letter-spacing:3px}
+.review__body{font-size:13px;color:var(--text);line-height:1.75}
+.review__body strong{color:var(--text-dark)}
+.review__tag{display:inline-block;padding:4px 12px;border-radius:20px;font-size:10px;font-weight:600;margin-top:10px}
+.review__tag--before{background:#fef2f2;color:#b91c1c}
+.review__tag--after{background:#f0fdf4;color:#15803d}
+
+/* PRICE */
+.price-wrap{max-width:520px;margin:0 auto}
+.price-card{background:var(--charcoal);border-radius:20px;padding:44px 36px;color:#fff;position:relative;overflow:hidden}
+.price-card::before{content:'';position:absolute;top:0;right:0;width:300px;height:300px;background:radial-gradient(circle,rgba(201,169,110,0.08),transparent 70%)}
+.price__ribbon{display:inline-block;background:var(--gold);color:var(--charcoal);padding:6px 20px;border-radius:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:20px}
+.price__old{font-size:18px;color:rgba(255,255,255,0.25);text-decoration:line-through}
+.price__new{font-family:var(--serif);font-size:60px;font-weight:600;color:var(--gold);line-height:1}
+.price__new sup{font-size:24px;vertical-align:super}
+.price__note{font-size:12px;color:rgba(255,255,255,0.3);margin-top:6px;margin-bottom:24px}
+.price__list{display:flex;flex-direction:column;gap:10px}
+.price__item{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,0.65)}
+.price__check{color:var(--gold);font-size:14px}
+
+/* CTA */
+.cta{display:block;text-align:center;padding:20px;background:var(--gold);color:var(--charcoal);border-radius:12px;font-size:16px;font-weight:700;letter-spacing:.02em;border:none;cursor:pointer;font-family:var(--sans);width:100%;max-width:520px;margin:0 auto;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(201,169,110,0.25);transition:all .3s}
+.cta::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);animation:shimmer 3s infinite}
+@keyframes shimmer{0%{left:-100%}100%{left:100%}}
+.cta:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(201,169,110,0.35)}
+.cta-sub{text-align:center;font-size:11px;color:var(--muted);margin-top:10px}
+
+/* SCARCITY */
+.scarcity{display:flex;justify-content:center;align-items:center;gap:8px;padding:12px;font-size:12px;font-weight:600;color:#dc2626}
+.scarcity__dot{width:8px;height:8px;border-radius:50%;background:#dc2626;animation:blink 1.5s infinite}
+
+/* FORM */
+.form{max-width:520px;margin:0 auto}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
+.fg{margin-bottom:16px}
+.fg label{display:block;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--text-dark);margin-bottom:6px}
+.fg input{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:var(--sans);background:var(--white);transition:border-color .2s;color:var(--text-dark)}
+.fg input:focus{outline:none;border-color:var(--gold)}
+.pay-choice{display:flex;flex-direction:column;gap:10px}
+.pay-opt{cursor:pointer}
+.pay-opt input{display:none}
+.pay-opt__box{display:flex;align-items:center;gap:14px;padding:16px 20px;border:1.5px solid var(--border);border-radius:12px;transition:all .2s;background:var(--white)}
+.pay-opt input:checked+.pay-opt__box{border-color:var(--gold);background:var(--gold-light);box-shadow:0 2px 12px var(--gold-glow)}
+.pay-opt__icon{font-size:22px}
+.pay-opt__box strong{font-size:14px;color:var(--text-dark);display:block}
+.pay-opt__box small{font-size:11px;color:var(--muted)}
+
+/* GUARANTEE */
+.guarantee{text-align:center;padding:36px;border:1.5px solid var(--gold);border-radius:16px;background:var(--gold-glow)}
+.guarantee h3{font-family:var(--serif);font-size:20px;font-weight:600;color:var(--text-dark);margin-bottom:8px}
+.guarantee p{font-size:13px;color:var(--text);line-height:1.7;max-width:440px;margin:0 auto}
+
+/* FOOTER */
+footer{background:var(--charcoal);padding:36px 24px;text-align:center}
+footer p{font-size:11px;color:rgba(255,255,255,0.25)}
+footer a{color:rgba(255,255,255,0.2)}
+
+/* WA */
+.wa{position:fixed;bottom:24px;right:24px;width:58px;height:58px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.35);z-index:999999;transition:transform .3s}
+.wa:hover{transform:scale(1.08)}
+.wa svg{width:30px;height:30px;fill:#fff}
+
+/* MOBILE */
+@media(max-width:600px){
+  .s{padding:40px 16px}
+  .c{padding:0 16px}
+  .nav{padding:14px 20px}
+  .nav img{height:48px}
+  .vsl{padding:36px 16px 28px}
+  .vsl h1{font-size:24px}
+  .vsl__sub{font-size:13px;margin-bottom:20px}
+  .vsl__kicker{font-size:10px;margin-bottom:8px}
+  .trust-strip{gap:20px;padding:20px 16px}
+  .ts__num{font-size:22px}
+  .ts__label{font-size:8px}
+  .hero-img img{height:260px}
+  .hero-img__overlay{padding:24px 20px}
+  .hero-img__text h2{font-size:22px}
+  .s-title{font-size:26px}
+  .s-sub{font-size:14px;margin-bottom:24px}
+  .tech{flex-direction:column;gap:14px;padding:22px}
+  .tech__num{font-size:30px}
+  .tech h3{font-size:18px}
+  .tech p{font-size:14px}
+  .persona-grid{grid-template-columns:1fr;gap:10px}
+  .persona{padding:20px}
+  .persona h4{font-size:15px}
+  .persona p{font-size:13px}
+  .emo{padding:18px 20px;margin-bottom:12px}
+  .emo p{font-size:15px}
+  .emo strong{font-size:15px}
+  .steps{padding-left:24px}
+  .step__dot{width:32px;height:32px;font-size:14px}
+  .step h3{font-size:17px}
+  .step p{font-size:14px}
+  .cert-grid{gap:10px}
+  .founder{flex-direction:column;text-align:center;padding:24px 20px}
+  .founder__info h3{font-size:22px}
+  .founder__bio{font-size:14px}
+  .founder__cred{font-size:13px;justify-content:center}
+  .review{padding:22px}
+  .review__author{font-size:15px}
+  .review__body{font-size:14px}
+  .review__tag{font-size:11px}
+  .price-card{padding:32px 24px;border-radius:16px}
+  .price__ribbon{font-size:11px;padding:6px 18px}
+  .price__new{font-size:52px}
+  .price__new sup{font-size:22px}
+  .price__item{font-size:14px}
+  .price__note{font-size:13px}
+  .cta{font-size:16px;padding:20px;border-radius:12px}
+  .form .fg label{font-size:12px}
+  .form .fg input{padding:14px 16px;font-size:15px}
+  .pay-opt__box{padding:16px 18px}
+  .pay-opt__box strong{font-size:15px}
+  .pay-opt__box small{font-size:12px}
+  .guarantee{padding:28px 20px}
+  .guarantee h3{font-size:20px}
+  .guarantee p{font-size:14px}
+  .ann{gap:10px;padding:10px 14px;flex-direction:column}
+  .ann__block{padding:4px 8px;min-width:36px}
+  .ann__num{font-size:14px}
+  .ann__label{font-size:7px}
+  .ann__text{font-size:11px}
+  .scarcity{font-size:11px}
+  .wa{bottom:20px;right:16px;width:52px;height:52px}
+  .wa svg{width:26px;height:26px}
+}
+</style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1313613270661919');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1313613270661919&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="ann">
+  <div class="ann__timer">
+    <div class="ann__block"><div class="ann__num" id="th">47</div><div class="ann__label">Ore</div></div>
+    <span class="ann__sep">:</span>
+    <div class="ann__block"><div class="ann__num" id="tm">59</div><div class="ann__label">Min</div></div>
+    <span class="ann__sep">:</span>
+    <div class="ann__block"><div class="ann__num" id="ts">59</div><div class="ann__label">Sec</div></div>
+  </div>
+  <div class="ann__text"><span class="ann__dot"></span> <strong>Solo 3 posti rimasti</strong> su 15 — L'offerta scade allo scadere del timer</div>
+</div>
+
+<!-- NAV -->
+<div class="nav"><img src="img/logo.png" alt="Lash Art Academy"></div>
+
+<!-- VSL -->
+<section class="vsl">
+  <div class="vsl__kicker">Lash Art Academy presenta</div>
+  <h1>Il corso completo per padroneggiare le <em>4 tecniche piu richieste</em> di extension ciglia</h1>
+  <p class="vsl__sub">Da zero a lash artist professionista. Scopri il metodo che ha gia formato oltre 500 studentesse in tutta Italia.</p>
+  <div style="display:flex;justify-content:center;align-items:center;gap:10px;margin-bottom:20px;padding:12px 24px;background:var(--charcoal);border-radius:50px;max-width:380px;margin-left:auto;margin-right:auto;cursor:pointer" onclick="document.querySelector('.vsl__video iframe').src+='&autoplay=1'">
+    <div style="width:40px;height:40px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0"><div style="width:0;height:0;border-left:14px solid var(--charcoal);border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px"></div></div>
+    <div style="text-align:left"><div style="font-size:13px;font-weight:700;color:#fff">Guarda il video gratuito</div><div style="font-size:10px;color:var(--muted)">Scopri come Martina ha formato 500+ studentesse</div></div>
+  </div>
+  <div class="vsl__video">
+    <iframe title="vimeo-player" src="https://player.vimeo.com/video/1183485619?h=f95963e61c" referrerpolicy="strict-origin-when-cross-origin" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" allowfullscreen></iframe>
+  </div>
+</section>
+
+<!-- VIDEO REMINDER -->
+<div style="text-align:center;padding:20px 24px;background:var(--gold-glow);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+  <p style="font-size:13px;color:var(--text-dark);font-weight:600">Hai guardato il video fino alla fine? Chi lo fa ha il <strong style="color:var(--gold-dark)">3 volte piu probabilita</strong> di iniziare a guadagnare entro 30 giorni.</p>
+</div>
+
+<!-- TRUST -->
+<div class="trust-strip">
+  <div class="ts"><div class="ts__num">500+</div><div class="ts__label">Studentesse</div></div>
+  <div class="ts"><div class="ts__num">4</div><div class="ts__label">Certificati</div></div>
+  <div class="ts"><div class="ts__num">4</div><div class="ts__label">Tecniche PRO</div></div>
+  <div class="ts"><div class="ts__num">98%</div><div class="ts__label">Soddisfazione</div></div>
+</div>
+
+<!-- CTA 1 -->
+<section class="s" style="background:var(--white);padding:32px 24px">
+  <a href="#iscriviti" class="cta">Voglio iscrivermi al corso — Solo 50&euro; invece di 299&euro;</a>
+  <div class="scarcity"><span class="scarcity__dot"></span> Solo 3 posti rimasti — l'offerta scade tra 48 ore</div>
+</section>
+
+<!-- HERO IMAGE -->
+<div class="hero-img">
+  <img src="img/hero2.jpg" alt="Extension ciglia professionali">
+  <div class="hero-img__overlay">
+    <div class="hero-img__text">
+      <h2>Trasforma il tuo sguardo.<br>Trasforma la tua vita.</h2>
+      <p>Un mestiere creativo, ben pagato e con orari flessibili. Inizia oggi.</p>
+    </div>
+  </div>
+</div>
+
+<!-- LE 4 TECNICHE -->
+<section class="s" style="background:var(--white)">
+  <div class="c">
+    <div class="s-title">Le 4 tecniche che <em>imparerai</em></div>
+    <p class="s-sub">Ogni tecnica include video lezioni dettagliate, dimostrazioni pratiche e un certificato professionale dedicato.</p>
+    <div class="tech-cards">
+      <div class="tech">
+        <div class="tech__num">01</div>
+        <div><h3>Tecnica One to One</h3><p>La base di ogni lash artist. Applicazione di una singola extension su ogni ciglio naturale per un effetto sofisticato e naturale. Imparerai isolamento, scelta della curvatura, lunghezza e diametro per ogni forma d'occhio. La tecnica piu richiesta dalle clienti che vogliono eleganza senza eccessi.</p></div>
+      </div>
+      <div class="tech">
+        <div class="tech__num">02</div>
+        <div><h3>Nastro Brasiliano</h3><p>La tecnica innovativa che sta rivoluzionando il settore. Utilizzando nastri pre-formati creerai volumi spettacolari in meta tempo. Perfetta per clienti che desiderano un effetto pieno e drammatico. Una competenza rara che ti distinguera dalla concorrenza e ti permettera di applicare prezzi premium.</p></div>
+      </div>
+      <div class="tech">
+        <div class="tech__num">03</div>
+        <div><h3>Volume Ibrido</h3><p>La combinazione tra one to one e volume russo. Imparerai a creare ventagli leggeri e a mescolarli con extension singole per un risultato multidimensionale. Il look piu richiesto del momento: pieno ma naturale. Ogni cliente ricevera un trattamento unico, personalizzato sulla forma del suo occhio.</p></div>
+      </div>
+      <div class="tech">
+        <div class="tech__num">04</div>
+        <div><h3>Ciglia Lifting Magico</h3><p>Il trattamento che valorizza le ciglia naturali senza extension. Laminazione e lifting che curva, tinge e nutre le ciglia per uno sguardo aperto e intenso che dura fino a 8 settimane. Il servizio con il margine di guadagno piu alto nel settore beauty: costi minimi, risultato straordinario.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS IMAGE -->
+<section class="s" style="background:var(--cream);text-align:center;padding:48px 24px">
+  <img src="img/tools.jpg" alt="Strumenti professionali" style="max-width:560px;width:100%;margin:0 auto;border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,0.06)">
+  <p style="font-family:var(--serif);font-size:18px;color:var(--text-dark);margin-top:20px;font-style:italic;max-width:400px;margin-left:auto;margin-right:auto">"La differenza tra un buon lavoro e un lavoro eccellente sta nella padronanza della tecnica."</p>
+</section>
+
+<!-- PER CHI -->
+<section class="s" style="background:var(--white)">
+  <div class="c">
+    <div class="s-title">Per chi e' <em>questo corso</em></div>
+    <p class="s-sub">Non importa il tuo punto di partenza. Il metodo Lash Art Academy e' stato progettato per guidarti passo dopo passo.</p>
+    <div class="persona-grid">
+      <div class="persona"><div class="persona__title"><div class="persona__icon">&#10022;</div><h4>Parti completamente da zero</h4></div><p>Non hai mai toccato una pinzetta. Nessun problema. Ogni lezione parte dalle basi assolute e ti guida fino alla padronanza.</p></div>
+      <div class="persona"><div class="persona__title"><div class="persona__icon">&#10022;</div><h4>Sei estetista</h4></div><p>Vuoi aggiungere le extension ciglia ai tuoi servizi e aumentare significativamente il fatturato del tuo centro.</p></div>
+      <div class="persona"><div class="persona__title"><div class="persona__icon">&#10022;</div><h4>Sei mamma</h4></div><p>Cerchi un lavoro creativo e flessibile che puoi gestire da casa, attorno ai tuoi impegni familiari.</p></div>
+      <div class="persona"><div class="persona__title"><div class="persona__icon">&#10022;</div><h4>Vuoi cambiare vita</h4></div><p>Sei stanca del tuo lavoro attuale e vuoi reinventarti in un settore in crescita costante.</p></div>
+      <div class="persona"><div class="persona__title"><div class="persona__icon">&#10022;</div><h4>Sei studentessa</h4></div><p>Vuoi imparare un mestiere pratico e iniziare a guadagnare seriamente mentre studi.</p></div>
+      <div class="persona"><div class="persona__title"><div class="persona__icon">&#10022;</div><h4>Vuoi perfezionarti</h4></div><p>Fai gia extension ma vuoi padroneggiare il nastro brasiliano, il volume ibrido e il lifting.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICI EMOTIVI -->
+<section class="s" style="background:var(--cream)">
+  <div class="c">
+    <div class="s-title">Dopo il corso, <em>non avrai piu</em></div>
+    <p class="s-sub">Le insicurezze che ti frenano oggi diventeranno un ricordo lontano.</p>
+    <div class="emo"><p><strong>La paura di rovinare le ciglia naturali</strong> — imparerai le tecniche corrette di isolamento e applicazione che proteggono ogni singolo ciglio della tua cliente.</p></div>
+    <div class="emo"><p><strong>Le mani che tremano durante l'applicazione</strong> — con le dimostrazioni pratiche step by step acquisirai la sicurezza e la precisione di una professionista esperta.</p></div>
+    <div class="emo"><p><strong>L'ansia di non essere all'altezza</strong> — i 4 certificati professionali ti daranno la credibilita e la fiducia per presentarti come lash artist qualificata.</p></div>
+    <div class="emo"><p><strong>Problemi economici e dipendenza dallo stipendio</strong> — con un solo trattamento da 80-120 euro recuperi il costo dell'intero corso. Dal secondo trattamento, e' tutto guadagno puro.</p></div>
+    <div class="emo"><p><strong>Orari rigidi e mancanza di liberta</strong> — come lash artist decidi tu quando lavorare, quante clienti prendere e quanto guadagnare. Il tuo tempo, le tue regole.</p></div>
+  </div>
+</section>
+
+<!-- COME FUNZIONA -->
+<section class="s" style="background:var(--white)">
+  <div class="c">
+    <div class="s-title">Come funziona <em>il percorso</em></div>
+    <p class="s-sub">Dall'iscrizione al primo certificato in soli 4 passi.</p>
+    <div class="steps">
+      <div class="step"><div class="step__dot">1</div><div><h3>Ti iscrivi e ricevi l'accesso immediato</h3><p>Compili il modulo, scegli il metodo di pagamento e in pochi minuti hai accesso a tutte le video lezioni sulla piattaforma dedicata.</p></div></div>
+      <div class="step"><div class="step__dot">2</div><div><h3>Studi e pratichi al tuo ritmo</h3><p>Guardi le lezioni quando vuoi, da telefono, tablet o computer. Puoi rivedere ogni video quante volte serve. L'accesso e' a vita, senza scadenza.</p></div></div>
+      <div class="step"><div class="step__dot">3</div><div><h3>Padroneggi le 4 tecniche professionali</h3><p>Segui le dimostrazioni pratiche di Martina: One to One, Nastro Brasiliano, Volume Ibrido e Ciglia Lifting Magico.</p></div></div>
+      <div class="step"><div class="step__dot">4</div><div><h3>Ricevi i tuoi 4 certificati</h3><p>Al completamento di ogni tecnica ricevi il certificato professionale rilasciato dalla fondatrice Martina Celesti. Sei pronta per lavorare.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATI -->
+<section class="s" style="background:var(--cream)">
+  <div class="c">
+    <div class="s-title" style="text-align:center">4 certificati <em>professionali</em> inclusi</div>
+    <p class="s-sub" style="text-align:center">Rilasciati personalmente dalla fondatrice Martina Celesti al completamento di ogni tecnica.</p>
+    <div class="cert-grid">
+      <img src="img/1.png" alt="Certificato Tecnica One to One">
+      <img src="img/2.png" alt="Certificato Nastro Brasiliano">
+      <img src="img/3.png" alt="Certificato Volume Ibrido">
+      <img src="img/4.png" alt="Certificato Ciglia Lifting Magico">
+    </div>
+  </div>
+</section>
+
+<!-- WORKING -->
+<section class="s" style="background:var(--white);text-align:center;padding:48px 24px">
+  <img src="img/working2.jpg" alt="Lash artist al lavoro" style="max-width:600px;width:100%;margin:0 auto;border-radius:16px;box-shadow:0 16px 48px rgba(0,0,0,0.08)">
+</section>
+
+<!-- FONDATRICE -->
+<section class="s" style="background:var(--cream)">
+  <div class="c">
+    <div class="s-title" style="text-align:center">La tua <em>formatrice</em></div>
+    <div class="founder" style="margin-top:24px">
+      <div class="founder__info">
+        <h3>Martina Celesti</h3>
+        <div class="founder__role">Fondatrice Lash Art Academy</div>
+        <p class="founder__bio">Lash artist professionista con anni di esperienza nel settore delle extension ciglia. Ha formato personalmente oltre 500 studentesse trasformandole in professioniste autonome e di successo.</p>
+        <div class="founder__creds">
+          <div class="founder__cred">Lash artist certificata e formatrice professionale</div>
+          <div class="founder__cred">Oltre 500 allieve formate in tutta Italia</div>
+          <div class="founder__cred">Specializzata nelle 4 tecniche piu richieste dal mercato</div>
+          <div class="founder__cred">Creatrice del metodo Lash Art Academy</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE AFTER -->
+<section class="s" style="background:var(--white);text-align:center">
+  <div class="c">
+    <div class="s-title" style="text-align:center">Il risultato parla <em>da solo</em></div>
+    <p class="s-sub" style="text-align:center">Ecco cosa sarai in grado di realizzare dopo aver completato il corso.</p>
+    <img src="img/beforeafter2.jpg" alt="Prima e dopo extension ciglia" style="max-width:520px;width:100%;margin:0 auto;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,0.08)">
+  </div>
+</section>
+
+<!-- RECENSIONI -->
+<section class="s" style="background:var(--cream)">
+  <div class="c">
+    <div class="s-title">Le storie di chi <em>ha gia iniziato</em></div>
+    <p class="s-sub">Studentesse reali, risultati reali.</p>
+
+    <div class="review">
+      <div class="review__head"><div><div class="review__author">Alessia M.</div><div class="review__info">24 anni, Roma</div></div><div class="review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div>
+      <p class="review__body"><span class="review__tag review__tag--before">Prima</span> Lavoravo come commessa part-time a 600 euro al mese, senza prospettive e senza passione per quello che facevo.<br><br><span class="review__tag review__tag--after">Dopo</span> Ho completato il corso in due settimane studiando la sera. Il primo mese ho preso 8 clienti fisse e ho guadagnato <strong>1.200 euro lavorando solo nei weekend</strong>. Le video lezioni di Martina sono incredibilmente dettagliate. I 4 certificati mi hanno dato la credibilita per presentarmi come professionista.</p>
+    </div>
+
+    <div class="review">
+      <div class="review__head"><div><div class="review__author">Giada P.</div><div class="review__info">29 anni, Milano</div></div><div class="review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div>
+      <p class="review__body"><span class="review__tag review__tag--before">Prima</span> Facevo gia extension base ma le clienti mi chiedevano tecniche avanzate che non conoscevo. Le perdevo tutte.<br><br><span class="review__tag review__tag--after">Dopo</span> Il nastro brasiliano e il volume ibrido hanno trasformato il mio business. <strong>Ho triplicato il fatturato in tre mesi.</strong> Le clienti adorano i risultati e il passaparola mi ha riempito l'agenda. Adesso ho una lista d'attesa di 3 settimane.</p>
+    </div>
+
+    <div class="review">
+      <div class="review__head"><div><div class="review__author">Francesca D.</div><div class="review__info">32 anni, Napoli</div></div><div class="review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div>
+      <p class="review__body"><span class="review__tag review__tag--before">Prima</span> Mamma a tempo pieno, zero entrate proprie. Dipendevo completamente dallo stipendio di mio marito.<br><br><span class="review__tag review__tag--after">Dopo</span> Ho studiato la sera dopo aver messo a letto i bambini. Ora <strong>lavoro da casa 3 giorni a settimana e guadagno 1.500 euro al mese</strong> facendo extension e lifting nel mio salottino. Il ciglia lifting e' il servizio con il margine piu alto in assoluto.</p>
+    </div>
+
+    <div class="review">
+      <div class="review__head"><div><div class="review__author">Sara L.</div><div class="review__info">21 anni, Torino</div></div><div class="review__stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div></div>
+      <p class="review__body"><span class="review__tag review__tag--before">Prima</span> Studentessa universitaria al verde. Chiedevo sempre soldi ai miei genitori.<br><br><span class="review__tag review__tag--after">Dopo</span> Ho iniziato a fare extension alle compagne di corso e <strong>in un mese avevo 15 clienti fisse. Guadagno piu di mio padre</strong> e ho solo 21 anni. Le mie amiche non credono che le abbia fatte io.</p>
+    </div>
+  </div>
+</section>
+
+<!-- RESULT IMAGE -->
+<section class="s" style="background:var(--white);text-align:center;padding:48px 24px">
+  <img src="img/result1.jpg" alt="Risultato extension ciglia" style="max-width:480px;width:100%;margin:0 auto;border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,0.08)">
+  <p style="font-family:var(--serif);font-size:20px;color:var(--text-dark);margin-top:20px;font-style:italic">"Investi 50 euro in te stessa oggi. Raccoglierai i frutti per tutta la vita."</p>
+</section>
+
+<!-- PREZZO -->
+<section class="s" style="background:var(--cream)">
+  <div class="c">
+    <div class="s-title" style="text-align:center">Un investimento che si <em>ripaga da solo</em></div>
+    <p class="s-sub" style="text-align:center">Un singolo trattamento da 80-120 euro copre l'intero costo del corso. Dal secondo in poi, e' tutto guadagno.</p>
+    <div class="price-wrap">
+      <div class="price-card">
+        <div class="price__ribbon">Offerta del mese — Scade tra 48 ore</div>
+        <div><span class="price__old">&euro;299</span></div>
+        <div class="price__new"><sup>&euro;</sup>50</div>
+        <div class="price__note">Pagamento unico. Nessun abbonamento.</div>
+        <ul class="price__list">
+          <li><span class="price__check">&#10003;</span> Tecnica One to One — corso completo</li>
+          <li><span class="price__check">&#10003;</span> Tecnica Nastro Brasiliano — corso completo</li>
+          <li><span class="price__check">&#10003;</span> Tecnica Volume Ibrido — corso completo</li>
+          <li><span class="price__check">&#10003;</span> Tecnica Ciglia Lifting Magico — corso completo</li>
+          <li><span class="price__check">&#10003;</span> 4 Certificati professionali di Martina Celesti</li>
+          <li><span class="price__check">&#10003;</span> Video lezioni in HD — accesso a vita</li>
+          <li><span class="price__check">&#10003;</span> Supporto dedicato</li>
+          <li><span class="price__check">&#10003;</span> Garanzia soddisfatto o rimborsato</li>
+        </ul>
+      </div>
+    </div>
+    <div class="scarcity" style="margin-top:16px"><span class="scarcity__dot"></span> Solo 3 posti rimasti su 15 — I posti stanno finendo</div>
+    <div style="margin-top:24px">
+      <a href="#iscriviti" class="cta">Voglio iscrivermi adesso — Solo 50&euro;</a>
+      <div class="cta-sub">Accesso immediato dopo il pagamento</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="s" style="background:var(--white);padding:56px 24px" id="iscriviti">
+  <div class="c">
+    <div class="s-title" style="text-align:center">Iscriviti <em>adesso</em></div>
+    <p class="s-sub" style="text-align:center">Compila il modulo e ricevi accesso immediato alle 4 tecniche professionali.</p>
+    <form class="form" action="process_candidatura.php" method="POST" onsubmit="fbq('track','Purchase',{value:50.00,currency:'EUR'});">
+      <input type="hidden" name="corso" value="lash-art-academy">
+      <div class="form-row">
+        <div class="fg"><label>Nome</label><input type="text" name="nome" required placeholder="Il tuo nome"></div>
+        <div class="fg"><label>Cognome</label><input type="text" name="cognome" required placeholder="Il tuo cognome"></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Telefono</label><input type="tel" name="telefono" required placeholder="Es. 333 1234567"></div>
+        <div class="fg"><label>Email</label><input type="email" name="email" placeholder="La tua email"></div>
+      </div>
+      <div class="fg"><label>Citta</label><input type="text" name="citta" required placeholder="La tua citta"></div>
+      <div class="fg"><label>Via e Numero Civico</label><input type="text" name="indirizzo" required placeholder="Es. Via Roma 15"></div>
+      <div class="form-row">
+        <div class="fg"><label>CAP</label><input type="text" name="cap" required placeholder="Es. 00100" maxlength="5"></div>
+        <div class="fg"><label>Scala / Interno</label><input type="text" name="scala" placeholder="Es. Scala B, Int. 3"></div>
+      </div>
+      <div class="fg">
+        <label>Metodo di pagamento</label>
+        <div class="pay-choice">
+          <label class="pay-opt"><input type="radio" name="metodo_pagamento" value="bonifico"><div class="pay-opt__box"><span class="pay-opt__icon">&#127974;</span><div><strong>Bonifico Bancario</strong><small>Paghi subito, accesso immediato via email</small></div></div></label>
+          <label class="pay-opt"><input type="radio" name="metodo_pagamento" value="contrassegno" checked><div class="pay-opt__box"><span class="pay-opt__icon">&#128230;</span><div><strong>Pagamento alla Consegna</strong><small>Ricevi il materiale a casa, paghi 50&euro; al corriere</small></div></div></label>
+        </div>
+      </div>
+      <button type="submit" class="cta" style="width:100%">Completa l'iscrizione — 50&euro; invece di 299&euro;</button>
+      <div class="cta-sub">Accesso immediato dopo il pagamento</div>
+      <div class="scarcity"><span class="scarcity__dot"></span> Solo 3 posti rimasti — L'offerta scade tra 48 ore</div>
+    </form>
+  </div>
+</section>
+
+<!-- GARANZIA -->
+<section class="s" style="background:var(--cream)">
+  <div class="c">
+    <div class="guarantee">
+      <h3>Garanzia Soddisfatto o Rimborsato</h3>
+      <p>Se il corso non soddisfa le tue aspettative, ti rimborsiamo l'intero importo entro 14 giorni dall'acquisto. <strong>Nessuna domanda, nessuna complicazione.</strong> Crediamo cosi tanto nella qualita del nostro corso che il rischio e' completamente nostro.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="s" style="background:var(--charcoal);text-align:center;color:#fff;padding:64px 24px">
+  <div class="c">
+    <div class="s-title" style="color:#fff;margin-bottom:12px">Questa opportunita non durera <em>per sempre</em></div>
+    <p style="font-size:15px;color:rgba(255,255,255,0.4);margin-bottom:32px;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.7">4 tecniche professionali. 4 certificati. Accesso a vita. Video lezioni HD. Supporto dedicato. Il tutto a 50 euro invece di 299 euro. Ma solo per i prossimi 3 posti.</p>
+    <a href="#iscriviti" class="cta">Iscriviti adesso — Ultimi 3 posti disponibili</a>
+    <div class="scarcity" style="margin-top:16px;color:#ef4444"><span class="scarcity__dot"></span> Solo 3 posti rimasti su 15</div>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2026 Lash Art Academy — Fondatrice Martina Celesti</p>
+  <p style="margin-top:8px"><a href="#">Privacy Policy</a> &middot; <a href="#">Termini e Condizioni</a></p>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/393343828321?text=Ciao%2C%20sono%20interessata%20al%20corso%20di%20extension%20ciglia%20di%20Lash%20Art%20Academy.%20Vorrei%20maggiori%20informazioni!" target="_blank" rel="noopener" class="wa">
+<svg viewBox="0 0 32 32"><path d="M16.004 0h-.008C7.174 0 0 7.176 0 16.004c0 3.5 1.129 6.742 3.047 9.379L1.054 31.25l6.078-1.95a15.906 15.906 0 008.872 2.696C24.826 31.996 32 24.82 32 15.996 32 7.176 24.826 0 16.004 0zm9.342 22.618c-.393 1.107-1.947 2.026-3.188 2.295-.848.18-1.955.324-5.684-1.221-4.773-1.977-7.843-6.822-8.082-7.14-.228-.318-1.923-2.562-1.923-4.887 0-2.326 1.217-3.468 1.65-3.94.393-.43 1.045-.607 1.67-.607.203 0 .384.01.547.019.472.02.709.048 1.021.789.393.928 1.35 3.293 1.469 3.533.12.24.24.556.077.874-.152.328-.285.474-.525.746-.24.272-.468.48-.708.773-.218.26-.464.537-.194.97.27.422 1.199 1.977 2.574 3.203 1.768 1.578 3.257 2.068 3.72 2.296.354.175.776.142 1.057-.152.355-.374.793-.994 1.238-1.605.318-.435.717-.49 1.107-.33.393.153 2.495 1.177 2.924 1.391.43.214.714.322.82.498.104.178.104 1.025-.289 2.133z"/></svg>
+</a>
+
+<script>
+// Timer countdown 48h from first visit
+(function(){var e=localStorage.getItem('lash_t');if(!e){e=Date.now()+48*36e5;localStorage.setItem('lash_t',e)}function u(){var n=Date.now(),d=Math.max(0,e-n),h=Math.floor(d/36e5),m=Math.floor(d%36e5/6e4),s=Math.floor(d%6e4/1e3);document.getElementById('th').textContent=h<10?'0'+h:h;document.getElementById('tm').textContent=m<10?'0'+m:m;document.getElementById('ts').textContent=s<10?'0'+s:s}u();setInterval(u,1e3)})();
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'})})});
+if(history.scrollRestoration)history.scrollRestoration='manual';window.scrollTo(0,0);
+</script>
+</body>
+</html>

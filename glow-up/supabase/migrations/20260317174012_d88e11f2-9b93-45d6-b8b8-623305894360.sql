@@ -1,0 +1,1 @@
+ALTER TABLE public.reminder_flow_nodes ADD COLUMN push_delivered_at timestamptz DEFAULT NULL;

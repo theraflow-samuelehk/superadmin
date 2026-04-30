@@ -1,0 +1,1 @@
+ALTER TABLE public.tutorial_categories ADD COLUMN topics text;

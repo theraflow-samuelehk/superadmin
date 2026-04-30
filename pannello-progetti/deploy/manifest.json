@@ -1,0 +1,17 @@
+{
+  "name": "Workspace",
+  "short_name": "Workspace",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#030014",
+  "theme_color": "#030014",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='90' fill='%23030014'/><circle cx='256' cy='256' r='160' stroke='%237c3aed' stroke-width='12' fill='none'/><circle cx='256' cy='256' r='80' stroke='%2306b6d4' stroke-width='12' fill='none'/><circle cx='256' cy='256' r='20' fill='%2306b6d4'/></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

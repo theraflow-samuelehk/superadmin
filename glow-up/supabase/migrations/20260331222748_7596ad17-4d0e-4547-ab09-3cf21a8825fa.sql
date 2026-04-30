@@ -1,0 +1,1 @@
+DELETE FROM facebook_leads WHERE fb_lead_id = 'test_fake_lead_001';

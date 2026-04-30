@@ -1,0 +1,1 @@
+ALTER TABLE public.salon_integrations ADD COLUMN IF NOT EXISTS sender_id_enabled boolean NOT NULL DEFAULT true;

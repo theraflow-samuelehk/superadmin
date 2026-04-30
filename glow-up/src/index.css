@@ -1,0 +1,346 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Prevent iOS overscroll bounce / rubber-band effect */
+html, body {
+  overscroll-behavior: none;
+  overflow: hidden;
+  height: 100%;
+  height: 100dvh;
+  background-color: hsl(30 30% 98%);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Allow text selection inside inputs, textareas, and contenteditable */
+input, textarea, [contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+/* Lighter placeholder text */
+input::placeholder, textarea::placeholder {
+  color: hsl(var(--muted-foreground) / 0.45) !important;
+  opacity: 1;
+}
+
+#root {
+  height: 100%;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+
+@layer base {
+  :root {
+    --background: 30 30% 98%;
+    --foreground: 340 25% 8%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 340 20% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 340 20% 15%;
+
+    --primary: 340 65% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 30 30% 94%;
+    --secondary-foreground: 340 20% 20%;
+
+    --muted: 30 20% 95%;
+    --muted-foreground: 340 15% 35%;
+
+    --accent: 340 45% 94%;
+    --accent-foreground: 340 55% 30%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 30 20% 90%;
+    --input: 30 20% 90%;
+    --ring: 340 65% 55%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 340 25% 12%;
+    --sidebar-foreground: 340 10% 85%;
+    --sidebar-primary: 340 65% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 340 20% 18%;
+    --sidebar-accent-foreground: 340 10% 90%;
+    --sidebar-border: 340 20% 20%;
+    --sidebar-ring: 340 65% 55%;
+
+    --gold: 38 75% 55%;
+    --gold-light: 38 60% 75%;
+    --rose-light: 340 60% 92%;
+    --rose-dark: 340 50% 30%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(340 65% 55%), hsl(340 45% 40%));
+    --gradient-gold: linear-gradient(135deg, hsl(38 75% 55%), hsl(38 60% 65%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(30 30% 97%));
+    --shadow-soft: 0 4px 24px -4px hsl(340 30% 30% / 0.08);
+    --shadow-card: 0 2px 12px -2px hsl(340 30% 30% / 0.06);
+    --shadow-glow: 0 0 30px hsl(340 65% 55% / 0.15);
+  }
+
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-serif;
+  }
+}
+
+@layer utilities {
+  .text-gradient-primary {
+    background: linear-gradient(135deg, hsl(340 65% 55%), hsl(340 45% 40%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, hsl(38 75% 55%), hsl(38 50% 45%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .bg-gradient-gold {
+    background: var(--gradient-gold);
+  }
+
+  .bg-gradient-card {
+    background: var(--gradient-card);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .glass-card {
+    background: hsl(0 0% 100% / 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid hsl(0 0% 100% / 0.4);
+  }
+
+
+  .gradient-border {
+    position: relative;
+    background: hsl(var(--card));
+    border-radius: 1rem;
+  }
+
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, hsl(340 65% 55% / 0.3), hsl(38 75% 55% / 0.3), hsl(340 65% 55% / 0.1));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px) rotate(2deg); }
+  50% { transform: translateY(-14px) rotate(-1deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px hsl(340 65% 55% / 0.2); }
+  50% { box-shadow: 0 0 40px hsl(340 65% 55% / 0.4); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+@keyframes timeline-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-timeline-pulse {
+  animation: timeline-pulse 2.5s ease-in-out infinite;
+}
+
+/* WhatsApp-style chat */
+:root {
+  --wa-mine-bg: 142 40% 88%;
+  --wa-mine-time: 142 20% 45%;
+  --wa-other-bg: 0 0% 100%;
+  --wa-pattern-opacity: 0.04;
+}
+
+
+.wa-bubble-mine {
+  background-color: hsl(var(--wa-mine-bg));
+  color: hsl(var(--foreground));
+}
+
+.wa-bubble-other {
+  background-color: hsl(var(--wa-other-bg));
+  color: hsl(var(--foreground));
+}
+
+/* Agenda dashed row – long dashes visible on mobile */
+.agenda-dashed-bottom {
+  border-bottom: none !important;
+  background-image: repeating-linear-gradient(
+    to right,
+    hsl(var(--border) / 0.8) 0px,
+    hsl(var(--border) / 0.8) 6px,
+    transparent 6px,
+    transparent 10px
+  );
+  background-size: 100% 1px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}
+
+/* Agenda cell hover with + icon */
+.agenda-cell {
+  position: relative;
+}
+.agenda-cell::after {
+  content: '+';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: hsl(var(--primary) / 0.4);
+  opacity: 0;
+  transition: opacity 0.15s, background-color 0.15s;
+  pointer-events: none;
+}
+.agenda-cell:hover::after {
+  opacity: 1;
+  background-color: hsl(var(--primary) / 0.03);
+}
+
+.wa-chat-bg {
+  background-color: hsl(var(--muted));
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cdefs%3E%3Cstyle%3E.c%7Bfill:%23888;opacity:0.08%7D%3C/style%3E%3C/defs%3E%3Ccircle class='c' cx='20' cy='20' r='2'/%3E%3Ccircle class='c' cx='60' cy='50' r='1.5'/%3E%3Ccircle class='c' cx='100' cy='15' r='2'/%3E%3Ccircle class='c' cx='140' cy='45' r='1.5'/%3E%3Ccircle class='c' cx='180' cy='25' r='2'/%3E%3Ccircle class='c' cx='30' cy='80' r='1.5'/%3E%3Ccircle class='c' cx='70' cy='110' r='2'/%3E%3Ccircle class='c' cx='110' cy='75' r='1.5'/%3E%3Ccircle class='c' cx='150' cy='100' r='2'/%3E%3Ccircle class='c' cx='190' cy='85' r='1.5'/%3E%3Ccircle class='c' cx='15' cy='140' r='2'/%3E%3Ccircle class='c' cx='55' cy='170' r='1.5'/%3E%3Ccircle class='c' cx='95' cy='135' r='2'/%3E%3Ccircle class='c' cx='135' cy='160' r='1.5'/%3E%3Ccircle class='c' cx='175' cy='145' r='2'/%3E%3Ccircle class='c' cx='45' cy='190' r='1.5'/%3E%3Ccircle class='c' cx='85' cy='185' r='2'/%3E%3Ccircle class='c' cx='125' cy='195' r='1.5'/%3E%3Ccircle class='c' cx='165' cy='180' r='2'/%3E%3C/svg%3E");
+}
+
+.pac-container {
+  z-index: 10050 !important;
+  overflow: hidden;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.875rem;
+  background: hsl(var(--popover));
+  color: hsl(var(--popover-foreground));
+  box-shadow: var(--shadow-soft);
+}
+
+.pac-item,
+.pac-item-query {
+  color: hsl(var(--foreground));
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.pac-item:hover,
+.pac-item-selected {
+  background: hsl(var(--accent));
+}
+
+/* WhatsApp Rich Editor — variable tags */
+.wa-rich-editor .wa-var {
+  display: inline-flex;
+  align-items: center;
+  background: hsl(var(--primary) / 0.12);
+  color: hsl(var(--primary));
+  border: 1px solid hsl(var(--primary) / 0.25);
+  border-radius: 9999px;
+  padding: 1px 8px;
+  font-family: ui-monospace, monospace;
+  font-size: 0.75em;
+  font-weight: 600;
+  white-space: nowrap;
+  line-height: 1.6;
+  vertical-align: baseline;
+  letter-spacing: -0.01em;
+}
+
+.wa-rich-editor:empty::before {
+  content: "Scrivi il messaggio...";
+  color: hsl(var(--muted-foreground) / 0.45);
+  pointer-events: none;
+}
+
+/* SMS Rich Editor — variable tags (pink) */
+.sms-rich-editor .sms-var {
+  display: inline-flex;
+  align-items: center;
+  background: hsl(330 80% 95%);
+  color: hsl(330 60% 40%);
+  border: 1px solid hsl(330 60% 75%);
+  border-radius: 9999px;
+  padding: 1px 8px;
+  font-family: ui-monospace, monospace;
+  font-size: 0.75em;
+  font-weight: 600;
+  white-space: nowrap;
+  line-height: 1.6;
+  vertical-align: baseline;
+  letter-spacing: -0.01em;
+}
+
+.dark .sms-rich-editor .sms-var {
+  background: hsl(330 40% 15%);
+  color: hsl(330 60% 70%);
+  border-color: hsl(330 40% 30%);
+}
+
+.sms-rich-editor:empty::before {
+  content: "Scrivi il messaggio...";
+  color: hsl(var(--muted-foreground) / 0.45);
+  pointer-events: none;
+}

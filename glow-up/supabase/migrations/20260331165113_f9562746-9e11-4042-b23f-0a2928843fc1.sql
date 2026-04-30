@@ -1,0 +1,1 @@
+UPDATE funnel_events SET fb_lead_id = 'l:971216582237998' WHERE session_id = 'f35eda9a-60ef-483f-a021-cfd44dd155fd' AND fb_lead_id IS NULL;

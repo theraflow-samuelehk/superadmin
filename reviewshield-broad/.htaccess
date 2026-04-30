@@ -1,0 +1,25 @@
+DirectoryIndex index.php index.html
+AddType application/javascript .js
+AddType text/css .css
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.php$ - [L]
+  # /admin (login React fake) -> admin.php (pannello PHP vero, password-only)
+  RewriteRule ^admin/?$ /admin.php [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.php [L]
+</IfModule>
+
+# Nega accesso ai file sensibili
+<FilesMatch "^(config\.php|.*\.log|\.gitignore|\.htaccess)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>

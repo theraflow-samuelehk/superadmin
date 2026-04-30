@@ -1,0 +1,35 @@
+# Cartelle pesanti generate automaticamente (non vanno su GitHub)
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+build/
+**/build/
+.next/
+**/.next/
+out/
+**/out/
+
+# File di sistema Mac/Windows
+.DS_Store
+Thumbs.db
+
+# Log e cache
+*.log
+.cache/
+**/.cache/
+.parcel-cache/
+
+# Variabili segrete
+.env
+.env.local
+.env.*.local
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Hostinger / FTP / Deploy temp
+.deploy-tmp/

@@ -1,0 +1,1 @@
+UPDATE plans SET features = '[]'::jsonb WHERE deleted_at IS NULL;

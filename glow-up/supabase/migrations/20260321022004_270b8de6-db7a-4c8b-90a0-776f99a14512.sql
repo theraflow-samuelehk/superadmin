@@ -1,0 +1,1 @@
+UPDATE public.platform_settings SET value = 'AIzaSyB0VF0SfubcGYLB1ucpTNADIQnSaK4lIlQ', updated_at = now() WHERE key = 'google_maps_api_key';

@@ -1,0 +1,1 @@
+ALTER TABLE public.operators ADD COLUMN email text;
