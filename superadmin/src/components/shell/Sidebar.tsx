@@ -67,8 +67,9 @@ export function Sidebar() {
 
       <aside
         className={cn(
-          "w-[260px] shrink-0 flex flex-col h-screen sticky top-0 relative overflow-hidden z-50",
-          "max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:transition-transform max-lg:duration-300 max-lg:ease-out",
+          "w-[260px] shrink-0 flex flex-col overflow-hidden z-50",
+          "lg:sticky lg:top-0 lg:self-start lg:h-screen",
+          "max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:bottom-0 max-lg:transition-transform max-lg:duration-300 max-lg:ease-out",
           !open && "max-lg:-translate-x-full"
         )}
         style={{
