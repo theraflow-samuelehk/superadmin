@@ -4,6 +4,7 @@ import { ExternalLink, Globe, Search } from "lucide-react";
 import { projects, getWorkspace } from "../lib/mock";
 import { Card } from "../components/ui/Card";
 import { Badge } from "../components/ui/Badge";
+import { PageHero } from "../components/ui/PageHero";
 import { formatCurrency, formatNumber, relativeTime, cn } from "../lib/utils";
 
 export function AllProjects() {
@@ -23,27 +24,29 @@ export function AllProjects() {
     });
   }, [q, activeCat]);
 
+  const liveCount = projects.filter((p) => p.status === "live").length;
+  const totalRevenue = projects.reduce((s, p) => s + (p.revenue30d || 0), 0);
+
   return (
-    <div className="px-6 lg:px-10 py-8 max-w-[1600px] mx-auto">
-      <div className="mb-8 pt-2">
-        <div className="flex items-center gap-3 mb-5">
-          <span
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white"
-            style={{ background: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 60%, #6366f1 100%)" }}
-          >
-            03 — Progetti
-          </span>
-        </div>
-        <h1
-          className="display-tight font-bold text-slate-900"
-          style={{ fontSize: "clamp(40px, 5.5vw, 64px)" }}
-        >
-          <span className="gradient-text-rich">{projects.length}</span> progetti, ovunque.
-        </h1>
-        <p className="mt-3 text-[15px] text-slate-600 max-w-xl">
-          Visione trasversale su tutti i workspace. Le categorie sono libere — ognuna nasce dall'admin che la crea.
-        </p>
-      </div>
+    <div className="px-4 md:px-6 lg:px-10 py-6 md:py-8 max-w-[1600px] mx-auto">
+      <PageHero
+        index="03 — Progetti"
+        title={
+          <>
+            {projects.length} progetti.
+            <br />
+            <span className="editorial-italic font-light text-white/75">Una vista sola.</span>
+          </>
+        }
+        description={
+          <>Visione trasversale su tutti i workspace. Le categorie sono libere — ognuna nasce dall'admin che la crea.</>
+        }
+        stats={[
+          { label: "Live", value: liveCount },
+          { label: "Categorie", value: categories.length - 1 },
+          { label: "€/30gg", value: "€" + (totalRevenue / 1000).toFixed(1) + "K" },
+        ]}
+      />
 
       <Card className="p-4 mb-6">
         <div className="flex items-center gap-3 bg-slate-50 hover:bg-white border border-transparent hover:border-slate-200 rounded-xl px-3 py-2 mb-3 transition-all">

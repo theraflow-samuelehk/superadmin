@@ -1,4 +1,5 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { cn } from "../../lib/utils";
 import {
   LayoutDashboard,
@@ -11,7 +12,9 @@ import {
   Settings,
   Sparkles,
   ChevronRight,
+  X,
 } from "lucide-react";
+import { useMobileNav } from "./MobileNav";
 
 const items = [
   { to: "/", label: "Overview", icon: LayoutDashboard, group: "intel", color: "cyan" },
@@ -38,6 +41,14 @@ const colorMap: Record<string, { active: string; bg: string; ring: string }> = {
 };
 
 export function Sidebar() {
+  const { open, setOpen } = useMobileNav();
+  const location = useLocation();
+
+  // Close drawer on route change (mobile)
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname, setOpen]);
+
   const groups = {
     intel: items.filter((i) => i.group === "intel"),
     ops: items.filter((i) => i.group === "ops"),
@@ -45,110 +56,131 @@ export function Sidebar() {
   };
 
   return (
-    <aside
-      className="w-[260px] shrink-0 flex flex-col h-screen sticky top-0 relative overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(180deg, #0b0a1f 0%, #0f0e22 50%, #0a0a1a 100%)",
-      }}
-    >
-      {/* Decorative glow */}
-      <div className="absolute -top-32 -right-20 w-72 h-72 rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, rgba(6, 182, 212, 0.28), transparent 70%)",
-          filter: "blur(48px)",
-        }}
-      />
-      <div className="absolute bottom-0 -left-20 w-72 h-72 rounded-full pointer-events-none"
-        style={{
-          background: "radial-gradient(circle, rgba(99, 102, 241, 0.22), transparent 70%)",
-          filter: "blur(48px)",
-        }}
-      />
-
-      {/* Right edge highlight */}
-      <div className="absolute top-0 right-0 bottom-0 w-px bg-gradient-to-b from-cyan-400/30 via-blue-500/20 to-transparent" />
-
-      {/* Brand */}
-      <div className="relative px-5 py-5 border-b border-white/[0.06]">
-        <div className="flex items-center gap-3">
-          <div
-            className="w-10 h-10 rounded-xl flex items-center justify-center relative"
-            style={{
-              background: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #6366f1 100%)",
-              boxShadow:
-                "0 0 0 1px rgba(255,255,255,0.1) inset, 0 8px 24px -4px rgba(6, 182, 212, 0.5)",
-            }}
-          >
-            <Sparkles size={18} className="text-white" strokeWidth={2.5} />
-            <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-[#0b0a1f]" />
-          </div>
-          <div className="leading-tight">
-            <div className="heading-md text-white" style={{ fontSize: "16px" }}>
-              workspace
-            </div>
-            <div className="text-[10px] uppercase tracking-[0.16em] gradient-text-warm font-bold mt-px">
-              Studio Hub
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Search hint */}
-      <div className="relative px-4 pt-4">
-        <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.04] border border-white/[0.06] text-[12px] text-slate-400 hover:bg-white/[0.06] transition-colors cursor-pointer">
-          <span className="text-slate-500">⌘</span>
-          <span>Quick find</span>
-          <span className="ml-auto text-[10px] font-mono text-slate-500 bg-white/5 border border-white/10 rounded px-1.5 py-0.5">
-            K
-          </span>
-        </div>
-      </div>
-
-      {/* Nav */}
-      <nav className="relative flex-1 px-3 py-4 overflow-y-auto scrollbar-thin">
-        <NavGroup label="Intelligence" items={groups.intel} />
-        <NavGroup label="Operations" items={groups.ops} className="mt-6" />
-        <NavGroup label="System" items={groups.system} className="mt-6" />
-      </nav>
-
-      {/* Pro Tip card */}
-      <div className="relative px-3 pb-3">
+    <>
+      {/* Mobile overlay */}
+      {open && (
         <div
-          className="relative rounded-2xl p-4 overflow-hidden border border-white/[0.06]"
+          className="lg:hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm z-40"
+          onClick={() => setOpen(false)}
+        />
+      )}
+
+      <aside
+        className={cn(
+          "w-[260px] shrink-0 flex flex-col h-screen sticky top-0 relative overflow-hidden z-50",
+          "max-lg:fixed max-lg:top-0 max-lg:left-0 max-lg:transition-transform max-lg:duration-300 max-lg:ease-out",
+          !open && "max-lg:-translate-x-full"
+        )}
+        style={{
+          background:
+            "linear-gradient(180deg, #0b0a1f 0%, #0f0e22 50%, #0a0a1a 100%)",
+        }}
+      >
+        {/* Decorative glow */}
+        <div className="absolute -top-32 -right-20 w-72 h-72 rounded-full pointer-events-none"
           style={{
-            background:
-              "linear-gradient(135deg, rgba(6, 182, 212, 0.22) 0%, rgba(59, 130, 246, 0.18) 50%, rgba(99, 102, 241, 0.14) 100%)",
+            background: "radial-gradient(circle, rgba(6, 182, 212, 0.28), transparent 70%)",
+            filter: "blur(48px)",
           }}
-        >
-          <div className="flex items-center gap-1.5 mb-2">
-            <Sparkles size={12} className="text-cyan-300" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-200">
-              Pro Tip
-            </span>
+        />
+        <div className="absolute bottom-0 -left-20 w-72 h-72 rounded-full pointer-events-none"
+          style={{
+            background: "radial-gradient(circle, rgba(99, 102, 241, 0.22), transparent 70%)",
+            filter: "blur(48px)",
+          }}
+        />
+
+        {/* Right edge highlight */}
+        <div className="absolute top-0 right-0 bottom-0 w-px bg-gradient-to-b from-cyan-400/30 via-blue-500/20 to-transparent" />
+
+        {/* Brand + mobile close */}
+        <div className="relative px-5 py-5 border-b border-white/[0.06] flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center relative"
+              style={{
+                background: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #6366f1 100%)",
+                boxShadow:
+                  "0 0 0 1px rgba(255,255,255,0.1) inset, 0 8px 24px -4px rgba(6, 182, 212, 0.5)",
+              }}
+            >
+              <Sparkles size={18} className="text-white" strokeWidth={2.5} />
+              <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 ring-2 ring-[#0b0a1f]" />
+            </div>
+            <div className="leading-tight">
+              <div className="heading-md text-white" style={{ fontSize: "16px" }}>
+                workspace
+              </div>
+              <div className="text-[10px] uppercase tracking-[0.16em] gradient-text-warm font-bold mt-px">
+                Studio Hub
+              </div>
+            </div>
           </div>
-          <p className="text-[12px] text-white/80 leading-relaxed mb-3">
-            Connetti il dominio madre Hostinger per attivare i sottodomini automatici.
-          </p>
-          <button className="text-[11px] font-bold text-white/95 hover:text-white flex items-center gap-1 group">
-            Configura
-            <ChevronRight size={12} className="transition-transform group-hover:translate-x-0.5" />
+          {/* Close on mobile */}
+          <button
+            onClick={() => setOpen(false)}
+            className="lg:hidden w-8 h-8 rounded-lg bg-white/5 border border-white/10 text-white/70 flex items-center justify-center hover:bg-white/10"
+          >
+            <X size={14} />
           </button>
         </div>
-      </div>
 
-      {/* Footer status */}
-      <div className="relative px-5 py-3 border-t border-white/[0.06]">
-        <div className="flex items-center gap-2 text-[11px] font-medium">
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
-          </span>
-          <span className="text-slate-300">Tutti i sistemi</span>
-          <span className="ml-auto text-emerald-300 font-bold">99.98%</span>
+        {/* Search hint */}
+        <div className="relative px-4 pt-4">
+          <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/[0.04] border border-white/[0.06] text-[12px] text-slate-400 hover:bg-white/[0.06] transition-colors cursor-pointer">
+            <span className="text-slate-500">⌘</span>
+            <span>Quick find</span>
+            <span className="ml-auto text-[10px] font-mono text-slate-500 bg-white/5 border border-white/10 rounded px-1.5 py-0.5">
+              K
+            </span>
+          </div>
         </div>
-      </div>
-    </aside>
+
+        {/* Nav */}
+        <nav className="relative flex-1 px-3 py-4 overflow-y-auto scrollbar-thin">
+          <NavGroup label="Intelligence" items={groups.intel} />
+          <NavGroup label="Operations" items={groups.ops} className="mt-6" />
+          <NavGroup label="System" items={groups.system} className="mt-6" />
+        </nav>
+
+        {/* Pro Tip card */}
+        <div className="relative px-3 pb-3">
+          <div
+            className="relative rounded-2xl p-4 overflow-hidden border border-white/[0.06]"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(6, 182, 212, 0.22) 0%, rgba(59, 130, 246, 0.18) 50%, rgba(99, 102, 241, 0.14) 100%)",
+            }}
+          >
+            <div className="flex items-center gap-1.5 mb-2">
+              <Sparkles size={12} className="text-cyan-300" />
+              <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-cyan-200">
+                Pro Tip
+              </span>
+            </div>
+            <p className="text-[12px] text-white/80 leading-relaxed mb-3">
+              Connetti il dominio madre Hostinger per attivare i sottodomini automatici.
+            </p>
+            <button className="text-[11px] font-bold text-white/95 hover:text-white flex items-center gap-1 group">
+              Configura
+              <ChevronRight size={12} className="transition-transform group-hover:translate-x-0.5" />
+            </button>
+          </div>
+        </div>
+
+        {/* Footer status */}
+        <div className="relative px-5 py-3 border-t border-white/[0.06]">
+          <div className="flex items-center gap-2 text-[11px] font-medium">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+            </span>
+            <span className="text-slate-300">Tutti i sistemi</span>
+            <span className="ml-auto text-emerald-300 font-bold">99.98%</span>
+          </div>
+        </div>
+      </aside>
+    </>
   );
 }
 

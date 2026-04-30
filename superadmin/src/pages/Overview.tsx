@@ -39,6 +39,7 @@ import { AvatarStack, gradientFor } from "../components/ui/Avatar";
 import { Button } from "../components/ui/Button";
 import { CountUp } from "../components/ui/CountUp";
 import { Sparkline, generateTrend } from "../components/ui/Sparkline";
+import { OrbitalDecoration } from "../components/ui/OrbitalDecoration";
 import { useImpersonation } from "../components/shell/Layout";
 import { formatCurrency, formatNumber, relativeTime, cn } from "../lib/utils";
 import { membersByWorkspace } from "../lib/mock";
@@ -107,7 +108,7 @@ export function Overview() {
   };
 
   return (
-    <div className="px-6 lg:px-12 py-8 max-w-[1600px] mx-auto">
+    <div className="px-4 md:px-6 lg:px-12 py-6 md:py-8 max-w-[1600px] mx-auto">
       {/* HERO STATEMENT — dark card with everything */}
       <motion.div
         initial={{ opacity: 0, y: 12 }}
@@ -126,6 +127,12 @@ export function Overview() {
         <div className="absolute top-0 right-0 w-[500px] h-[500px] blob blob-cyan opacity-30" />
         <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] blob blob-blue opacity-25" style={{ animationDelay: "-4s" }} />
         <div className="absolute top-1/2 right-1/3 w-[300px] h-[300px] blob blob-indigo opacity-20" style={{ animationDelay: "-8s" }} />
+
+        {/* Orbital SVG decoration */}
+        <OrbitalDecoration
+          variant="dark"
+          className="absolute -right-32 -top-32 w-[700px] h-[700px] pointer-events-none opacity-90"
+        />
 
         <div className="relative p-8 lg:p-12">
           {/* Top bar */}

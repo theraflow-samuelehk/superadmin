@@ -15,6 +15,7 @@ import { Badge } from "../components/ui/Badge";
 import { Avatar, AvatarStack, gradientFor } from "../components/ui/Avatar";
 import { Button } from "../components/ui/Button";
 import { Sparkline, generateTrend } from "../components/ui/Sparkline";
+import { PageHero } from "../components/ui/PageHero";
 import { useImpersonation } from "../components/shell/Layout";
 import { formatCurrency, cn } from "../lib/utils";
 
@@ -37,35 +38,37 @@ export function Workspaces() {
     });
   }, [q, status, plan]);
 
+  const activeCount = workspaces.filter((w) => w.status === "active").length;
+  const totalMRR = workspaces.reduce((s, w) => s + w.monthlyRevenue, 0);
+
   return (
-    <div className="px-6 lg:px-10 py-8 max-w-[1600px] mx-auto">
-      <div className="mb-8 pt-2">
-        <div className="flex items-center gap-3 mb-5">
-          <span
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white"
-            style={{ background: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 60%, #6366f1 100%)" }}
-          >
-            02 — Workspaces
-          </span>
-        </div>
-        <div className="flex items-end justify-between gap-4 flex-wrap">
-          <div>
-            <h1
-              className="display-tight font-bold text-slate-900"
-              style={{ fontSize: "clamp(40px, 5.5vw, 64px)" }}
-            >
-              Tutti i <span className="gradient-text-rich">workspace</span>.
-            </h1>
-            <p className="mt-3 text-[15px] text-slate-600 max-w-xl">
-              Ogni riga è un mondo a sé. Filtra, ispeziona, oppure entra in modalità{" "}
-              <span className="font-semibold text-violet-600">View As</span> per vedere quello che vede l'admin.
-            </p>
-          </div>
+    <div className="px-4 md:px-6 lg:px-10 py-6 md:py-8 max-w-[1600px] mx-auto">
+      <PageHero
+        index="02 — Workspaces"
+        title={
+          <>
+            Tutti i <span className="editorial-italic font-light text-white/80">workspace</span>.
+            <br />
+            <span className="text-white/65 font-light">Sotto controllo.</span>
+          </>
+        }
+        description={
+          <>
+            Ogni riga è un mondo a sé. Filtra, ispeziona, oppure entra in modalità{" "}
+            <span className="font-semibold text-cyan-300">View As</span> per vedere quello che vede l'admin.
+          </>
+        }
+        action={
           <Button variant="primary" size="lg">
             <Plus size={14} /> Nuovo workspace
           </Button>
-        </div>
-      </div>
+        }
+        stats={[
+          { label: "Totali", value: workspaces.length },
+          { label: "Attivi", value: activeCount },
+          { label: "MRR", value: "€" + (totalMRR / 1000).toFixed(1) + "K" },
+        ]}
+      />
 
       {/* Filter bar */}
       <Card className="p-4 mb-6">
@@ -103,7 +106,9 @@ export function Workspaces() {
 
       {/* Table */}
       <Card className="overflow-hidden p-0">
-        <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr_100px_140px] gap-4 px-5 py-3.5 border-b border-slate-100 text-[10.5px] uppercase tracking-wider text-slate-500 font-bold bg-slate-50/50">
+        <div className="overflow-x-auto">
+          <div className="min-w-[1100px]">
+            <div className="grid grid-cols-[2fr_1fr_1fr_1fr_1fr_1fr_100px_140px] gap-4 px-5 py-3.5 border-b border-slate-100 text-[10.5px] uppercase tracking-wider text-slate-500 font-bold bg-slate-50/50">
           <div>Workspace</div>
           <div>Owner</div>
           <div>Plan</div>
@@ -222,7 +227,9 @@ export function Workspaces() {
                 </div>
               </motion.div>
             );
-          })}
+            })}
+            </div>
+          </div>
         </div>
       </Card>
     </div>

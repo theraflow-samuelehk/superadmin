@@ -28,7 +28,7 @@ export function SpotlightCard({
       onMouseMove={handleMouseMove}
       onClick={onClick}
       className={cn(
-        "spotlight relative bg-white rounded-2xl border border-slate-100 shadow-card transition-all duration-300 hover:shadow-lift hover:border-violet-200",
+        "spotlight relative card-3d card-3d-interactive",
         onClick && "cursor-pointer",
         className
       )}

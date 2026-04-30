@@ -14,12 +14,9 @@ export function Card({
   return (
     <div
       className={cn(
-        "relative rounded-2xl bg-white",
-        flat
-          ? "border border-slate-200"
-          : "shadow-card border border-slate-100",
-        interactive &&
-          "transition-all duration-200 hover:shadow-lift hover:border-violet-200 cursor-pointer group",
+        "relative",
+        flat ? "bg-white rounded-2xl border border-slate-200" : "card-3d",
+        interactive && "card-3d-interactive cursor-pointer group",
         className
       )}
     >

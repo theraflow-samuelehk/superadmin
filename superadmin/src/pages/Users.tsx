@@ -7,6 +7,7 @@ import { Badge } from "../components/ui/Badge";
 import { Avatar } from "../components/ui/Avatar";
 import { Button } from "../components/ui/Button";
 import { Stat } from "../components/ui/Stat";
+import { PageHero } from "../components/ui/PageHero";
 import { relativeTime, cn } from "../lib/utils";
 
 const PENDING_INVITES = [
@@ -32,35 +33,34 @@ export function Users() {
     users.filter((u) => u.role === tab);
 
   return (
-    <div className="px-6 lg:px-10 py-8 max-w-[1600px] mx-auto">
-      <div className="mb-8 pt-2">
-        <div className="flex items-center gap-3 mb-5">
-          <span
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white"
-            style={{ background: "linear-gradient(135deg, #06b6d4 0%, #3b82f6 60%, #6366f1 100%)" }}
-          >
-            04 — Utenti
-          </span>
-        </div>
-        <div className="flex items-end justify-between gap-4 flex-wrap">
-          <div>
-            <h1
-              className="display-tight font-bold text-slate-900"
-              style={{ fontSize: "clamp(40px, 5.5vw, 64px)" }}
-            >
-              Chi vede <span className="gradient-text-rich">cosa</span>.
-            </h1>
-            <p className="mt-3 text-[15px] text-slate-600 max-w-xl">
-              Tre livelli di accesso: <span className="text-violet-600 font-semibold">Super Admin</span> assoluti,
-              <span className="text-emerald-600 font-semibold"> Admin</span> di workspace,
-              <span className="text-sky-600 font-semibold"> Staff</span> con visibilità granulare.
-            </p>
-          </div>
+    <div className="px-4 md:px-6 lg:px-10 py-6 md:py-8 max-w-[1600px] mx-auto">
+      <PageHero
+        index="04 — Utenti"
+        title={
+          <>
+            Chi vede <span className="editorial-italic font-light text-white/80">cosa</span>.
+            <br />
+            <span className="text-white/65 font-light">A che livello.</span>
+          </>
+        }
+        description={
+          <>
+            Tre livelli di accesso: <span className="text-cyan-300 font-semibold">Super Admin</span> assoluti,
+            <span className="text-emerald-300 font-semibold"> Admin</span> di workspace,
+            <span className="text-sky-300 font-semibold"> Staff</span> con visibilità granulare.
+          </>
+        }
+        action={
           <Button variant="primary" size="lg">
             <Mail size={14} /> Invita per email
           </Button>
-        </div>
-      </div>
+        }
+        stats={[
+          { label: "Super Admin", value: counts.superadmin },
+          { label: "Admin", value: counts.admin },
+          { label: "Staff", value: counts.staff },
+        ]}
+      />
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
