@@ -265,13 +265,13 @@ export function Overview() {
               <div className="flex items-baseline gap-2">
                 <span
                   className={cn(
-                    "display font-black tabular-nums text-slate-900",
+                    "display font-black tabular-nums text-slate-900 truncate block",
                     kpi.emphasis && "gradient-text-rich"
                   )}
-                  style={{ fontSize: kpi.emphasis ? "44px" : "36px" }}
+                  style={{ fontSize: kpi.emphasis ? "40px" : "34px" }}
                 >
                   {kpi.currency ? (
-                    <CountUp to={kpi.value} format="currency" duration={1.6} />
+                    <CountUp to={kpi.value} format="currencyCompact" duration={1.6} />
                   ) : kpi.compact ? (
                     <CountUp to={kpi.value} format="compact" duration={1.4} />
                   ) : (

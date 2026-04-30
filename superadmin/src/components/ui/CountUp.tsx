@@ -6,7 +6,7 @@ interface CountUpProps {
   suffix?: string;
   decimals?: number;
   duration?: number;
-  format?: "number" | "compact" | "currency";
+  format?: "number" | "compact" | "currency" | "currencyCompact";
   className?: string;
 }
 
@@ -18,6 +18,12 @@ function compact(n: number): string {
 
 function currency(n: number): string {
   return "€" + Math.floor(n).toLocaleString("it-IT");
+}
+
+function currencyCompact(n: number): string {
+  if (n >= 1_000_000) return "€" + (n / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
+  if (n >= 1_000) return "€" + (n / 1_000).toFixed(1).replace(/\.0$/, "") + "K";
+  return "€" + Math.floor(n).toString();
 }
 
 export function CountUp({
@@ -56,6 +62,7 @@ export function CountUp({
   let formatted: string;
   if (format === "compact") formatted = compact(val);
   else if (format === "currency") formatted = currency(val);
+  else if (format === "currencyCompact") formatted = currencyCompact(val);
   else formatted = val.toFixed(decimals);
 
   return <span className={className}>{prefix}{formatted}{suffix}</span>;
