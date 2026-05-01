@@ -5,7 +5,6 @@ interface SparklineProps {
   width?: number;
   height?: number;
   stroke?: string;
-  fill?: string;
   strokeWidth?: number;
   showDot?: boolean;
 }
@@ -15,7 +14,6 @@ export function Sparkline({
   width = 80,
   height = 28,
   stroke = "#8b5cf6",
-  fill = "rgba(139, 92, 246, 0.15)",
   strokeWidth = 1.5,
   showDot = true,
 }: SparklineProps) {

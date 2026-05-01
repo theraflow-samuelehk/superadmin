@@ -3,10 +3,10 @@ import { motion } from "framer-motion";
 import { Mail, Shield, Users as UsersIcon, Briefcase } from "lucide-react";
 import { users, getWorkspace } from "../lib/mock";
 import { Card } from "../components/ui/Card";
+import { SpotlightCard } from "../components/ui/SpotlightCard";
 import { Badge } from "../components/ui/Badge";
 import { Avatar } from "../components/ui/Avatar";
 import { Button } from "../components/ui/Button";
-import { Stat } from "../components/ui/Stat";
 import { PageHero } from "../components/ui/PageHero";
 import { relativeTime, cn } from "../lib/utils";
 
@@ -63,10 +63,34 @@ export function Users() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-        <Card className="p-5"><Stat label="Super Admin" value={counts.superadmin} unit="assoluti" /></Card>
-        <Card className="p-5"><Stat label="Admin di workspace" value={counts.admin} /></Card>
-        <Card className="p-5"><Stat label="Staff" value={counts.staff} /></Card>
-        <Card className="p-5"><Stat label="Inviti pendenti" value={counts.invites} /></Card>
+        <SpotlightCard className="p-5">
+          <div className="text-[10.5px] text-slate-500 font-bold uppercase tracking-[0.1em] mb-1.5 flex items-center gap-1.5">
+            <Shield size={11} className="text-violet-500" /> Super Admin
+          </div>
+          <div className="num-display text-[34px] text-slate-900">{counts.superadmin}</div>
+          <div className="text-[11px] text-slate-400 mt-0.5">Samuele + Thomas</div>
+        </SpotlightCard>
+        <SpotlightCard className="p-5">
+          <div className="text-[10.5px] text-slate-500 font-bold uppercase tracking-[0.1em] mb-1.5 flex items-center gap-1.5">
+            <Briefcase size={11} className="text-emerald-500" /> Admin workspace
+          </div>
+          <div className="num-display text-[34px] text-slate-900">{counts.admin}</div>
+          <div className="text-[11px] text-slate-400 mt-0.5">owner dei workspace</div>
+        </SpotlightCard>
+        <SpotlightCard className="p-5">
+          <div className="text-[10.5px] text-slate-500 font-bold uppercase tracking-[0.1em] mb-1.5 flex items-center gap-1.5">
+            <UsersIcon size={11} className="text-sky-500" /> Staff
+          </div>
+          <div className="num-display text-[34px] text-slate-900">{counts.staff}</div>
+          <div className="text-[11px] text-slate-400 mt-0.5">accesso limitato</div>
+        </SpotlightCard>
+        <SpotlightCard className="p-5">
+          <div className="text-[10.5px] text-slate-500 font-bold uppercase tracking-[0.1em] mb-1.5 flex items-center gap-1.5">
+            <Mail size={11} className="text-amber-500" /> Inviti pendenti
+          </div>
+          <div className="num-display text-[34px] text-slate-900">{counts.invites}</div>
+          <div className="text-[11px] text-slate-400 mt-0.5">in attesa di accettazione</div>
+        </SpotlightCard>
       </div>
 
       {/* Tabs */}
@@ -222,14 +246,19 @@ function RoleCard({
   name: string;
   desc: string;
 }) {
-  const bg = {
-    violet: "bg-violet-100 text-violet-600",
-    emerald: "bg-emerald-100 text-emerald-600",
-    sky: "bg-sky-100 text-sky-600",
+  const gradient = {
+    violet: "from-violet-500 to-purple-600",
+    emerald: "from-emerald-500 to-teal-600",
+    sky:     "from-sky-500 to-blue-600",
+  };
+  const cardBg = {
+    violet: "from-violet-50/60 to-white",
+    emerald: "from-emerald-50/60 to-white",
+    sky: "from-sky-50/60 to-white",
   };
   return (
-    <Card className="p-5">
-      <div className={cn("w-11 h-11 rounded-xl flex items-center justify-center mb-4", bg[color])}>
+    <Card className={cn("p-6 bg-gradient-to-b border", cardBg[color])}>
+      <div className={cn("w-11 h-11 rounded-xl flex items-center justify-center mb-4 text-white bg-gradient-to-br shadow-sm", gradient[color])}>
         {icon}
       </div>
       <div className="heading-md text-slate-900 mb-2" style={{ fontSize: "17px" }}>{name}</div>

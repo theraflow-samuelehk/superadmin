@@ -142,7 +142,8 @@ export function Sidebar() {
   );
 }
 
-function NavGroup({ label, items, className }: { label: string; items: typeof items; className?: string }) {
+type NavItem = { to: string; label: () => string; icon: React.ElementType; group: string; color: string };
+function NavGroup({ label, items, className }: { label: string; items: NavItem[]; className?: string }) {
   return (
     <div className={className}>
       <div className="px-3 mb-2 text-[9px] uppercase tracking-[0.22em] text-slate-500 font-bold">

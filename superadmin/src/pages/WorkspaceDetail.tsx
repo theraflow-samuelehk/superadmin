@@ -21,6 +21,7 @@ import {
   activityByWorkspace,
 } from "../lib/mock";
 import { Card } from "../components/ui/Card";
+import { SpotlightCard } from "../components/ui/SpotlightCard";
 import { Badge } from "../components/ui/Badge";
 import { Avatar, gradientFor } from "../components/ui/Avatar";
 import { Button } from "../components/ui/Button";
@@ -163,11 +164,11 @@ export function WorkspaceDetail() {
 
       {/* Stats strip */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 mb-10">
-        <Card className="p-5"><Stat label="Progetti" value={wsProjects.length} unit={`${wsProjects.filter((p) => p.status === "live").length} live`} /></Card>
-        <Card className="p-5"><Stat label="Visite (30gg)" value={formatNumber(totalVisits)} delta={{ value: "+18%", positive: true }} /></Card>
-        <Card className="p-5"><Stat label="Lead (30gg)" value={formatNumber(totalLeads)} delta={{ value: "+22%", positive: true }} /></Card>
-        <Card className="p-5"><Stat label="Revenue (30gg)" value={totalRevenue > 0 ? formatCurrency(totalRevenue) : "—"} emphasis /></Card>
-        <Card className="p-5"><Stat label="Plan" value={ws.plan.toUpperCase()} unit={`MRR ${formatCurrency(ws.monthlyRevenue)}`} /></Card>
+        <SpotlightCard className="p-5"><Stat label="Progetti" value={wsProjects.length} unit={`${wsProjects.filter((p) => p.status === "live").length} live`} /></SpotlightCard>
+        <SpotlightCard className="p-5"><Stat label="Visite 30gg" value={formatNumber(totalVisits)} delta={{ value: "+18%", positive: true }} /></SpotlightCard>
+        <SpotlightCard className="p-5"><Stat label="Lead 30gg" value={formatNumber(totalLeads)} delta={{ value: "+22%", positive: true }} /></SpotlightCard>
+        <SpotlightCard className="p-5"><Stat label="Revenue 30gg" value={totalRevenue > 0 ? formatCurrency(totalRevenue) : "—"} emphasis /></SpotlightCard>
+        <SpotlightCard className="p-5"><Stat label="Piano attivo" value={ws.plan.toUpperCase()} unit={`MRR ${formatCurrency(ws.monthlyRevenue)}`} /></SpotlightCard>
       </div>
 
       {/* Two-column main */}
@@ -204,9 +205,6 @@ export function WorkspaceDetail() {
                 </span>
               </button>
             ))}
-            <button className="text-[12px] px-3.5 py-1.5 rounded-full border border-dashed border-slate-300 text-slate-500 hover:border-violet-400 hover:text-violet-600 transition-colors font-semibold">
-              + Categoria
-            </button>
           </div>
 
           {/* Project cards */}
@@ -279,18 +277,16 @@ export function WorkspaceDetail() {
         {/* Right: sidebar info */}
         <div className="space-y-4">
           <Card className="p-5">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <span className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center">
-                  <UsersIcon size={13} />
-                </span>
-                <span className="text-[13px] font-bold text-slate-900">Membri ({members.length})</span>
-              </div>
-              <button className="text-[11px] text-violet-600 font-semibold hover:text-violet-700">+ Invita</button>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-600 flex items-center justify-center">
+                <UsersIcon size={13} />
+              </span>
+              <span className="text-[13px] font-bold text-slate-900">Membri</span>
+              <span className="ml-auto text-[11px] text-slate-400 font-mono">{members.length}</span>
             </div>
             <div className="space-y-2.5">
               {members.map((m) => (
-                <div key={m.id} className="flex items-center gap-2.5">
+                <div key={m.id} className="flex items-center gap-2.5 group">
                   <Avatar name={m.name} color={m.avatarColor} size="sm" />
                   <div className="min-w-0 flex-1">
                     <div className="text-[13px] text-slate-800 truncate font-semibold">{m.name}</div>
@@ -298,30 +294,42 @@ export function WorkspaceDetail() {
                       {m.role}
                     </div>
                   </div>
+                  <span className={cn(
+                    "w-1.5 h-1.5 rounded-full shrink-0",
+                    m.role === "superadmin" ? "bg-violet-500" :
+                    m.role === "admin" ? "bg-emerald-500" : "bg-sky-400"
+                  )} />
                 </div>
               ))}
-              <button className="w-full mt-3 border border-dashed border-slate-300 rounded-xl py-2.5 text-[12px] text-slate-500 hover:border-violet-400 hover:text-violet-600 hover:bg-violet-50/40 transition-colors font-semibold flex items-center justify-center gap-1.5">
-                <UserPlus size={12} /> Invita membro
-              </button>
             </div>
           </Card>
 
           <Card className="p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="w-7 h-7 rounded-lg bg-sky-100 text-sky-600 flex items-center justify-center">
-                <Database size={13} />
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <span className="w-7 h-7 rounded-lg bg-sky-100 text-sky-600 flex items-center justify-center">
+                  <Database size={13} />
+                </span>
+                <span className="text-[13px] font-bold text-slate-900">Storage</span>
+              </div>
+              <span className="text-[11px] font-bold text-slate-500 tabular-nums font-mono">
+                {Math.round((ws.storageMb / ws.storageLimitMb) * 100)}%
               </span>
-              <span className="text-[13px] font-bold text-slate-900">Storage</span>
             </div>
-            <div className="font-display text-[28px] text-slate-900 font-bold tabular-nums leading-none">
-              {(ws.storageMb / 1024).toFixed(2)}<span className="text-slate-400 text-[16px] font-medium">/{(ws.storageLimitMb / 1024).toFixed(0)} GB</span>
+            <div className="flex items-baseline gap-1.5 mb-3">
+              <span className="num-display text-[28px] text-slate-900 tabular-nums leading-none">
+                {(ws.storageMb / 1024).toFixed(1)}
+              </span>
+              <span className="text-slate-400 text-[14px] font-medium">
+                / {(ws.storageLimitMb / 1024).toFixed(0)} GB
+              </span>
             </div>
-            <div className="mt-3 h-1.5 bg-slate-100 relative overflow-hidden rounded-full">
+            <div className="h-2 bg-slate-100 relative overflow-hidden rounded-full">
               <div
-                className="absolute inset-y-0 left-0 rounded-full"
+                className="absolute inset-y-0 left-0 rounded-full transition-all duration-700"
                 style={{
-                  background: "linear-gradient(90deg, #8b5cf6, #ec4899)",
-                  width: `${(ws.storageMb / ws.storageLimitMb) * 100}%`,
+                  background: "linear-gradient(90deg, #8b5cf6, #ec4899, #f97316)",
+                  width: `${Math.min(100, (ws.storageMb / ws.storageLimitMb) * 100)}%`,
                 }}
               />
             </div>
@@ -334,14 +342,39 @@ export function WorkspaceDetail() {
               </span>
               <span className="text-[13px] font-bold text-slate-900">Ultime attività</span>
             </div>
-            <div className="space-y-3">
-              {events.slice(0, 5).map((e) => (
-                <div key={e.id} className="flex items-start gap-2 group">
-                  <span className="w-1 self-stretch bg-gradient-to-b from-violet-400 to-pink-400 rounded-full shrink-0 mt-1" />
-                  <div className="flex-1 min-w-0">
-                    <div className="text-[12.5px] text-slate-700 leading-snug">{e.message}</div>
-                    <div className="text-[11px] text-slate-400 mt-0.5">
-                      <span className="font-medium text-slate-500">{e.actor}</span> · {relativeTime(e.timestamp)}
+            <div className="space-y-3.5">
+              {events.slice(0, 5).map((e, idx) => (
+                <div key={e.id} className="flex items-start gap-2.5">
+                  <div className="flex flex-col items-center shrink-0 mt-1">
+                    <span
+                      className={cn(
+                        "w-6 h-6 rounded-md flex items-center justify-center text-[10px]",
+                        e.type === "deploy"  && "bg-violet-100 text-violet-600",
+                        e.type === "invite"  && "bg-emerald-100 text-emerald-600",
+                        e.type === "domain"  && "bg-sky-100 text-sky-600",
+                        e.type === "billing" && "bg-amber-100 text-amber-600",
+                        e.type === "alert"   && "bg-rose-100 text-rose-600",
+                        e.type === "create"  && "bg-fuchsia-100 text-fuchsia-600",
+                        !e.type             && "bg-slate-100 text-slate-500"
+                      )}
+                    >
+                      {e.type === "deploy"  && <Rocket size={10} />}
+                      {e.type === "invite"  && <UserPlus size={10} />}
+                      {e.type === "domain"  && <Globe size={10} />}
+                      {e.type === "billing" && <ActivityIcon size={10} />}
+                      {e.type === "alert"   && <ActivityIcon size={10} />}
+                      {e.type === "create"  && <ActivityIcon size={10} />}
+                    </span>
+                    {idx < events.slice(0, 5).length - 1 && (
+                      <span className="w-px flex-1 bg-slate-100 my-1" style={{ minHeight: "10px" }} />
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0 pb-1">
+                    <div className="text-[12.5px] text-slate-700 leading-snug font-medium">{e.message}</div>
+                    <div className="text-[11px] text-slate-400 mt-0.5 flex items-center gap-1">
+                      <span className="font-medium text-slate-500">{e.actor}</span>
+                      <span>·</span>
+                      <span className="tabular-nums">{relativeTime(e.timestamp)}</span>
                     </div>
                   </div>
                 </div>
@@ -349,24 +382,28 @@ export function WorkspaceDetail() {
             </div>
           </Card>
 
-          <Card className="p-5 relative overflow-hidden bg-gradient-to-br from-violet-50 via-fuchsia-50 to-pink-50 border-white">
+          <Card
+            className="p-5 relative overflow-hidden border border-violet-100"
+            style={{ background: "linear-gradient(135deg, #f5f3ff 0%, #fdf4ff 50%, #fce7f3 100%)" }}
+          >
             <div
-              className="absolute inset-0 opacity-40 pointer-events-none"
-              style={{
-                backgroundImage: "radial-gradient(circle at 70% 0%, rgba(236, 72, 153, 0.18), transparent 60%)",
-              }}
+              className="absolute inset-0 opacity-30 pointer-events-none"
+              style={{ backgroundImage: "radial-gradient(circle at 80% 10%, rgba(139,92,246,0.22), transparent 55%)" }}
             />
             <div className="relative">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="w-7 h-7 rounded-lg flex items-center justify-center text-white"
-                  style={{ background: "linear-gradient(135deg, #8b5cf6, #ec4899)" }}
+              <div className="flex items-center gap-2 mb-3">
+                <span
+                  className="w-8 h-8 rounded-xl flex items-center justify-center text-white shadow-sm"
+                  style={{ background: "linear-gradient(135deg, #7c3aed, #db2777)" }}
                 >
-                  <Rocket size={13} />
+                  <Globe size={14} />
                 </span>
-                <span className="text-[13px] font-bold text-slate-900">Promuovi a dominio</span>
+                <span className="text-[13px] font-bold text-slate-900">Dominio custom</span>
               </div>
-              <p className="text-[12.5px] text-slate-600 leading-relaxed mb-3.5">
-                Collega un dominio reale a qualsiasi sottodominio di questo workspace per portarlo live.
+              <p className="text-[12.5px] text-slate-600 leading-relaxed mb-4">
+                Collega un dominio reale a questo workspace. I sottodomini su{" "}
+                <span className="font-mono text-violet-700 text-[11.5px]">theraflow.io</span>{" "}
+                rimangono sempre attivi.
               </p>
               <Button variant="primary" size="sm" className="w-full justify-center">
                 Collega dominio <ChevronRight size={13} />

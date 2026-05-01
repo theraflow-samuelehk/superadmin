@@ -13,11 +13,11 @@ export function Login() {
       <div className="relative hidden lg:flex flex-col p-12 overflow-hidden text-white"
         style={{
           backgroundImage: `
-            radial-gradient(at 0% 0%, rgba(168, 85, 247, 0.85) 0px, transparent 55%),
-            radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.75) 0px, transparent 55%),
-            radial-gradient(at 100% 100%, rgba(56, 189, 248, 0.65) 0px, transparent 55%),
-            radial-gradient(at 0% 100%, rgba(99, 102, 241, 0.7) 0px, transparent 55%),
-            linear-gradient(135deg, #6d28d9, #be185d)
+            radial-gradient(at 0% 0%,   rgba(6, 182, 212, 0.5)  0px, transparent 55%),
+            radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.5) 0px, transparent 55%),
+            radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.4) 0px, transparent 55%),
+            radial-gradient(at 0% 100%, rgba(56, 189, 248, 0.45) 0px, transparent 50%),
+            linear-gradient(160deg, #0a1628 0%, #0e1d3a 60%, #0c1440 100%)
           `,
         }}
       >
@@ -78,11 +78,11 @@ export function Login() {
         </div>
 
         {/* Bottom metrics */}
-        <div className="mt-auto pt-12 grid grid-cols-3 gap-6 border-t border-white/20 pt-6 relative">
+        <div className="mt-auto grid grid-cols-3 gap-6 border-t border-white/20 pt-6 relative">
           {[
-            { v: "7", l: "Workspaces" },
-            { v: "18", l: "Projects" },
-            { v: "10", l: "Users" },
+            { v: "3", l: "Workspace" },
+            { v: "10", l: "Progetti" },
+            { v: "6", l: "Utenti" },
           ].map((m) => (
             <div key={m.l}>
               <div className="font-display text-[36px] text-white font-bold tabular-nums leading-none">

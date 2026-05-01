@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { create } from "zustand";
 import {
   Search,
-  ArrowRight,
   Building2,
   FolderKanban,
   Users as UsersIcon,

@@ -98,13 +98,13 @@ export function Overview() {
     },
   ];
 
-  const colorMap: Record<string, string> = {
-    cyan: "from-cyan-100 to-cyan-50 text-cyan-700 ring-cyan-200/50",
-    blue: "from-blue-100 to-blue-50 text-blue-700 ring-blue-200/50",
-    indigo: "from-indigo-100 to-indigo-50 text-indigo-700 ring-indigo-200/50",
-    sky: "from-sky-100 to-sky-50 text-sky-700 ring-sky-200/50",
-    emerald: "from-emerald-100 to-emerald-50 text-emerald-700 ring-emerald-200/50",
-    violet: "from-violet-100 to-violet-50 text-violet-700 ring-violet-200/50",
+  const colorMap: Record<string, { icon: string; badge: string }> = {
+    cyan:    { icon: "bg-cyan-100 text-cyan-700",    badge: "text-cyan-600" },
+    blue:    { icon: "bg-blue-100 text-blue-700",    badge: "text-blue-600" },
+    indigo:  { icon: "bg-indigo-100 text-indigo-700", badge: "text-indigo-600" },
+    sky:     { icon: "bg-sky-100 text-sky-700",      badge: "text-sky-600" },
+    emerald: { icon: "bg-emerald-100 text-emerald-700", badge: "text-emerald-600" },
+    violet:  { icon: "bg-violet-100 text-violet-700", badge: "text-violet-600" },
   };
 
   return (
@@ -222,17 +222,17 @@ export function Overview() {
 
         {/* Bottom marquee */}
         <div className="relative border-t border-white/10 py-3 overflow-hidden bg-black/20">
-          <div className="marquee-track text-[12px] text-white/60 font-mono uppercase tracking-[0.14em]">
+          <div className="marquee-track text-[12px] text-white/55 font-mono uppercase tracking-[0.14em]">
             {[...Array(2)].flatMap((_, n) =>
               [
-                "✦ Lash Academy · deploy live · 12m fa",
-                "✦ Glow-Up · +38 lead questa settimana",
-                "✦ Aromafit · €6.210 entrate · ultimi 30gg",
-                "✦ Nordico Shop · €18.420 ecommerce attivo",
-                "✦ ReviewBooster · 89 nuovi lead · 30gg",
-                "✦ Fresh-IQ · 14.8K visite mensili",
-                "✦ Funnel Segretarie · 78 lead · ultimi 30gg",
-                "✦ ReviewShield · deploy 5g fa · tutto ok",
+                "✦ Cancemi × Camilli · sistema online · 99.98% uptime",
+                "✦ Studio Marchetti Beauty · +47 lead questa settimana",
+                "✦ Nordico Studio · €8.910 MRR · scale plan attivo",
+                "✦ Studio Marchetti · 3 progetti live · deploy 2h fa",
+                "✦ Cancemi × Camilli · 5 progetti · enterprise plan",
+                "✦ Nordico Studio · +18% visite vs mese scorso",
+                "✦ Tutti i sistemi operativi · nessun alert attivo",
+                "✦ TheraFlow · 3 workspace · 10 progetti · 6 utenti",
               ].map((t, i) => (
                 <span key={`${n}-${i}`} className="shrink-0">
                   {t}
@@ -254,14 +254,14 @@ export function Overview() {
           >
             <SpotlightCard className={cn("p-5 h-full relative", kpi.emphasis && "gradient-border")}>
               <div className="flex items-start justify-between mb-4">
-                <div className={cn("inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br ring-1", colorMap[kpi.color])}>
+                <div className={cn("inline-flex items-center justify-center w-9 h-9 rounded-xl", colorMap[kpi.color].icon)}>
                   {kpi.icon}
                 </div>
-                <span className="text-[11px] text-emerald-600 font-bold flex items-center gap-1">
-                  <TrendingUp size={11} /> {kpi.delta}
+                <span className={cn("text-[10.5px] font-bold flex items-center gap-0.5 bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full")}>
+                  <TrendingUp size={10} /> {kpi.delta}
                 </span>
               </div>
-              <div className="text-[11.5px] text-slate-500 font-bold uppercase tracking-wider mb-1.5">{kpi.label}</div>
+              <div className="text-[11px] text-slate-500 font-bold uppercase tracking-[0.08em] mb-1.5">{kpi.label}</div>
               <div className="flex items-baseline gap-2">
                 <span
                   className={cn(
@@ -292,20 +292,24 @@ export function Overview() {
         <Card className="lg:col-span-2 p-6">
           <div className="flex items-start justify-between mb-6 flex-wrap gap-3">
             <div>
-              <div className="flex items-center gap-2 mb-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
-                <span className="text-[11.5px] text-slate-500 font-bold uppercase tracking-[0.14em]">
-                  Andamento · 14 giorni
+              <div className="flex items-center gap-2 mb-2">
+                <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-slate-400">
+                  Andamento piattaforma
                 </span>
+                <span className="text-[10px] text-slate-300 font-mono">· 14 giorni</span>
               </div>
-              <h3 className="heading-lg text-slate-900" style={{ fontSize: "24px" }}>
-                Visite, lead e <span className="editorial-italic font-light gradient-text-warm">fatturato</span>
+              <h3 className="heading-lg text-slate-900" style={{ fontSize: "22px" }}>
+                Visite, lead{" "}
+                <span className="editorial-italic font-light text-slate-500">e fatturato</span>
               </h3>
             </div>
-            <div className="flex gap-2">
-              <Badge variant="info">Visite</Badge>
-              <Badge variant="violet" dot>Lead</Badge>
-              <Badge variant="trial" dot>€</Badge>
+            <div className="flex gap-1.5">
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold rounded-full bg-cyan-50 text-cyan-700 border border-cyan-100">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 inline-block" /> Visite
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-[11px] font-semibold rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100">
+                <span className="w-1.5 h-1.5 rounded-full bg-indigo-500 inline-block" /> Lead
+              </span>
             </div>
           </div>
 
@@ -343,14 +347,20 @@ export function Overview() {
           </div>
         </Card>
 
-        <Card className="p-6">
-          <div className="flex items-center gap-2 mb-5">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span className="text-[11.5px] text-slate-500 font-bold uppercase tracking-[0.14em]">
-              Attività live
-            </span>
+        <Card className="p-6 flex flex-col">
+          <div className="flex items-center justify-between mb-5">
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span className="text-[11.5px] text-slate-600 font-bold uppercase tracking-[0.12em]">
+                Attività live
+              </span>
+            </div>
+            <span className="text-[10.5px] text-slate-400 font-mono">{activity.length} eventi</span>
           </div>
-          <div className="space-y-3.5 max-h-[320px] overflow-y-auto pr-2 -mr-2 scrollbar-thin">
+          <div className="space-y-3 max-h-[320px] overflow-y-auto pr-1 -mr-1 scrollbar-thin flex-1">
             {activity.slice(0, 8).map((evt, i) => (
               <motion.div
                 key={evt.id}
@@ -361,30 +371,30 @@ export function Overview() {
               >
                 <span
                   className={cn(
-                    "w-8 h-8 rounded-lg flex items-center justify-center shrink-0",
-                    evt.type === "deploy" && "bg-violet-100 text-violet-600",
-                    evt.type === "invite" && "bg-emerald-100 text-emerald-600",
-                    evt.type === "domain" && "bg-sky-100 text-sky-600",
+                    "w-7 h-7 rounded-lg flex items-center justify-center shrink-0 mt-0.5",
+                    evt.type === "deploy"  && "bg-violet-100 text-violet-600",
+                    evt.type === "invite"  && "bg-emerald-100 text-emerald-600",
+                    evt.type === "domain"  && "bg-sky-100 text-sky-600",
                     evt.type === "billing" && "bg-amber-100 text-amber-600",
-                    evt.type === "alert" && "bg-rose-100 text-rose-600",
-                    evt.type === "create" && "bg-fuchsia-100 text-fuchsia-600"
+                    evt.type === "alert"   && "bg-rose-100 text-rose-600",
+                    evt.type === "create"  && "bg-fuchsia-100 text-fuchsia-600"
                   )}
                 >
-                  {evt.type === "deploy" && <Rocket size={13} />}
-                  {evt.type === "invite" && <UserPlus size={13} />}
-                  {evt.type === "domain" && <ArrowUpRight size={13} />}
-                  {evt.type === "billing" && <Wallet size={13} />}
-                  {evt.type === "alert" && <AlertCircle size={13} />}
-                  {evt.type === "create" && <Plus size={13} />}
+                  {evt.type === "deploy"  && <Rocket size={12} />}
+                  {evt.type === "invite"  && <UserPlus size={12} />}
+                  {evt.type === "domain"  && <ArrowUpRight size={12} />}
+                  {evt.type === "billing" && <Wallet size={12} />}
+                  {evt.type === "alert"   && <AlertCircle size={12} />}
+                  {evt.type === "create"  && <Plus size={12} />}
                 </span>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[13px] text-slate-800 leading-snug">
+                  <div className="text-[12.5px] text-slate-800 leading-snug font-medium">
                     {evt.message}
                   </div>
-                  <div className="flex items-center gap-1.5 mt-1 text-[11px] text-slate-400">
+                  <div className="flex items-center gap-1.5 mt-0.5 text-[11px] text-slate-400">
                     <span className="font-medium text-slate-500">{evt.actor}</span>
                     <span>·</span>
-                    <span>{relativeTime(evt.timestamp)}</span>
+                    <span className="tabular-nums">{relativeTime(evt.timestamp)}</span>
                   </div>
                 </div>
               </motion.div>

@@ -1,49 +1,75 @@
-import { Globe, CreditCard, Activity, Settings } from "lucide-react";
+import { Globe, CreditCard, Activity, Settings, CheckCircle2, Clock } from "lucide-react";
 import { Card } from "../components/ui/Card";
 import { motion } from "framer-motion";
 
 const configs: Record<string, {
   icon: React.ReactNode;
-  color: string;
-  bg: string;
+  gradient: string;
+  cardBg: string;
+  accent: string;
   desc: string;
-  items: string[];
+  items: { label: string; done: boolean }[];
 }> = {
   "Domini & DNS": {
     icon: <Globe size={22} className="text-white" />,
-    color: "from-sky-500 to-cyan-500",
-    bg: "from-sky-50 via-white to-cyan-50",
-    desc: "Gestione centralizzata di tutti i domini e sottodomini attivi su TheraFlow. Ogni workspace ha i suoi sottodomini su theraflow.io — qui potrai collegare domini reali, verificare i DNS e monitorare lo stato di ogni dominio.",
-    items: ["Panoramica domini attivi per workspace", "Collegamento dominio personalizzato → sottodominio", "Verifica DNS e stato propagazione", "Rinnovi e scadenze"],
+    gradient: "from-sky-500 to-cyan-500",
+    cardBg: "from-sky-50/80 via-white to-cyan-50/60",
+    accent: "text-sky-600",
+    desc: "Gestione centralizzata di tutti i domini e sottodomini attivi su TheraFlow. Ogni workspace ha i suoi sottodomini — qui potrai collegare domini reali, verificare DNS e monitorare ogni dominio.",
+    items: [
+      { label: "Panoramica domini attivi per workspace", done: false },
+      { label: "Collegamento dominio personalizzato → sottodominio", done: false },
+      { label: "Verifica DNS e stato propagazione", done: false },
+      { label: "Rinnovi e scadenze", done: false },
+    ],
   },
   "Billing & Revenue": {
     icon: <CreditCard size={22} className="text-white" />,
-    color: "from-violet-500 to-indigo-500",
-    bg: "from-violet-50 via-white to-indigo-50",
-    desc: "Gestione abbonamenti e fatturazione di tutti i workspace clienti. Qui vedrai entrate mensili, piani attivi, pagamenti falliti e storico fatture.",
-    items: ["MRR per workspace e totale piattaforma", "Storico pagamenti e fatture", "Upgrade / downgrade piani", "Alert pagamenti falliti"],
+    gradient: "from-violet-500 to-indigo-600",
+    cardBg: "from-violet-50/80 via-white to-indigo-50/60",
+    accent: "text-violet-600",
+    desc: "Gestione abbonamenti e fatturazione di tutti i workspace clienti. Entrate mensili, piani attivi, pagamenti falliti e storico fatture in un posto solo.",
+    items: [
+      { label: "MRR per workspace e totale piattaforma", done: false },
+      { label: "Storico pagamenti e fatture PDF", done: false },
+      { label: "Upgrade / downgrade piani in un click", done: false },
+      { label: "Alert automatici su pagamenti falliti", done: false },
+    ],
   },
   "Audit & Attività": {
     icon: <Activity size={22} className="text-white" />,
-    color: "from-emerald-500 to-teal-500",
-    bg: "from-emerald-50 via-white to-teal-50",
+    gradient: "from-emerald-500 to-teal-600",
+    cardBg: "from-emerald-50/80 via-white to-teal-50/60",
+    accent: "text-emerald-600",
     desc: "Log completo di ogni azione su tutti i workspace. Deploy, inviti, modifiche, accessi. Filtrabile per workspace, utente, tipo di evento e data.",
-    items: ["Log in tempo reale di deploy e modifiche", "Filtro per workspace, utente, tipo evento", "Export CSV per audit", "Alert su azioni anomale"],
+    items: [
+      { label: "Log real-time di deploy e modifiche", done: false },
+      { label: "Filtro per workspace, utente, tipo evento", done: false },
+      { label: "Export CSV per audit esterno", done: false },
+      { label: "Alert su azioni anomale o sospette", done: false },
+    ],
   },
   "Impostazioni": {
     icon: <Settings size={22} className="text-white" />,
-    color: "from-slate-600 to-slate-800",
-    bg: "from-slate-50 via-white to-slate-50",
-    desc: "Configurazioni globali della piattaforma TheraFlow. Gestione super admin, chiavi API, configurazione domini, webhook e notifiche di sistema.",
-    items: ["Gestione account super admin", "Chiavi API e webhook", "Configurazione dominio madre theraflow.io", "Notifiche di sistema (email, Slack)"],
+    gradient: "from-slate-600 to-slate-900",
+    cardBg: "from-slate-50/80 via-white to-slate-50/60",
+    accent: "text-slate-600",
+    desc: "Configurazioni globali della piattaforma TheraFlow. Super admin, chiavi API, configurazione domini, webhook e notifiche di sistema.",
+    items: [
+      { label: "Gestione account super admin", done: false },
+      { label: "Chiavi API e webhook platform", done: false },
+      { label: "Configurazione dominio madre theraflow.io", done: false },
+      { label: "Notifiche sistema (email, Slack, Telegram)", done: false },
+    ],
   },
 };
 
 export function Placeholder({ title, index }: { title: string; index: string }) {
   const cfg = configs[title] || {
     icon: <Settings size={22} className="text-white" />,
-    color: "from-slate-500 to-slate-700",
-    bg: "from-slate-50 via-white to-slate-50",
+    gradient: "from-slate-500 to-slate-700",
+    cardBg: "from-slate-50/80 via-white to-slate-50/60",
+    accent: "text-slate-600",
     desc: "Questa sezione è in sviluppo.",
     items: [],
   };
@@ -53,46 +79,48 @@ export function Placeholder({ title, index }: { title: string; index: string }) 
       <motion.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       >
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center gap-3 mb-4">
+          <div className="flex items-center gap-3 mb-5 flex-wrap">
             <span
               className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-[0.14em] text-white"
               style={{ background: "linear-gradient(135deg, #06b6d4, #6366f1)" }}
             >
               {index} — {title}
             </span>
-            <span className="text-[12px] text-slate-400 font-medium bg-amber-50 border border-amber-200 text-amber-700 px-2.5 py-1 rounded-full font-semibold">
-              In sviluppo
+            <span className="inline-flex items-center gap-1.5 text-[11px] bg-amber-50 border border-amber-200 text-amber-700 px-2.5 py-1 rounded-full font-semibold">
+              <Clock size={11} /> In sviluppo · Ondata 2
             </span>
           </div>
           <h1
-            className="font-display font-bold text-slate-900 leading-tight"
-            style={{ fontSize: "clamp(32px, 5vw, 52px)" }}
+            className="display font-black text-slate-900"
+            style={{ fontSize: "clamp(32px, 5vw, 56px)" }}
           >
             {title}
           </h1>
         </div>
 
         {/* Main card */}
-        <Card className={`p-8 md:p-10 bg-gradient-to-br ${cfg.bg} border mb-6`}>
+        <Card className={`p-8 md:p-10 bg-gradient-to-br ${cfg.cardBg} mb-6`}>
           <div className="flex items-start gap-6 flex-wrap">
             <div
-              className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 bg-gradient-to-br ${cfg.color}`}
+              className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 bg-gradient-to-br shadow-lift ${cfg.gradient}`}
             >
               {cfg.icon}
             </div>
             <div className="flex-1 min-w-[260px]">
-              <p className="text-[15px] text-slate-700 leading-relaxed mb-6 max-w-2xl">
+              <p className="text-[15px] text-slate-700 leading-relaxed mb-7 max-w-2xl">
                 {cfg.desc}
               </p>
-              <div className="grid sm:grid-cols-2 gap-3">
+              <div className="grid sm:grid-cols-2 gap-y-3 gap-x-6">
                 {cfg.items.map((item) => (
-                  <div key={item} className="flex items-start gap-2.5 text-[13.5px] text-slate-700">
-                    <span className="w-1.5 h-1.5 rounded-full bg-slate-400 mt-2 shrink-0" />
-                    {item}
+                  <div key={item.label} className="flex items-center gap-2.5 text-[13.5px] text-slate-700">
+                    <span className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${cfg.gradient} bg-gradient-to-br`}>
+                      <CheckCircle2 size={11} className="text-white" />
+                    </span>
+                    {item.label}
                   </div>
                 ))}
               </div>
@@ -100,9 +128,14 @@ export function Placeholder({ title, index }: { title: string; index: string }) 
           </div>
         </Card>
 
-        <p className="text-[12.5px] text-slate-400 text-center">
-          Sarà costruito dopo l'approvazione della demo grafica attuale. Roadmap Ondata 2.
-        </p>
+        {/* Timeline hint */}
+        <div className="flex items-center gap-3 justify-center py-4">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+          <p className="text-[12px] text-slate-400 text-center px-4">
+            Disponibile dopo l'approvazione della demo grafica attuale — roadmap <span className="font-semibold text-slate-500">Ondata 2</span>
+          </p>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-200 to-transparent" />
+        </div>
       </motion.div>
     </div>
   );
