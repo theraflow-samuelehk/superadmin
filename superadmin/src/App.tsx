@@ -9,6 +9,10 @@ import { Users } from "./pages/Users";
 import { Login } from "./pages/Login";
 import { Placeholder } from "./pages/Placeholder";
 import { ClientDashboard } from "./pages/client/ClientDashboard";
+import { ClientProjects } from "./pages/client/ClientProjects";
+import { ClientLeads } from "./pages/client/ClientLeads";
+import { ClientTeam } from "./pages/client/ClientTeam";
+import { ClientSettings } from "./pages/client/ClientSettings";
 import { ClientPlaceholder } from "./pages/client/ClientPlaceholder";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { RequireAuth } from "./components/RequireAuth";
@@ -19,10 +23,10 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          {/* PUBBLICA: home + login + signup */}
+          {/* PUBBLICA */}
           <Route path="/login" element={<ErrorBoundary><Login /></ErrorBoundary>} />
 
-          {/* PANNELLO SUPER ADMIN: solo super admin */}
+          {/* PANNELLO SUPER ADMIN */}
           <Route element={<RequireAuth superAdmin><Layout /></RequireAuth>}>
             <Route path="/"               element={<ErrorBoundary><Overview /></ErrorBoundary>} />
             <Route path="/workspaces"     element={<ErrorBoundary><Workspaces /></ErrorBoundary>} />
@@ -35,49 +39,23 @@ export default function App() {
             <Route path="/settings"       element={<ErrorBoundary><Placeholder title="Impostazioni"      index="08" /></ErrorBoundary>} />
           </Route>
 
-          {/* PANNELLO CLIENTE: admin/staff di workspace */}
+          {/* PANNELLO CLIENTE */}
           <Route element={<RequireAuth><ClientLayout /></RequireAuth>}>
             <Route path="/app"          element={<ErrorBoundary><ClientDashboard /></ErrorBoundary>} />
-            <Route path="/app/projects" element={<ErrorBoundary><ClientPlaceholder
-              title="I tuoi progetti"
-              description="Gestisci tutti i progetti del tuo workspace. Crea siti, funnel, landing — tutti con il tuo sottodominio TheraFlow o un dominio custom."
-              features={[
-                "Crea progetti senza scrivere codice",
-                "Modifica le pagine via drag-and-drop",
-                "Pubblica con un click su sottodominio o dominio tuo",
-                "Vedi visite, lead e fatturato in tempo reale",
-              ]}
-            /></ErrorBoundary>} />
+            <Route path="/app/projects" element={<ErrorBoundary><ClientProjects /></ErrorBoundary>} />
+            <Route path="/app/leads"    element={<ErrorBoundary><ClientLeads /></ErrorBoundary>} />
             <Route path="/app/pages"    element={<ErrorBoundary><ClientPlaceholder
-              title="Modifica pagine"
-              description="Builder visuale per creare le pagine dei tuoi progetti. Trascina blocchi, scrivi testi, carica immagini — niente codice."
+              title="Builder pagine"
+              description="Editor visuale drag-and-drop per creare le pagine dei tuoi progetti. Presto disponibile."
               features={[
-                "Drag-and-drop dei blocchi (hero, feature, form, footer…)",
-                "Editor di testo inline come Notion",
-                "Salvataggio automatico ogni modifica",
-                "Anteprima live + pubblicazione in un click",
+                "Trascina blocchi pronti (hero, form, gallery…)",
+                "Scrivi testi inline come Notion",
+                "Salvataggio automatico",
+                "Anteprima live e pubblicazione in un click",
               ]}
             /></ErrorBoundary>} />
-            <Route path="/app/team"     element={<ErrorBoundary><ClientPlaceholder
-              title="Team del workspace"
-              description="Invita la tua staff e decidi cosa può vedere. Permessi per progetto, log delle attività, gestione inviti."
-              features={[
-                "Invita membri via email",
-                "Permessi granulari per progetto",
-                "Vedi chi sta lavorando su cosa",
-                "Revoca accessi in un secondo",
-              ]}
-            /></ErrorBoundary>} />
-            <Route path="/app/settings" element={<ErrorBoundary><ClientPlaceholder
-              title="Impostazioni workspace"
-              description="Cambia nome, logo, colori del workspace. Gestisci dominio custom, fatturazione, e preferenze."
-              features={[
-                "Brand del workspace (nome, logo, colore)",
-                "Dominio custom (collega il tuo dominio reale)",
-                "Fatturazione e piano",
-                "Notifiche email e Slack",
-              ]}
-            /></ErrorBoundary>} />
+            <Route path="/app/team"     element={<ErrorBoundary><ClientTeam /></ErrorBoundary>} />
+            <Route path="/app/settings" element={<ErrorBoundary><ClientSettings /></ErrorBoundary>} />
           </Route>
         </Routes>
       </BrowserRouter>

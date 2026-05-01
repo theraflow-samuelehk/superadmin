@@ -10,16 +10,18 @@ import {
   Sparkles,
   ChevronRight,
   X,
+  UserPlus,
 } from "lucide-react";
 import { useMobileNav } from "./MobileNav";
 import { BrandLockup } from "../ui/Brand";
 
 const items = [
-  { to: "/app",            label: "Dashboard", icon: LayoutDashboard, color: "cyan" },
-  { to: "/app/projects",   label: "Progetti",  icon: FolderKanban,    color: "blue" },
-  { to: "/app/pages",      label: "Pagine",    icon: Globe,           color: "indigo" },
-  { to: "/app/team",       label: "Team",      icon: UsersIcon,       color: "emerald" },
-  { to: "/app/settings",   label: "Impostazioni", icon: Settings,     color: "slate" },
+  { to: "/app",            label: "Dashboard",    icon: LayoutDashboard, color: "cyan" },
+  { to: "/app/projects",   label: "Progetti",     icon: FolderKanban,    color: "blue" },
+  { to: "/app/leads",      label: "Lead",         icon: UserPlus,        color: "emerald" },
+  { to: "/app/pages",      label: "Pagine",       icon: Globe,           color: "indigo" },
+  { to: "/app/team",       label: "Team",         icon: UsersIcon,       color: "violet" },
+  { to: "/app/settings",   label: "Impostazioni", icon: Settings,        color: "slate" },
 ];
 
 const colorMap: Record<string, { active: string; bg: string; ring: string }> = {
@@ -27,6 +29,7 @@ const colorMap: Record<string, { active: string; bg: string; ring: string }> = {
   blue:    { active: "text-blue-300",    bg: "bg-blue-500/15",    ring: "ring-blue-400/30" },
   indigo:  { active: "text-indigo-300",  bg: "bg-indigo-500/15",  ring: "ring-indigo-400/30" },
   emerald: { active: "text-emerald-300", bg: "bg-emerald-500/15", ring: "ring-emerald-400/30" },
+  violet:  { active: "text-violet-300",  bg: "bg-violet-500/15",  ring: "ring-violet-400/30" },
   slate:   { active: "text-slate-300",   bg: "bg-slate-500/15",   ring: "ring-slate-400/30" },
 };
 

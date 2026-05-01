@@ -5,6 +5,7 @@
  * Le onde simboleggiano "flow" e l'energia ritmica di una pratica/terapia.
  */
 
+import { useId } from "react";
 import { cn } from "../../lib/utils";
 
 interface BrandMarkProps {
@@ -14,6 +15,8 @@ interface BrandMarkProps {
 }
 
 export function BrandMark({ size = 40, className, online = false }: BrandMarkProps) {
+  const uid = useId().replace(/:/g, "");
+  const gradId = `bm-wave-${uid}`;
   const radius = size * 0.22;
   const stroke = size / 14;
   return (
@@ -50,35 +53,25 @@ export function BrandMark({ size = 40, className, online = false }: BrandMarkPro
         className="relative"
       >
         <defs>
-          <linearGradient id="bm-wave" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#ffffff" stopOpacity="0.95" />
             <stop offset="100%" stopColor="#e0f2fe" stopOpacity="0.85" />
           </linearGradient>
         </defs>
-        {/* 3 fluid waves, decreasing opacity */}
         <path
           d="M 4 11 Q 8 7, 12 11 T 20 11 T 28 11"
-          stroke="url(#bm-wave)"
-          strokeWidth={stroke}
-          strokeLinecap="round"
-          fill="none"
-          opacity="1"
+          stroke={`url(#${gradId})`}
+          strokeWidth={stroke} strokeLinecap="round" fill="none" opacity="1"
         />
         <path
           d="M 4 16 Q 8 12, 12 16 T 20 16 T 28 16"
-          stroke="url(#bm-wave)"
-          strokeWidth={stroke}
-          strokeLinecap="round"
-          fill="none"
-          opacity="0.75"
+          stroke={`url(#${gradId})`}
+          strokeWidth={stroke} strokeLinecap="round" fill="none" opacity="0.75"
         />
         <path
           d="M 4 21 Q 8 17, 12 21 T 20 21 T 28 21"
-          stroke="url(#bm-wave)"
-          strokeWidth={stroke}
-          strokeLinecap="round"
-          fill="none"
-          opacity="0.5"
+          stroke={`url(#${gradId})`}
+          strokeWidth={stroke} strokeLinecap="round" fill="none" opacity="0.5"
         />
       </svg>
 

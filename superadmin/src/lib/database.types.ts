@@ -10,6 +10,7 @@ export type GlobalRole = "superadmin" | "user";
 export type WorkspaceStatus = "active" | "trial" | "paused" | "suspended";
 export type Plan = "free" | "starter" | "growth" | "scale" | "enterprise";
 export type MemberRole = "admin" | "staff";
+export type ProjectMemberRole = "viewer" | "editor";
 export type ProjectStatus = "live" | "draft" | "deploying" | "archived";
 export type ActivityType =
   | "deploy" | "invite" | "domain" | "billing"
@@ -120,6 +121,33 @@ export interface Database {
           workspace_id?: string;
           user_id?: string;
           role?: MemberRole;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      project_members: {
+        Row: {
+          id: string;
+          project_id: string;
+          user_id: string;
+          role: ProjectMemberRole;
+          invited_by: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          project_id: string;
+          user_id: string;
+          role?: ProjectMemberRole;
+          invited_by?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          project_id?: string;
+          user_id?: string;
+          role?: ProjectMemberRole;
+          invited_by?: string | null;
           created_at?: string;
         };
         Relationships: [];

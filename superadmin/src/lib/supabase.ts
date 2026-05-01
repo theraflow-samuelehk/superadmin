@@ -24,6 +24,7 @@ export function getSupabase(): SupabaseClient<Database> | null {
         persistSession: true,
         autoRefreshToken: true,
         detectSessionInUrl: true,
+        lock: async (_name, _acquireTimeout, fn) => fn(),
       },
     });
   }
