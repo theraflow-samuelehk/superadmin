@@ -5,17 +5,18 @@ import { BrandMark } from "./ui/Brand";
 
 interface RequireAuthProps {
   children: ReactNode;
-  /** Se true richiede ruolo superadmin (default: true per questa app) */
+  /** Se true richiede ruolo superadmin (default: false → qualsiasi loggato passa) */
   superAdmin?: boolean;
 }
 
 /**
  * Wrapper che protegge le route private.
- * - Se Supabase non è configurato → lascia passare (modalità demo con mock)
- * - Se non loggato                 → redirect a /login
- * - Se richiesto superadmin e non lo è → redirect a /login con messaggio
+ * - Se Supabase non è configurato       → lascia passare (modalità demo con mock)
+ * - Se non loggato                      → redirect a /login
+ * - Se superAdmin=true e non lo è       → redirect a /app (pannello cliente)
+ * - Se superAdmin=false e È super admin → redirect a / (pannello super admin)
  */
-export function RequireAuth({ children, superAdmin = true }: RequireAuthProps) {
+export function RequireAuth({ children, superAdmin = false }: RequireAuthProps) {
   const { configured, loading, session, profile, isSuperAdmin } = useAuth();
   const location = useLocation();
 
@@ -23,8 +24,6 @@ export function RequireAuth({ children, superAdmin = true }: RequireAuthProps) {
   if (!configured) return <>{children}</>;
 
   // Aspetta che sia la session SIA il profilo siano arrivati dal DB
-  // Senza questo: race condition → pensa che non sei super admin perché
-  // il profilo non è ancora stato caricato.
   if (loading || (session && !profile)) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-5 bg-slate-50">
@@ -41,14 +40,14 @@ export function RequireAuth({ children, superAdmin = true }: RequireAuthProps) {
     return <Navigate to="/login" replace state={{ from: location.pathname }} />;
   }
 
+  // Pannello super admin: solo super admin
   if (superAdmin && !isSuperAdmin) {
-    return (
-      <Navigate
-        to="/login"
-        replace
-        state={{ error: "Solo super admin possono accedere a questa console." }}
-      />
-    );
+    return <Navigate to="/app" replace />;
+  }
+
+  // Pannello cliente: il super admin va nel suo pannello, non in quello cliente
+  if (!superAdmin && isSuperAdmin) {
+    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;

@@ -27,6 +27,13 @@ interface AuthState {
   signIn: (email: string, password: string) => Promise<{ error: string | null }>;
   /** Login con magic link (email) */
   signInMagicLink: (email: string) => Promise<{ error: string | null }>;
+  /** Registrazione: crea utente + il suo workspace */
+  signUp: (input: {
+    email: string;
+    password: string;
+    name: string;
+    workspaceName: string;
+  }) => Promise<{ error: string | null }>;
   /** Logout */
   signOut: () => Promise<void>;
   /** Aggiorna manualmente il profilo (es. dopo edit) */
@@ -136,6 +143,71 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setProfile(null);
   }, [supabase]);
 
+  const signUp = useCallback(
+    async (input: {
+      email: string;
+      password: string;
+      name: string;
+      workspaceName: string;
+    }) => {
+      if (!supabase) return { error: "Supabase non configurato. Aggiungi le chiavi in .env.local" };
+
+      // 1. Crea l'utente in Auth
+      const { data: signUpData, error: signUpError } = await supabase.auth.signUp({
+        email: input.email,
+        password: input.password,
+        options: {
+          data: { name: input.name },
+        },
+      });
+      if (signUpError) return { error: signUpError.message };
+      if (!signUpData.user) return { error: "Registrazione fallita." };
+
+      // Il trigger handle_new_user ha appena creato il profilo con name=split(email)
+      // Aggiorno il nome corretto
+      await supabase.from("profiles").update({ name: input.name }).eq("id", signUpData.user.id);
+
+      // 2. Se non abbiamo una sessione (es. email confirm richiesta) non possiamo
+      // ancora creare il workspace dal client. Lo notifichiamo.
+      if (!signUpData.session) {
+        return {
+          error:
+            "Account creato. Controlla l'email per confermarlo, poi fai login per completare la creazione del workspace.",
+        };
+      }
+
+      // 3. Crea il workspace (slug generato dal nome)
+      const slug = input.workspaceName
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[̀-ͯ]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-|-$/g, "")
+        .slice(0, 32);
+
+      const { error: wsError } = await supabase.from("workspaces").insert({
+        name: input.workspaceName,
+        slug: slug + "-" + signUpData.user.id.slice(0, 6),
+        owner_id: signUpData.user.id,
+        status: "trial",
+        plan: "free",
+      });
+
+      if (wsError) {
+        // L'utente esiste ma il workspace no — log e ritorna l'errore
+        console.error("[signUp] workspace insert error", wsError);
+        return { error: "Account creato ma c'è stato un problema con il workspace: " + wsError.message };
+      }
+
+      // refresh profile per leggere i dati aggiornati
+      const p = await loadProfile(signUpData.user.id);
+      setProfile(p);
+
+      return { error: null };
+    },
+    [supabase, loadProfile]
+  );
+
   const isSuperAdmin: boolean = profile?.global_role === ("superadmin" as GlobalRole);
 
   const value: AuthState = {
@@ -146,6 +218,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     configured: isSupabaseConfigured,
     signIn,
     signInMagicLink,
+    signUp,
     signOut,
     refreshProfile,
     isSuperAdmin,
