@@ -85,7 +85,6 @@ export function ClientDashboard() {
   const totalLeads   = projects.reduce((s, p) => s + p.leads_30d, 0);
   const totalRevenue = projects.reduce((s, p) => s + p.revenue_30d, 0);
   const firstName    = profile?.name.split(" ")[0] ?? "";
-  const projectMap   = Object.fromEntries(projects.map((p) => [p.id, p.name]));
 
   return (
     <div className="px-4 md:px-6 lg:px-12 py-6 md:py-8 max-w-[1600px] mx-auto">

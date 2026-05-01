@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  UserPlus, Mail, Shield, Eye, Pencil, Trash2,
+  UserPlus, Mail, Shield, Eye, Trash2,
   ChevronDown, FolderKanban, Check, Loader2, X,
 } from "lucide-react";
 import type { ClientContext } from "../../components/shell/ClientLayout";
 import { Card } from "../../components/ui/Card";
 import { Button } from "../../components/ui/Button";
-import { Badge } from "../../components/ui/Badge";
 import { Modal } from "../../components/ui/Modal";
 import { getSupabase } from "../../lib/supabase";
 import { useAuth } from "../../lib/auth";
@@ -370,7 +369,7 @@ function InviteModal({
   workspaceId: string;
   onInvited: (member: WorkspaceMember, profile: Profile | null) => void;
 }) {
-  const { profile: myProfile } = useAuth();
+  useAuth();
   const [email, setEmail] = useState("");
   const [role, setRole] = useState<MemberRole>("staff");
   const [submitting, setSubmitting] = useState(false);

@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft, Globe, Copy, Eye, EyeOff, ChevronDown,
-  ExternalLink, Github, Shield, Check,
+  ExternalLink, GitBranch, Shield, Check,
 } from "lucide-react";
 import { Card } from "../../components/ui/Card";
 import { Badge } from "../../components/ui/Badge";
@@ -44,7 +44,7 @@ type ProjectWithMeta = Project & { metadata: ProjectMetadata };
 const LINK_STYLES: Record<LinkEntry["type"], { bg: string; text: string; border: string; icon: React.ReactNode }> = {
   site:   { bg: "bg-cyan-50",    text: "text-cyan-700",   border: "border-cyan-200",   icon: <Globe size={12} /> },
   admin:  { bg: "bg-violet-50",  text: "text-violet-700", border: "border-violet-200", icon: <Shield size={12} /> },
-  github: { bg: "bg-slate-100",  text: "text-slate-700",  border: "border-slate-200",  icon: <Github size={12} /> },
+  github: { bg: "bg-slate-100",  text: "text-slate-700",  border: "border-slate-200",  icon: <GitBranch size={12} /> },
   local:  { bg: "bg-emerald-50", text: "text-emerald-700",border: "border-emerald-200",icon: <Globe size={12} /> },
 };
 
