@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, AlertCircle, Loader2 } from "lucide-react";
@@ -14,7 +14,7 @@ interface LocationState {
 export function Login() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { signIn, configured, session, loading: authLoading, isSuperAdmin } = useAuth();
+  const { signIn, signOut, configured, session, profile, loading: authLoading, isSuperAdmin } = useAuth();
 
   const locationState = (location.state ?? {}) as LocationState;
   const redirectTo = locationState.from ?? "/";
@@ -24,10 +24,18 @@ export function Login() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(locationState.error ?? null);
 
-  // Se già loggato e superadmin → redirect home
-  if (!authLoading && session && isSuperAdmin) {
-    navigate(redirectTo, { replace: true });
-  }
+  // Quando session + profile sono entrambi pronti, decido cosa fare:
+  //  - super admin → entra
+  //  - utente normale → mostra errore e fai logout (non può stare qui)
+  useEffect(() => {
+    if (authLoading || !session || !profile) return;
+    if (isSuperAdmin) {
+      navigate(redirectTo, { replace: true });
+    } else {
+      setError("Solo super admin possono accedere a questa console.");
+      void signOut();
+    }
+  }, [authLoading, session, profile, isSuperAdmin, navigate, redirectTo, signOut]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -50,9 +58,8 @@ export function Login() {
 
     if (err) {
       setError(err);
-      return;
+      // Non navigato: l'useEffect sopra farà il navigate quando profile sarà pronto
     }
-    navigate(redirectTo, { replace: true });
   }
 
   return (

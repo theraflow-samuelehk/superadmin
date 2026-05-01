@@ -16,13 +16,16 @@ interface RequireAuthProps {
  * - Se richiesto superadmin e non lo è → redirect a /login con messaggio
  */
 export function RequireAuth({ children, superAdmin = true }: RequireAuthProps) {
-  const { configured, loading, session, isSuperAdmin } = useAuth();
+  const { configured, loading, session, profile, isSuperAdmin } = useAuth();
   const location = useLocation();
 
   // Modalità demo: nessun backend, lascia passare tutto
   if (!configured) return <>{children}</>;
 
-  if (loading) {
+  // Aspetta che sia la session SIA il profilo siano arrivati dal DB
+  // Senza questo: race condition → pensa che non sei super admin perché
+  // il profilo non è ancora stato caricato.
+  if (loading || (session && !profile)) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-5 bg-slate-50">
         <BrandMark size={56} />
