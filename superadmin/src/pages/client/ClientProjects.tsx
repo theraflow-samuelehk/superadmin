@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Plus, Globe, Rocket, Search, Filter } from "lucide-react";
 import type { ClientContext } from "../../components/shell/ClientLayout";
@@ -159,7 +159,9 @@ export function ClientProjects() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.04 }}
             >
-              <ProjectCard project={p} />
+              <Link to={`/app/projects/${p.id}`} className="block">
+                <ProjectCard project={p} />
+              </Link>
             </motion.div>
           ))}
         </div>

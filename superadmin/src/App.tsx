@@ -14,6 +14,7 @@ import { ClientLeads } from "./pages/client/ClientLeads";
 import { ClientTeam } from "./pages/client/ClientTeam";
 import { ClientSettings } from "./pages/client/ClientSettings";
 import { ClientPlaceholder } from "./pages/client/ClientPlaceholder";
+import { ClientProjectDetail } from "./pages/client/ClientProjectDetail";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { RequireAuth } from "./components/RequireAuth";
 import { AuthProvider } from "./lib/auth";
@@ -43,6 +44,7 @@ export default function App() {
           <Route element={<RequireAuth><ClientLayout /></RequireAuth>}>
             <Route path="/app"          element={<ErrorBoundary><ClientDashboard /></ErrorBoundary>} />
             <Route path="/app/projects" element={<ErrorBoundary><ClientProjects /></ErrorBoundary>} />
+            <Route path="/app/projects/:id" element={<ErrorBoundary><ClientProjectDetail /></ErrorBoundary>} />
             <Route path="/app/leads"    element={<ErrorBoundary><ClientLeads /></ErrorBoundary>} />
             <Route path="/app/pages"    element={<ErrorBoundary><ClientPlaceholder
               title="Builder pagine"
