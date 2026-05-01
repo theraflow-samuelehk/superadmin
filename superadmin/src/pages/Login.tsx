@@ -1,11 +1,59 @@
-import { useNavigate } from "react-router-dom";
+import { useState, type FormEvent } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, AlertCircle, Loader2 } from "lucide-react";
 import { Button } from "../components/ui/Button";
 import { BrandMark } from "../components/ui/Brand";
+import { useAuth } from "../lib/auth";
+
+interface LocationState {
+  from?: string;
+  error?: string;
+}
 
 export function Login() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { signIn, configured, session, loading: authLoading, isSuperAdmin } = useAuth();
+
+  const locationState = (location.state ?? {}) as LocationState;
+  const redirectTo = locationState.from ?? "/";
+
+  const [email, setEmail] = useState("samuelehk@gmail.com");
+  const [password, setPassword] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(locationState.error ?? null);
+
+  // Se già loggato e superadmin → redirect home
+  if (!authLoading && session && isSuperAdmin) {
+    navigate(redirectTo, { replace: true });
+  }
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+    setError(null);
+
+    // Modalità demo: nessun backend → entra direttamente
+    if (!configured) {
+      navigate("/", { replace: true });
+      return;
+    }
+
+    if (!password) {
+      setError("Inserisci la password.");
+      return;
+    }
+
+    setSubmitting(true);
+    const { error: err } = await signIn(email, password);
+    setSubmitting(false);
+
+    if (err) {
+      setError(err);
+      return;
+    }
+    navigate(redirectTo, { replace: true });
+  }
 
   return (
     <div className="min-h-screen w-full grid lg:grid-cols-[1.2fr_1fr] relative overflow-hidden bg-white">
@@ -119,34 +167,76 @@ export function Login() {
             Solo super admin autorizzati. Per accessi speciali, contatta direttamente il team TheraFlow.
           </p>
 
-          <div className="space-y-4">
+          {!configured && (
+            <div className="mb-5 p-3 rounded-xl bg-amber-50 border border-amber-200 text-[12.5px] text-amber-800 leading-relaxed">
+              <strong className="font-bold">Modalità demo</strong> — Supabase non configurato.
+              Premi Accedi per entrare con dati finti, oppure aggiungi le chiavi in <code className="font-mono text-[11px] bg-white px-1 py-0.5 rounded">.env.local</code>.
+            </div>
+          )}
+
+          {error && (
+            <div className="mb-5 flex items-start gap-2 p-3 rounded-xl bg-rose-50 border border-rose-200 text-[12.5px] text-rose-800">
+              <AlertCircle size={14} className="shrink-0 mt-0.5" />
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-[11px] uppercase tracking-wider text-slate-500 mb-2 font-bold">
                 Email
               </label>
               <input
                 type="email"
-                defaultValue="samuelehk@gmail.com"
-                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-[14px] text-slate-900 outline-none focus:border-violet-400 focus:bg-white focus:shadow-glow font-medium transition-all"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+                required
+                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-[14px] text-slate-900 outline-none focus:border-cyan-400 focus:bg-white focus:shadow-glow font-medium transition-all"
               />
             </div>
 
+            {configured && (
+              <div>
+                <label className="block text-[11px] uppercase tracking-wider text-slate-500 mb-2 font-bold">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  autoComplete="current-password"
+                  required
+                  className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-[14px] text-slate-900 outline-none focus:border-cyan-400 focus:bg-white focus:shadow-glow font-medium transition-all"
+                />
+              </div>
+            )}
+
             <Button
+              type="submit"
               variant="primary"
               size="lg"
               className="w-full justify-center"
-              onClick={() => navigate("/")}
+              disabled={submitting}
             >
-              Continua con SSO
-              <ArrowRight size={15} />
+              {submitting ? (
+                <>
+                  <Loader2 size={15} className="animate-spin" /> Accesso in corso…
+                </>
+              ) : (
+                <>
+                  {configured ? "Accedi" : "Entra in modalità demo"}
+                  <ArrowRight size={15} />
+                </>
+              )}
             </Button>
 
             <div className="border-t border-slate-100 pt-6 mt-6">
               <div className="text-[12px] text-slate-500 leading-relaxed">
-                Sessioni protette via TOTP + audit log per ogni azione. Hardware key supportate.
+                Solo super admin autorizzati. Audit log per ogni azione.
               </div>
             </div>
-          </div>
+          </form>
         </motion.div>
       </div>
     </div>
